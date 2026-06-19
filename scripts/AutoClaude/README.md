@@ -60,3 +60,20 @@ set "DIRETORIO_ALVO=C:\Caminho\Para\Seu\Projeto"
 3. Escolha o modo (`1` ou `2`) e siga as instruções na tela.
 
 > Requisitos: Windows com `claude` (Claude Code) instalado e acessível no PATH.
+
+## 🧹 RemoverAgendamentos.bat
+
+Remove **todas** as tarefas criadas pelo AutoClaude, de uma vez — tanto do
+**método antigo** (admin, `ExecutarClaudePS`) quanto do **método novo**
+(usuário, `ExecutarClaudePS_User*`, incluindo os múltiplos
+`ExecutarClaudePS_User_M<id>_<n>`).
+
+Fluxo:
+
+1. Solicita **elevação (UAC)** automaticamente — necessário para apagar também as
+   tarefas criadas no modo administrador.
+2. **Lista** todas as tarefas encontradas e pede **confirmação** (`S/N`).
+3. Remove e exibe um resumo (`X de Y removidos`).
+
+Se não houver nenhuma tarefa, ele apenas informa e encerra. Nenhuma outra tarefa
+do Windows é afetada — só as de prefixo `ExecutarClaudePS`.
