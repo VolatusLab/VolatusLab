@@ -4,12 +4,27 @@ Agendador de execuções do **Claude Code** via Agendador de Tarefas do Windows
 (`schtasks`), apresentado no vídeo do YouTube **"Parei de Esperar o Reset do
 Claude Code"**.
 
-Permite programar a execução do Claude Code de duas formas:
+Permite programar a execução do Claude Code de três formas:
 
 - **[1] Horário Fixo** — execução diária em um horário definido (ex: `03:20`).
 - **[2] Temporizador** — execução única daqui a X minutos (ex: `90` para 1h30).
+- **[3] Múltiplos** — várias execuções **a cada 5h01min**, durante uma janela
+  de X dias. O `+1 minuto` por ciclo evita esbarrar no limite de reset.
 
 Ao final, exibe um painel de auditoria com as tarefas agendadas.
+
+### 🔁 Modo Múltiplos (Opção 3)
+
+1. Informe por **quantos dias** os agendamentos devem cobrir.
+2. Defina o **primeiro disparo**:
+   - **[A]** Horário fixo (`HH:mm`) — se já tiver passado hoje, começa amanhã; ou
+   - **[B]** Daqui a X minutos.
+3. O script gera a grade completa (a cada 5h01min até o fim da janela), mostra
+   um resumo com o total de tarefas e o primeiro disparo, e pede confirmação
+   antes de criar.
+
+As tarefas recebem nomes como `ExecutarClaudePS_User_M<id>_<n>` e aparecem
+normalmente no painel de auditoria.
 
 ### ⚙️ Antes de usar
 
