@@ -26,6 +26,24 @@ Ao final, exibe um painel de auditoria com as tarefas agendadas.
 As tarefas recebem nomes como `ExecutarClaudePS_User_M<id>_<n>` e aparecem
 normalmente no painel de auditoria.
 
+### ⏰ Despertador (acorda o PC da suspensão)
+
+Todas as tarefas criadas (em qualquer modo) são configuradas para **acordar o
+computador da suspensão** no horário agendado, e também para **rodar na
+bateria**:
+
+- `WakeToRun = true` (acordar o PC para executar);
+- `DisallowStartIfOnBatteries = false` e `StopIfGoingOnBatteries = false`.
+
+O script ainda tenta habilitar **"Permitir despertadores"** no plano de energia
+ativo (via `powercfg`), pois no Windows 11 o padrão costuma ser *"Somente
+despertadores importantes"*, o que bloquearia o disparo. Se esse ajuste exigir
+privilégios e falhar, o script exibe um aviso com o caminho para ativar
+manualmente.
+
+> Observação: o despertador funciona a partir da suspensão (S3/Modern Standby).
+> Em **hibernação** ou com o PC **desligado**, o Windows não dispara a tarefa.
+
 ### ⚙️ Antes de usar
 
 Abra o arquivo e ajuste a variável `DIRETORIO_ALVO` para a pasta do **seu**

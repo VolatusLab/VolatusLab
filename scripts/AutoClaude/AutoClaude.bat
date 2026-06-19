@@ -8,6 +8,11 @@ rem ---------------------------------------------------------
 rem  IMPORTANTE: ajuste a variavel DIRETORIO_ALVO abaixo para
 rem  a pasta do SEU projeto antes de executar. O valor padrao
 rem  e apenas um exemplo e provavelmente NAO existe no seu PC.
+rem ---------------------------------------------------------
+rem  DESPERTADOR: as tarefas sao configuradas para ACORDAR o
+rem  PC da suspensao (WakeToRun) e rodar tambem na bateria.
+rem  Requer que os "despertadores" estejam ativos no plano de
+rem  energia - o script tenta habilita-los automaticamente.
 rem =========================================================
 set "DIRETORIO_ALVO=C:\VolatusLab\central-security-main"
 
@@ -65,12 +70,14 @@ goto EXECUCAO
 
 :EXECUCAO
 echo.
+call :HABILITAR_WAKE_TIMERS
 echo Provisionando tarefa [%NOME_TAREFA%] no sistema (Contexto de Usuario)...
 schtasks /create /tn "%NOME_TAREFA%" /tr "%COMANDO_CLAUDE%" %PARAMETROS_SCHTASKS% /f
 
 if %errorLevel% equ 0 (
+    call :APLICAR_WAKE "%NOME_TAREFA%"
     echo.
-    echo [SUCESSO] Tarefa %NOME_TAREFA% agendada!
+    echo [SUCESSO] Tarefa %NOME_TAREFA% agendada ^(com despertador^).
     echo.
     echo Iniciando painel de auditoria...
     timeout /t 2 >nul
@@ -135,6 +142,7 @@ echo  - Total de tarefas : %TOTAL_PREV%
 echo  - Intervalo        : a cada 5h01min (301 min)
 echo  - Primeiro disparo : !PRIMEIRO!
 echo  - Janela total     : %DIAS% dia(s)
+echo  - Despertador      : SIM (acorda o PC da suspensao)
 echo ---------------------------------------------------------
 set /p CONFIRMA="Confirmar a criacao das %TOTAL_PREV% tarefas? (S/N): "
 if /i not "%CONFIRMA%"=="S" (
@@ -143,6 +151,8 @@ if /i not "%CONFIRMA%"=="S" (
     pause
     exit /b
 )
+
+call :HABILITAR_WAKE_TIMERS
 
 set "STAMP=%RANDOM%%RANDOM%"
 set /a TOTAL=0
@@ -161,9 +171,13 @@ for /f "usebackq tokens=1,2 delims= " %%A in ("!TMP_SCHED!") do (
 )
 del "!TMP_SCHED!" >nul 2>&1
 
+rem Configura TODAS as tarefas criadas para acordar o PC e rodar na bateria.
+echo Ativando despertador nas tarefas criadas...
+powershell -NoProfile -Command "Get-ScheduledTask -TaskName 'ExecutarClaudePS_User_M%STAMP%_*' | ForEach-Object { $_.Settings.WakeToRun=$true; $_.Settings.DisallowStartIfOnBatteries=$false; $_.Settings.StopIfGoingOnBatteries=$false; Set-ScheduledTask -InputObject $_ | Out-Null }" >nul 2>&1
+
 echo.
 if !OK! equ !TOTAL! (
-    echo [SUCESSO] !OK! de !TOTAL! tarefas agendadas!
+    echo [SUCESSO] !OK! de !TOTAL! tarefas agendadas ^(com despertador^).
 ) else (
     echo [ATENCAO] !OK! de !TOTAL! tarefas agendadas. Politicas do sistema podem ter bloqueado as demais.
 )
@@ -205,3 +219,28 @@ if "!TAREFA_USUARIO_ENCONTRADA!"=="0" (
 echo.
 echo =========================================================
 pause
+exit /b
+
+rem =========================================================
+rem  SUB-ROTINAS
+rem =========================================================
+
+:HABILITAR_WAKE_TIMERS
+rem Habilita "Permitir despertadores" no plano de energia ativo
+rem (AC e bateria). Pode exigir privilegios; se falhar, apenas avisa.
+set "SUB_SLEEP=238c9fa8-0aad-41ed-83f4-97be242c8f20"
+set "GUID_WAKE=bd3b718a-0680-4d9d-8ab2-e1d2b4ac806d"
+powercfg /setacvalueindex SCHEME_CURRENT %SUB_SLEEP% %GUID_WAKE% 1 >nul 2>&1
+powercfg /setdcvalueindex SCHEME_CURRENT %SUB_SLEEP% %GUID_WAKE% 1 >nul 2>&1
+powercfg /setactive SCHEME_CURRENT >nul 2>&1
+if %errorLevel% neq 0 (
+    echo [AVISO] Nao foi possivel ativar os despertadores automaticamente.
+    echo         Ative manualmente em Opcoes de Energia ^> Suspensao ^>
+    echo         "Permitir despertadores" = Ativar.
+)
+exit /b 0
+
+:APLICAR_WAKE
+rem Configura uma tarefa (%~1) para acordar o PC e rodar na bateria.
+powershell -NoProfile -Command "try { $t=Get-ScheduledTask -TaskName '%~1' -ErrorAction Stop; $t.Settings.WakeToRun=$true; $t.Settings.DisallowStartIfOnBatteries=$false; $t.Settings.StopIfGoingOnBatteries=$false; Set-ScheduledTask -InputObject $t | Out-Null } catch { exit 1 }" >nul 2>&1
+exit /b
