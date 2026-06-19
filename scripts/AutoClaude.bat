@@ -1,4 +1,13 @@
 @echo off
+rem =========================================================
+rem  AutoClaude.bat - Agendador de execucoes do Claude Code
+rem  Canal YouTube: "Parei de Esperar o Reset do Claude Code"
+rem  Repositorio:   https://github.com/VolatusLab/VolatusLab
+rem ---------------------------------------------------------
+rem  IMPORTANTE: ajuste a variavel DIRETORIO_ALVO abaixo para
+rem  a pasta do SEU projeto antes de executar. O valor padrao
+rem  e apenas um exemplo e provavelmente NAO existe no seu PC.
+rem =========================================================
 set "DIRETORIO_ALVO=C:\VolatusLab\central-security-main"
 
 echo =========================================================
