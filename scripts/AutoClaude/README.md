@@ -57,7 +57,7 @@ set "DIRETORIO_ALVO=C:\Caminho\Para\Seu\Projeto"
 
 1. Baixe o arquivo `AutoClaude.bat`.
 2. Dê um duplo clique (ou execute pelo terminal).
-3. Escolha o modo (`1` ou `2`) e siga as instruções na tela.
+3. Escolha o modo (`1`, `2` ou `3`) e siga as instruções na tela.
 
 > Requisitos: Windows com `claude` (Claude Code) instalado e acessível no PATH.
 
