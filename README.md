@@ -1,75 +1,89 @@
-# 🛸 VolatusLab | Leandro Moreira
+<div align="center">
 
-> **Building AI-native software, agents and real-world automation.**
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:0f172a,50:1e293b,100:020617&height=200&section=header&text=VolatusLab&fontSize=48&fontColor=ffffff&fontAlignY=38&desc=Ecosystem%20Architecture%20%7C%20AI-Native%20Development%20%7C%20OSINT&descSize=16&descAlignY=58&descColor=94a3b8" width="100%"/>
 
-Desenvolvedor e criador de produtos digitais focado em **AI-Native Development**.
+<a href="https://git.io/typing-svg">
+  <img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=600&size=20&pause=1000&color=94A3B8&center=true&vCenter=true&width=700&lines=Building+the+VolatusLab+software+ecosystem.;OSINT+%26+Public+Safety+intelligence.;AI-Native+development+and+automation.;Bitcoin,+Utilities+%26+Drone+Imaging." alt="Typing SVG" />
+</a>
 
-Construo aplicações, agentes inteligentes e automações utilizando modelos de linguagem, ferramentas modernas e ciclos rápidos de experimentação para transformar ideias em produtos funcionais.
+<br/>
 
----
-
-## 🚀 Stack Principal
-
-![ChatGPT](https://img.shields.io/badge/ChatGPT-74aa17?style=for-the-badge&logo=openai&logoColor=white)
-![Claude](https://img.shields.io/badge/Claude-D97757?style=for-the-badge&logo=anthropic&logoColor=white)
-![Google Gemini](https://img.shields.io/badge/Google%20Gemini-8E75C2?style=for-the-badge&logo=googlegemini&logoColor=white)
-![GitHub Copilot](https://img.shields.io/badge/GitHub%20Copilot-181717?style=for-the-badge&logo=githubcopilot&logoColor=white)
+</div>
 
 ---
 
-## 💻 Tecnologias
+## :: Mission Control
 
-![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
-![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=node.js&logoColor=white)
-![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
-![Flutter](https://img.shields.io/badge/Flutter-02569B?style=for-the-badge&logo=flutter&logoColor=white)
-![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?style=for-the-badge&logo=postgresql&logoColor=white)
-![Ubuntu](https://img.shields.io/badge/Ubuntu-E95420?style=for-the-badge&logo=ubuntu&logoColor=white)
-![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
+O **VolatusLab** é um ecossistema de software focado em aplicações AI-native, inteligência policial (OSINT) e ferramentas de utilidade pública e financeira. A arquitetura dos projetos prioriza o desenvolvimento de agentes autônomos, plataformas táticas (offline-first) e sistemas escaláveis de alta performance, projetados e mantidos por [Leandro Moreira](https://github.com/leandro-moreira).
 
 ---
 
-## 🧠 Áreas de Interesse
+## :: Repository Map
 
-- AI Agents
-- Agentic Workflows
-- SaaS
-- Automação
-- Full Stack Development
-- Produtos Digitais
-- Computer Vision
-- Drones
-- UX orientada por IA
+A topologia atual do ecossistema e a divisão estrutural dos repositórios:
 
----
+```text
+VolatusLab
+├── Intelligence & OSINT
+│   ├── mike-papa        (BNMP / Monitoramento de Mandados)
+│   ├── codice-intel     (Plataforma de Inteligência)
+│   ├── Wanted           (Frontend Público de Mandados)
+│   └── DataJudAi        (Exploração de Dados Judiciais)
+│
+├── Public Safety
+│   ├── desbrava-rural   (PWA Offline-First p/ Patrulha Rural)
+│   ├── projeto-violeta  (Núcleo Aprova CHOA)
+│   └── SubsidioPMTO     (Calculadora Legislativa PMTO)
+│
+├── Bitcoin & Finance
+│   ├── BitcoinHome      (Carteira Web)
+│   ├── VolatusMonitor   (Cotações Fiat/Cripto)
+│   └── Bitcoin          (Gerador de Entropia)
+│
+├── Utilities
+│   ├── prompts          (Coleção de Prompts Validados)
+│   ├── matadata         (Visualizador de Metadados)
+│   └── img2pdf          (Conversor de Imagens)
+│
+└── AI & Experiments
+    ├── QTC-IN           (Laboratório OSINT)
+    ├── P8               (Projeto Seção do Pracinha)
+    └── Volatus-Media    (Drone Imaging & Computer Vision)
 
-## 🔬 Projetos Atuais
-
-- ✅ Desenvolvimento de aplicações AI-native
-- ✅ Agentes autônomos para automação de processos
-- ✅ Ferramentas internas para acelerar desenvolvimento
-- 🚧 Produtos SaaS orientados por IA
-- 🚧 Interfaces mobile-first
-
----
-
-## 🌎 Onde me encontrar
-
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/ileandromoreira)
-
-[![Instagram](https://img.shields.io/badge/VolatusLab-E4405F?style=for-the-badge&logo=instagram&logoColor=white)](https://www.instagram.com/VolatusLab)
-
----
-
-```bash
-$ whoami
-
-Leandro Moreira
-
-Role........ AI-Native Builder
-Focus....... Software • Agents • Automation
-Stack....... TypeScript • Python • Node.js • Flutter
-OS.......... Ubuntu 26.04 LTS
-Location.... GOIÁS/TOCANTINS, Brazil
-Status...... Building.
 ```
+
+---
+
+## :: Core Ecosystem
+
+### Intelligence & Public Safety
+
+Soluções de arquitetura tática voltadas para segurança pública, extração de dados e operação em ambientes restritos.
+
+* **Mike Papa:** Motor de busca e análise de mandados com rotinas em workers, Supabase e Prisma.
+* **Desbrava Rural:** Aplicação móvel PWA desenhada com arquitetura *offline-first* para garantir operação em zonas de sombra de conectividade.
+* **DataJudAi & Wanted:** Exploração e visualização pública de mandados e dados judiciais via APIs.
+* **Aprova CHOA & Subsidio:** Ferramentas utilitárias para a PMTO, incluindo simulações de remuneração legislativa.
+
+### Bitcoin, Utilities & Media
+
+Ferramentas descentralizadas, produtividade para desenvolvedores e mídia imersiva.
+
+* **Volatus Media:** Vertente focada em *Drone Imaging, Computer Vision* e *Media*.
+* **Bitcoin & Finance:** Infraestrutura leve para acompanhamento do mercado (VolatusMonitor) e operações seguras (BitcoinHome e geradores de entropia).
+* **AI Prompts:** Coleção pública de prompts (`prompts`) operacionalizados e validados para integração com LLMs.
+* **Ferramentas:** Utilitários de uso rápido como `matadata` e `img2pdf`.
+
+---
+
+## :: Stack Tecnológica
+
+### Core & Backend
+
+### Frontend & Mobile
+
+### Dados & Infraestrutura
+
+### Modelos & IA
+
+---
