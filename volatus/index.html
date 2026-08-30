@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AMICAR - Seleção de Trilha Sonora</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <style>
+        /* Ajuste fino para scrollbar em dispositivos não-mobile */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #111827; }
+        ::-webkit-scrollbar-thumb { background: #374151; border-radius: 4px; }
+    </style>
+</head>
+<body class="relative min-h-screen font-sans text-gray-100 bg-gray-900 antialiased">
+
+    <div class="fixed inset-0 z-0">
+        <div class="absolute inset-0 bg-[url('amicar.jpg')] bg-cover bg-center bg-no-repeat"></div>
+        <div class="absolute inset-0 bg-black/50 backdrop-blur-[2px]"></div>
+    </div>
+
+    <main class="relative z-10 w-full max-w-2xl mx-auto px-4 py-10 flex flex-col gap-6">
+        
+        <header class="text-center mb-4">
+            <i data-lucide="film" class="w-10 h-10 mx-auto mb-3 text-red-500"></i>
+            <h1 class="text-2xl sm:text-3xl font-bold tracking-tight mb-1">AMICAR</h1>
+            <p class="text-sm text-gray-300">Seleção de Trilha Sonora - Vídeo Oficial</p>
+        </header>
+
+        <div class="flex flex-col gap-4" id="track-list">
+            
+            <article class="bg-gray-800/80 backdrop-blur-md p-4 rounded-xl border border-gray-700 shadow-lg flex flex-col sm:flex-row gap-4 items-center">
+                <div class="text-xl font-bold text-gray-500 hidden sm:block w-4 text-center">1</div>
+                <div class="w-full sm:w-48 shrink-0 relative aspect-video bg-gray-950 rounded-lg overflow-hidden">
+                    <iframe class="absolute inset-0 w-full h-full" src="https://www.youtube.com/embed/pAgnJDJN4VA" title="AC/DC - Back In Black" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" loading="lazy" allowfullscreen></iframe>
+                </div>
+                <div class="flex-grow w-full text-center sm:text-left">
+                    <h2 class="text-base font-semibold text-white">Back In Black</h2>
+                    <p class="text-xs text-gray-400">AC/DC</p>
+                </div>
+                <button onclick="selecionarFaixa('AC/DC - Back In Black')" class="w-full sm:w-auto px-4 py-2.5 bg-red-600 hover:bg-red-700 rounded-lg text-sm font-medium transition-colors flex items-center justify-center gap-2">
+                    <i data-lucide="check" class="w-4 h-4"></i> Escolher
+                </button>
+            </article>
+
+            <article class="bg-gray-800/80 backdrop-blur-md p-4 rounded-xl border border-gray-700 shadow-lg flex flex-col sm:flex-row gap-4 items-center">
+                <div class="text-xl font-bold text-gray-500 hidden sm:block w-4 text-center">2</div>
+                <div class="w-full sm:w-48 shrink-0 relative aspect-video bg-gray-950 rounded-lg overflow-hidden">
+                    <iframe class="absolute inset-0 w-full h-full" src="https://www.youtube.com/embed/1w7OgIMMRc4" title="Guns N' Roses - Sweet Child O' Mine" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" loading="lazy" allowfullscreen></iframe>
+                </div>
+                <div class="flex-grow w-full text-center sm:text-left">
+                    <h2 class="text-base font-semibold text-white">Sweet Child O' Mine</h2>
+                    <p class="text-xs text-gray-400">Guns N' Roses</p>
+                </div>
+                <button onclick="selecionarFaixa('Guns N\' Roses - Sweet Child O\' Mine')" class="w-full sm:w-auto px-4 py-2.5 bg-red-600 hover:bg-red-700 rounded-lg text-sm font-medium transition-colors flex items-center justify-center gap-2">
+                    <i data-lucide="check" class="w-4 h-4"></i> Escolher
+                </button>
+            </article>
+
+            <article class="bg-gray-800/80 backdrop-blur-md p-4 rounded-xl border border-gray-700 shadow-lg flex flex-col sm:flex-row gap-4 items-center">
+                <div class="text-xl font-bold text-gray-500 hidden sm:block w-4 text-center">3</div>
+                <div class="w-full sm:w-48 shrink-0 relative aspect-video bg-gray-950 rounded-lg overflow-hidden">
+                    <iframe class="absolute inset-0 w-full h-full" src="https://www.youtube.com/embed/wTP2RUD_cL0" title="Dire Straits - Money For Nothing" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" loading="lazy" allowfullscreen></iframe>
+                </div>
+                <div class="flex-grow w-full text-center sm:text-left">
+                    <h2 class="text-base font-semibold text-white">Money For Nothing</h2>
+                    <p class="text-xs text-gray-400">Dire Straits</p>
+                </div>
+                <button onclick="selecionarFaixa('Dire Straits - Money For Nothing')" class="w-full sm:w-auto px-4 py-2.5 bg-red-600 hover:bg-red-700 rounded-lg text-sm font-medium transition-colors flex items-center justify-center gap-2">
+                    <i data-lucide="check" class="w-4 h-4"></i> Escolher
+                </button>
+            </article>
+
+            <article class="bg-gray-800/80 backdrop-blur-md p-4 rounded-xl border border-gray-700 shadow-lg flex flex-col sm:flex-row gap-4 items-center">
+                <div class="text-xl font-bold text-gray-500 hidden sm:block w-4 text-center">4</div>
+                <div class="w-full sm:w-48 shrink-0 relative aspect-video bg-gray-950 rounded-lg overflow-hidden">
+                    <iframe class="absolute inset-0 w-full h-full" src="https://www.youtube.com/embed/xMaE6toi4mk" title="The Clash - Should I Stay or Should I Go" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" loading="lazy" allowfullscreen></iframe>
+                </div>
+                <div class="flex-grow w-full text-center sm:text-left">
+                    <h2 class="text-base font-semibold text-white">Should I Stay or Should I Go</h2>
+                    <p class="text-xs text-gray-400">The Clash</p>
+                </div>
+                <button onclick="selecionarFaixa('The Clash - Should I Stay or Should I Go')" class="w-full sm:w-auto px-4 py-2.5 bg-red-600 hover:bg-red-700 rounded-lg text-sm font-medium transition-colors flex items-center justify-center gap-2">
+                    <i data-lucide="check" class="w-4 h-4"></i> Escolher
+                </button>
+            </article>
+
+            <article class="bg-gray-800/80 backdrop-blur-md p-4 rounded-xl border border-gray-700 shadow-lg flex flex-col sm:flex-row gap-4 items-center">
+                <div class="text-xl font-bold text-gray-500 hidden sm:block w-4 text-center">5</div>
+                <div class="w-full sm:w-48 shrink-0 relative aspect-video bg-gray-950 rounded-lg overflow-hidden">
+                    <iframe class="absolute inset-0 w-full h-full" src="https://www.youtube.com/embed/siwpn14IE7E" title="Kenny Loggins - Danger Zone" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" loading="lazy" allowfullscreen></iframe>
+                </div>
+                <div class="flex-grow w-full text-center sm:text-left">
+                    <h2 class="text-base font-semibold text-white">Danger Zone</h2>
+                    <p class="text-xs text-gray-400">Kenny Loggins</p>
+                </div>
+                <button onclick="selecionarFaixa('Kenny Loggins - Danger Zone')" class="w-full sm:w-auto px-4 py-2.5 bg-red-600 hover:bg-red-700 rounded-lg text-sm font-medium transition-colors flex items-center justify-center gap-2">
+                    <i data-lucide="check" class="w-4 h-4"></i> Escolher
+                </button>
+            </article>
+
+            <article class="bg-gray-800/80 backdrop-blur-md p-4 rounded-xl border border-gray-700 shadow-lg flex flex-col sm:flex-row gap-4 items-center">
+                <div class="text-xl font-bold text-gray-500 hidden sm:block w-4 text-center">6</div>
+                <div class="w-full sm:w-48 shrink-0 relative aspect-video bg-gray-950 rounded-lg overflow-hidden">
+                    <iframe class="absolute inset-0 w-full h-full" src="https://www.youtube.com/embed/P5ZJui3aPoQ" title="Kansas - Carry on Wayward Son" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" loading="lazy" allowfullscreen></iframe>
+                </div>
+                <div class="flex-grow w-full text-center sm:text-left">
+                    <h2 class="text-base font-semibold text-white">Carry on Wayward Son</h2>
+                    <p class="text-xs text-gray-400">Kansas</p>
+                </div>
+                <button onclick="selecionarFaixa('Kansas - Carry on Wayward Son')" class="w-full sm:w-auto px-4 py-2.5 bg-red-600 hover:bg-red-700 rounded-lg text-sm font-medium transition-colors flex items-center justify-center gap-2">
+                    <i data-lucide="check" class="w-4 h-4"></i> Escolher
+                </button>
+            </article>
+
+            <article class="bg-gray-800/80 backdrop-blur-md p-4 rounded-xl border border-gray-700 shadow-lg flex flex-col sm:flex-row gap-4 items-center">
+                <div class="text-xl font-bold text-gray-500 hidden sm:block w-4 text-center">7</div>
+                <div class="w-full sm:w-48 shrink-0 relative aspect-video bg-gray-950 rounded-lg overflow-hidden">
+                    <iframe class="absolute inset-0 w-full h-full" src="https://www.youtube.com/embed/PeMvMNpvB5M" title="Heart - Barracuda" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" loading="lazy" allowfullscreen></iframe>
+                </div>
+                <div class="flex-grow w-full text-center sm:text-left">
+                    <h2 class="text-base font-semibold text-white">Barracuda</h2>
+                    <p class="text-xs text-gray-400">Heart</p>
+                </div>
+                <button onclick="selecionarFaixa('Heart - Barracuda')" class="w-full sm:w-auto px-4 py-2.5 bg-red-600 hover:bg-red-700 rounded-lg text-sm font-medium transition-colors flex items-center justify-center gap-2">
+                    <i data-lucide="check" class="w-4 h-4"></i> Escolher
+                </button>
+            </article>
+
+            <article class="bg-gray-800/80 backdrop-blur-md p-4 rounded-xl border border-gray-700 shadow-lg flex flex-col sm:flex-row gap-4 items-center">
+                <div class="text-xl font-bold text-gray-500 hidden sm:block w-4 text-center">8</div>
+                <div class="w-full sm:w-48 shrink-0 relative aspect-video bg-gray-950 rounded-lg overflow-hidden">
+                    <iframe class="absolute inset-0 w-full h-full" src="https://www.youtube.com/embed/cZid3J36wH8" title="Europe - The Final Countdown" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" loading="lazy" allowfullscreen></iframe>
+                </div>
+                <div class="flex-grow w-full text-center sm:text-left">
+                    <h2 class="text-base font-semibold text-white">The Final Countdown</h2>
+                    <p class="text-xs text-gray-400">Europe</p>
+                </div>
+                <button onclick="selecionarFaixa('Europe - The Final Countdown')" class="w-full sm:w-auto px-4 py-2.5 bg-red-600 hover:bg-red-700 rounded-lg text-sm font-medium transition-colors flex items-center justify-center gap-2">
+                    <i data-lucide="check" class="w-4 h-4"></i> Escolher
+                </button>
+            </article>
+
+        </div>
+    </main>
+
+    <script>
+        // Inicializa os ícones Lucide
+        lucide.createIcons();
+
+        // Lógica de seleção e feedback ao usuário
+        function selecionarFaixa(nomeMusica) {
+            // Copia o nome para a área de transferência
+            navigator.clipboard.writeText(nomeMusica).then(() => {
+                alert(`Você selecionou: "${nomeMusica}"\n\nO nome da música foi copiado para a sua área de transferência. Basta colar no WhatsApp e enviar para a produção do vídeo.`);
+            }).catch(err => {
+                alert(`Você escolheu: "${nomeMusica}".\nPor favor, envie este nome para nós.`);
+            });
+        }
+    </script>
+</body>
+</html>
