@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#111111">
+
+  <title>AMICAR | Escolha da Trilha Sonora</title>
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #111111;
+      --card: rgba(20, 20, 20, 0.88);
+      --card-hover: rgba(28, 28, 28, 0.94);
+      --border: rgba(255, 255, 255, 0.13);
+      --text: #f5f5f5;
+      --muted: #a5a5a5;
+      --accent: #d6a84f;
+      --accent-dark: #9f7830;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Arial,
+        sans-serif;
+      color: var(--text);
+      background: #111;
+    }
+
+    /* Background */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      background-image: url("amicar.jpg");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    /* Máscara 90% */
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background: rgba(0, 0, 0, 0.9);
+    }
+
+    .page {
+      width: 100%;
+      min-height: 100vh;
+      padding: 24px 14px 40px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    /* Header */
+    header {
+      text-align: center;
+      padding: 16px 8px 28px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 14px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    h1 {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(28px, 8vw, 44px);
+      line-height: 1.08;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .subtitle {
+      max-width: 600px;
+      margin: 0 auto;
+      color: #d0d0d0;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    /* Music list */
+    .music-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .music-card {
+      position: relative;
+      overflow: hidden;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+    }
+
+    .music-card:hover {
+      background: var(--card-hover);
+      border-color: rgba(214, 168, 79, 0.35);
+    }
+
+    .music-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 13px 14px 11px;
+    }
+
+    .number {
+      flex: 0 0 34px;
+      width: 34px;
+      height: 34px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      border: 1px solid rgba(214, 168, 79, 0.45);
+      color: var(--accent);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .music-info {
+      min-width: 0;
+      flex: 1;
+    }
+
+    .music-title {
+      font-size: 16px;
+      line-height: 1.3;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .music-meta {
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    /* YouTube */
+    .video-wrapper {
+      position: relative;
+      width: calc(100% - 28px);
+      margin: 0 14px;
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      border-radius: 9px;
+      background: #000;
+    }
+
+    .video-wrapper iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    /* Footer / select */
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px 14px 14px;
+    }
+
+    .description {
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.4;
+    }
+
+    .select-btn {
+      flex: 0 0 auto;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      padding: 9px 12px;
+      border: 1px solid rgba(214, 168, 79, 0.45);
+      border-radius: 8px;
+      background: rgba(214, 168, 79, 0.1);
+      color: var(--accent);
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .select-btn:hover {
+      background: var(--accent);
+      color: #111;
+    }
+
+    .select-btn.selected {
+      background: var(--accent);
+      color: #111;
+    }
+
+    .selected-indicator {
+      display: none;
+      align-items: center;
+      gap: 5px;
+      margin-left: 4px;
+      color: #111;
+      font-size: 10px;
+      font-weight: 700;
+    }
+
+    .select-btn.selected .selected-indicator {
+      display: inline-flex;
+    }
+
+    /* Bottom */
+    .bottom-note {
+      margin-top: 22px;
+      padding: 16px;
+      text-align: center;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: rgba(10, 10, 10, 0.7);
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.5;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+
+    .bottom-note strong {
+      color: #ddd;
+    }
+
+    /* Selection result */
+    .selection {
+      display: none;
+      position: sticky;
+      bottom: 12px;
+      margin-top: 18px;
+      padding: 13px 15px;
+      align-items: center;
+      gap: 12px;
+      border: 1px solid rgba(214, 168, 79, 0.5);
+      border-radius: 12px;
+      background: rgba(18, 18, 18, 0.94);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    .selection.show {
+      display: flex;
+    }
+
+    .selection-icon {
+      flex: 0 0 auto;
+      width: 34px;
+      height: 34px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: rgba(214, 168, 79, 0.15);
+      color: var(--accent);
+    }
+
+    .selection-text {
+      min-width: 0;
+      flex: 1;
+    }
+
+    .selection-label {
+      color: var(--muted);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .selection-song {
+      margin-top: 2px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    @media (min-width: 600px) {
+      .page {
+        padding: 45px 20px 60px;
+      }
+      .music-list {
+        gap: 16px;
+      }
+      .music-header {
+        padding: 15px 16px 12px;
+      }
+      .video-wrapper {
+        width: calc(100% - 32px);
+        margin: 0 16px;
+      }
+      .card-footer {
+        padding: 13px 16px 16px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="page">
+    <div class="container">
+
+      <header>
+        <div class="brand">
+          <i data-lucide="car-front" size="16"></i>
+          AMICAR
+        </div>
+
+        <h1>Escolha a trilha sonora</h1>
+
+        <p class="subtitle">
+          Selecione a música que melhor representa o vídeo principal
+          do encontro de carros antigos e raridades.
+        </p>
+      </header>
+
+      <section class="music-list">
+
+        <article class="music-card">
+          <div class="music-header">
+            <div class="number">01</div>
+            <div class="music-info">
+              <div class="music-title">Heart — Barracuda</div>
+              <div class="music-meta">1977 · Hard Rock</div>
+            </div>
+          </div>
+          <div class="video-wrapper">
+            <iframe
+              src="https://www.youtube.com/embed/PeMvMNpvB5M"
+              title="Heart - Barracuda"
+              loading="lazy"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen>
+            </iframe>
+          </div>
+          <div class="card-footer">
+            <div class="description">
+              Riff marcante e energia intensa.
+            </div>
+            <button class="select-btn" data-song="Heart — Barracuda">
+              <i data-lucide="check" size="13"></i>
+              Escolher
+              <span class="selected-indicator">Selecionada</span>
+            </button>
+          </div>
+        </article>
+
+        <article class="music-card">
+          <div class="music-header">
+            <div class="number">02</div>
+            <div class="music-info">
+              <div class="music-title">ZZ Top — Gimme All Your Lovin'</div>
+              <div class="music-meta">1983 · Rock</div>
+            </div>
+          </div>
+          <div class="video-wrapper">
+            <iframe
+              src="https://www.youtube.com/embed/Ae829mFAGGE"
+              title="ZZ Top - Gimme All Your Lovin'"
+              loading="lazy"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen>
+            </iframe>
+          </div>
+          <div class="card-footer">
+            <div class="description">
+              Estética clássica de estrada e carros.
+            </div>
+            <button class="select-btn" data-song="ZZ Top — Gimme All Your Lovin'">
+              <i data-lucide="check" size="13"></i>
+              Escolher
+              <span class="selected-indicator">Selecionada</span>
+            </button>
+          </div>
+        </article>
+
+        <article class="music-card">
+          <div class="music-header">
+            <div class="number">03</div>
+            <div class="music-info">
+              <div class="music-title">Kansas — Carry On Wayward Son</div>
+              <div class="music-meta">1976 · Progressive Rock</div>
+            </div>
+          </div>
+          <div class="video-wrapper">
+            <iframe
+              src="https://www.youtube.com/embed/P5ZJui3aPoQ"
+              title="Kansas - Carry On Wayward Son"
+              loading="lazy"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen>
+            </iframe>
+          </div>
+          <div class="card-footer">
+            <div class="description">
+              Épica, nostálgica e cinematográfica.
+            </div>
+            <button class="select-btn" data-song="Kansas — Carry On Wayward Son">
+              <i data-lucide="check" size="13"></i>
+              Escolher
+              <span class="selected-indicator">Selecionada</span>
+            </button>
+          </div>
+        </article>
+
+        <article class="music-card">
+          <div class="music-header">
+            <div class="number">04</div>
+            <div class="music-info">
+              <div class="music-title">Kenny Loggins — Danger Zone</div>
+              <div class="music-meta">1986 · Rock</div>
+            </div>
+          </div>
+          <div class="video-wrapper">
+            <iframe
+              src="https://www.youtube.com/embed/siwpn14IE7E"
+              title="Kenny Loggins - Danger Zone"
+              loading="lazy"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen>
+            </iframe>
+          </div>
+          <div class="card-footer">
+            <div class="description">
+              Alta energia e forte sensação de movimento.
+            </div>
+            <button class="select-btn" data-song="Kenny Loggins — Danger Zone">
+              <i data-lucide="check" size="13"></i>
+              Escolher
+              <span class="selected-indicator">Selecionada</span>
+            </button>
+          </div>
+        </article>
+
+        <article class="music-card">
+          <div class="music-header">
+            <div class="number">05</div>
+            <div class="music-info">
+              <div class="music-title">AC/DC — Back In Black</div>
+              <div class="music-meta">1980 · Hard Rock</div>
+            </div>
+          </div>
+          <div class="video-wrapper">
+            <iframe
+              src="https://www.youtube.com/embed/pAgnJDJN4VA"
+              title="AC/DC - Back In Black"
+              loading="lazy"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen>
+            </iframe>
+          </div>
+          <div class="card-footer">
+            <div class="description">
+              Pesada, direta e com forte presença.
+            </div>
+            <button class="select-btn" data-song="AC/DC — Back In Black">
+              <i data-lucide="check" size="13"></i>
+              Escolher
+              <span class="selected-indicator">Selecionada</span>
+            </button>
+          </div>
+        </article>
+
+        <article class="music-card">
+          <div class="music-header">
+            <div class="number">06</div>
+            <div class="music-info">
+              <div class="music-title">Guns N' Roses — Sweet Child O' Mine</div>
+              <div class="music-meta">1987 · Hard Rock</div>
+            </div>
+          </div>
+          <div class="video-wrapper">
+            <iframe
+              src="https://www.youtube.com/embed/1w7OgIMMRc4"
+              title="Guns N Roses - Sweet Child O Mine"
+              loading="lazy"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen>
+            </iframe>
+          </div>
+          <div class="card-footer">
+            <div class="description">
+              Riff icônico e clima nostálgico.
+            </div>
+            <button class="select-btn" data-song="Guns N' Roses — Sweet Child O' Mine">
+              <i data-lucide="check" size="13"></i>
+              Escolher
+              <span class="selected-indicator">Selecionada</span>
+            </button>
+          </div>
+        </article>
+
+        <article class="music-card">
+          <div class="music-header">
+            <div class="number">07</div>
+            <div class="music-info">
+              <div class="music-title">Europe — The Final Countdown</div>
+              <div class="music-meta">1986 · Rock</div>
+            </div>
+          </div>
+          <div class="video-wrapper">
+            <iframe
+              src="https://www.youtube.com/embed/cZid3J36wH8"
+              title="Europe - The Final Countdown"
+              loading="lazy"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen>
+            </iframe>
+          </div>
+          <div class="card-footer">
+            <div class="description">
+              Grandiosa e ideal para uma grande revelação.
+            </div>
+            <button class="select-btn" data-song="Europe — The Final Countdown">
+              <i data-lucide="check" size="13"></i>
+              Escolher
+              <span class="selected-indicator">Selecionada</span>
+            </button>
+          </div>
+        </article>
+
+        <article class="music-card">
+          <div class="music-header">
+            <div class="number">08</div>
+            <div class="music-info">
+              <div class="music-title">Dire Straits — Money For Nothing</div>
+              <div class="music-meta">1985 · Rock</div>
+            </div>
+          </div>
+          <div class="video-wrapper">
+            <iframe
+              src="https://www.youtube.com/embed/wTP2RUD_cL0"
+              title="Dire Straits - Money For Nothing"
+              loading="lazy"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen>
+            </iframe>
+          </div>
+          <div class="card-footer">
+            <div class="description">
+              Groove marcante e estética sofisticada.
+            </div>
+            <button class="select-btn" data-song="Dire Straits — Money For Nothing">
+              <i data-lucide="check" size="13"></i>
+              Escolher
+              <span class="selected-indicator">Selecionada</span>
+            </button>
+          </div>
+        </article>
+
+        <article class="music-card">
+          <div class="music-header">
+            <div class="number">09</div>
+            <div class="music-info">
+              <div class="music-title">The Clash — Should I Stay or Should I Go</div>
+              <div class="music-meta">1982 · Rock</div>
+            </div>
+          </div>
+          <div class="video-wrapper">
+            <iframe
+              src="https://www.youtube.com/embed/xMaE6toi4mk"
+              title="The Clash - Should I Stay or Should I Go"
+              loading="lazy"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen>
+            </iframe>
+          </div>
+          <div class="card-footer">
+            <div class="description">
+              Ritmo descontraído e atitude punk rock.
+            </div>
+            <button class="select-btn" data-song="The Clash — Should I Stay or Should I Go">
+              <i data-lucide="check" size="13"></i>
+              Escolher
+              <span class="selected-indicator">Selecionada</span>
+            </button>
+          </div>
+        </article>
+
+      </section>
+
+      <div class="selection" id="selection">
+        <div class="selection-icon">
+          <i data-lucide="music-2" size="17"></i>
+        </div>
+
+        <div class="selection-text">
+          <div class="selection-label">Sua escolha</div>
+          <div class="selection-song" id="selectionSong"></div>
+        </div>
+      </div>
+
+      <div class="bottom-note">
+        <strong>AMICAR</strong><br>
+        Associação dos Amigos de Carros Antigos e Raridades do Vale do São Patrício
+      </div>
+
+    </div>
+  </main>
+
+  <script>
+    lucide.createIcons();
+
+    const buttons = document.querySelectorAll(".select-btn");
+    const selection = document.getElementById("selection");
+    const selectionSong = document.getElementById("selectionSong");
+
+    buttons.forEach(button => {
+      button.addEventListener("click", () => {
+
+        buttons.forEach(btn => {
+          btn.classList.remove("selected");
+        });
+
+        button.classList.add("selected");
+
+        const song = button.dataset.song;
+
+        selectionSong.textContent = song;
+        selection.classList.add("show");
+
+        localStorage.setItem("amicar_music_choice", song);
+
+        // Lógica de Clipboard adicionada
+        navigator.clipboard.writeText(song).then(() => {
+          alert(`Você selecionou: "${song}"\n\nO nome da música foi copiado para a sua área de transferência. Basta colar no WhatsApp e enviar para a produção do vídeo.`);
+        }).catch(err => {
+          alert(`Você escolheu: "${song}".\nPor favor, copie o nome e nos envie.`);
+        });
+
+        selection.scrollIntoView({
+          behavior: "smooth",
+          block: "nearest"
+        });
+      });
+    });
+
+    /* Recupera a escolha caso a página seja recarregada */
+    const savedSong = localStorage.getItem("amicar_music_choice");
+
+    if (savedSong) {
+      const savedButton = [...buttons].find(
+        button => button.dataset.song === savedSong
+      );
+
+      if (savedButton) {
+        savedButton.classList.add("selected");
+        selectionSong.textContent = savedSong;
+        selection.classList.add("show");
+      }
+    }
+  </script>
+
+</body>
+</html>
