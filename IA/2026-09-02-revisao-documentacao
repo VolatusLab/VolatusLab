@@ -1,0 +1,99 @@
+# MISSÃO: AUDITORIA E DOCUMENTAÇÃO DO PROJETO
+
+Atue como **Arquiteto de Software Sênior e Engenheiro de IA**. Faça a engenharia reversa deste repositório e estabeleça sua documentação técnica base.
+
+**PRINCÍPIO INEGOCIÁVEL — EVIDENCE-FIRST:** documente somente o que puder ser comprovado no código, configurações, infraestrutura, dependências, testes, Git e documentação existente. Não transforme suposições ou convenções genéricas em fatos. Adapte a profundidade da análise à complexidade real do projeto.
+
+Execute de forma autônoma e sequencial:
+
+## 1. DESCOBERTA PROGRESSIVA
+
+Mapeie o projeto de forma adaptativa. Identifique sua stack, dependências, entrypoints, arquitetura, componentes principais, integrações e fluxo de dados.
+
+Se houver IA, identifique os modelos, providers, prompts, agentes/tools, RAG/embeddings, contexto/memória, avaliação e principais limites ou mecanismos de controle.
+
+Comece pelos arquivos estruturais e aprofunde somente onde necessário para compreender o sistema.
+
+## 2. AUDITORIA E DIAGNÓSTICO
+
+Com base no que foi descoberto, identifique problemas reais de engenharia, segurança, arquitetura, operação ou IA.
+
+Priorize somente problemas relevantes. Não force conclusões em áreas que não façam sentido para o projeto.
+
+Para problemas significativos, registre:
+
+`Problema | Evidência | Impacto | Severidade (P0–P3) | Recomendação`
+
+Não invente vulnerabilidades, decisões arquiteturais ou funcionalidades. Não refatore código. O objetivo é compreender, diagnosticar e documentar.
+
+## 3. DOCUMENTAÇÃO — MINIMALISMO ADAPTATIVO
+
+Crie ou atualize somente os artefatos que agreguem valor.
+
+### README.md — Humanos
+
+Documente, quando aplicável:
+
+* propósito;
+* funcionalidades;
+* stack comprovada;
+* requisitos;
+* configuração;
+* variáveis de ambiente;
+* instalação;
+* execução;
+* testes;
+* build/deploy;
+* troubleshooting essencial.
+
+Use comandos confirmados no repositório. Teste-os quando a execução for segura e apropriada.
+
+### CLAUDE.md — Agentes
+
+Documente o contexto operacional necessário para futuros agentes:
+
+* propósito e arquitetura relevante;
+* estrutura importante;
+* comandos reais;
+* convenções identificadas;
+* padrões de código;
+* regras de alteração;
+* testes;
+* integrações críticas;
+* particularidades de banco e IA;
+* restrições de segurança.
+
+Não duplique desnecessariamente o README.
+
+### Documentação adicional
+
+Crie `docs/`, ADRs ou outros documentos somente quando houver complexidade, decisões ou conhecimento técnico que justifiquem sua existência.
+
+## 4. VALIDAÇÃO — SELF-CORRECTION
+
+Antes de finalizar:
+
+* revise o `git diff` das alterações realizadas;
+* compare a documentação com o código e configurações;
+* confirme comandos e caminhos;
+* verifique variáveis de ambiente;
+* procure contradições entre documentos;
+* garanta que nenhum secret ou credencial foi documentado;
+* corrija inconsistências encontradas.
+
+## 5. RELATÓRIO FINAL
+
+Apresente:
+
+1. **Arquitetura:** o que o sistema realmente é.
+2. **Auditoria:** principais riscos P0/P1, sustentados por evidências.
+3. **IA:** principais componentes e riscos, se aplicável.
+4. **Entregáveis:** arquivos criados ou modificados.
+5. **Lacunas:** informações que não puderam ser confirmadas.
+6. **Confiança:** Alta/Média/Baixa, explicando brevemente o motivo.
+
+**Princípio final:**
+
+`Inspect → Understand → Audit → Document → Validate`
+
+O objetivo não é produzir muita documentação. É produzir o **menor conjunto de artefatos capaz de representar fielmente o sistema e fornecer contexto operacional suficiente para humanos e futuros agentes de IA.**
