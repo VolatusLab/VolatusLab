@@ -1,0 +1,395 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo de Produtos - Conveniência Moreira</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 15mm;
+            background-color: #f8f9fa;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+
+        /* Cores Principais */
+        :root {
+            --vermelho-principal: #E60000;
+            --vermelho-escuro: #B30000;
+            --branco: #FFFFFF;
+            --cinza-claro: #F5F5F5;
+            --cinza-escuro: #333333;
+        }
+
+        /* Capa */
+        .cover {
+            background-color: #E60000;
+            color: #FFFFFF;
+            text-align: center;
+            padding: 40px 20px;
+            margin-bottom: 30px;
+            border-radius: 8px;
+            page-break-after: always;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-height: 90vh; /* Simulando capa cheia em tela */
+        }
+        .cover h1 {
+            font-size: 48px;
+            text-transform: uppercase;
+            font-weight: 900;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+        .cover h2 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 40px;
+        }
+        .cover .highlight-box {
+            background-color: #FFFFFF;
+            color: #E60000;
+            padding: 20px;
+            border-radius: 8px;
+            display: inline-block;
+            margin: 0 auto;
+            max-width: 600px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        }
+        .cover .highlight-box h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+        .cover .highlight-box p {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .cover .highlight-box .example {
+            background-color: #F5F5F5;
+            padding: 10px;
+            margin-top: 15px;
+            border-radius: 4px;
+            font-size: 16px;
+            color: #333;
+        }
+
+        /* Grid de Produtos */
+        .catalog-section {
+            padding: 20px 0;
+            page-break-before: always;
+        }
+        .catalog-header {
+            text-align: center;
+            color: #E60000;
+            font-size: 32px;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            font-weight: 900;
+        }
+        .grid-container {
+            display: block; /* Weasyprint fallback para grid */
+            width: 100%;
+        }
+        .product-card {
+            background-color: #FFFFFF;
+            border: 2px solid #E60000;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            padding: 15px;
+            width: 48%;
+            display: inline-block;
+            vertical-align: top;
+            margin-right: 1%;
+            margin-left: 0.5%;
+            page-break-inside: avoid;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .image-placeholder {
+            width: 100%;
+            height: 180px;
+            background-color: #F5F5F5;
+            border: 1px dashed #ccc;
+            display: block;
+            text-align: center;
+            line-height: 180px;
+            color: #888;
+            font-size: 14px;
+            margin-bottom: 15px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        .product-title {
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 15px;
+            height: 60px;
+            overflow: hidden;
+            display: block;
+        }
+        .product-points {
+            font-size: 20px;
+            color: #E60000;
+            font-weight: 900;
+            margin-bottom: 5px;
+        }
+        .product-value {
+            font-size: 16px;
+            font-weight: bold;
+            color: #555;
+            margin-bottom: 15px;
+        }
+        .btn-link {
+            display: block;
+            text-align: center;
+            background-color: #E60000;
+            color: #FFFFFF;
+            text-decoration: none;
+            padding: 10px;
+            border-radius: 4px;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 14px;
+        }
+        .btn-link:hover {
+            background-color: #B30000;
+        }
+
+        /* Página Final */
+        .footer-page {
+            background-color: #E60000;
+            color: #FFFFFF;
+            padding: 40px 30px;
+            border-radius: 8px;
+            page-break-before: always;
+            min-height: 80vh;
+        }
+        .footer-page h2 {
+            font-size: 36px;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            text-align: center;
+        }
+        .rules-list {
+            list-style: none;
+            font-size: 20px;
+            line-height: 1.8;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        .rules-list li {
+            margin-bottom: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px 20px;
+            border-radius: 8px;
+            border-left: 5px solid #FFFFFF;
+        }
+        .rules-list li strong {
+            color: #FFF;
+        }
+        
+        .alert-box {
+            background-color: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeeba;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+            font-size: 14px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Capa -->
+    <div class="cover">
+        <h1>Conveniência Moreira</h1>
+        <h2>Programa de Pontos</h2>
+        <div class="highlight-box">
+            <h3>Suas compras valem prêmios!</h3>
+            <p>R$ 1,00 gasto = 1 ponto</p>
+            <p>Acumule pontos e troque por vale-compras em nossa loja.</p>
+            <div class="example">
+                <strong>Exemplos de troca:</strong><br>
+                3.000 pontos &rarr; R$ 120,00 em vale-compras<br>
+                6.000 pontos &rarr; R$ 180,00 em vale-compras
+            </div>
+        </div>
+    </div>
+
+    <!-- Catálogo de Produtos -->
+    <div class="catalog-section">
+        <h2 class="catalog-header">Catálogo de Prêmios</h2>
+        
+        <div class="grid-container">
+            <!-- Produto 01 -->
+            <div class="product-card">
+                <div class="image-placeholder">Imagem pendente (Link ML)</div>
+                <div class="product-title">Churrasqueira Elétrica Grill Menu Grl810 Preta Cadence</div>
+                <div class="product-points">4.500 PONTOS</div>
+                <div class="product-value">Vale-compras: R$ 130,00</div>
+                <a href="https://www.mercadolivre.com.br/p/MLB15285099?pdp_filters=item_id:MLB1935690390#origin=share&sid=share&wid=MLB1935690390&action=copy" class="btn-link" target="_blank">Ver Produto</a>
+            </div>
+
+            <!-- Produto 02 -->
+            <div class="product-card">
+                <div class="image-placeholder">Imagem pendente (Link ML)</div>
+                <div class="product-title">Central Multimídia Universal Mp5 Câmera Bt Espelha Dvd 2 Din</div>
+                <div class="product-points">6.000 PONTOS</div>
+                <div class="product-value">Vale-compras: R$ 180,00</div>
+                <a href="https://meli.la/2C7xXvL" class="btn-link" target="_blank">Ver Produto</a>
+            </div>
+
+            <!-- Produto 03 -->
+            <div class="product-card">
+                <div class="image-placeholder">Imagem pendente (Link ML)</div>
+                <div class="product-title">Cozedor de Ovos Elétrico Star House Portátil Para 7 Ovos Branco</div>
+                <div class="product-points">1.500 PONTOS</div>
+                <div class="product-value">Vale-compras: R$ 50,00</div>
+                <a href="https://meli.la/1xddsFt" class="btn-link" target="_blank">Ver Produto</a>
+            </div>
+
+            <!-- Produto 04 -->
+            <div class="product-card">
+                <div class="image-placeholder">Imagem pendente (Link ML)</div>
+                <div class="product-title">Ventilador Arno Coluna Essential 40cm 6 Pás</div>
+                <div class="product-points">8.000 PONTOS</div>
+                <div class="product-value">Vale-compras: R$ 240,00</div>
+                <a href="https://meli.la/2nBCsxU" class="btn-link" target="_blank">Ver Produto</a>
+            </div>
+            
+            <!-- Produto 05 -->
+            <div class="product-card">
+                <div class="image-placeholder">Imagem pendente (Link ML)</div>
+                <div class="product-title">Fritadeira Elétrica Air Fryer Quad Fry 4,2 L,1400w Preto Elgin</div>
+                <div class="product-points">6.000 PONTOS</div>
+                <div class="product-value">Vale-compras: R$ 180,00</div>
+                <a href="https://meli.la/1ccBXpW" class="btn-link" target="_blank">Ver Produto</a>
+            </div>
+            
+            <!-- Produto 06 -->
+            <div class="product-card">
+                <div class="image-placeholder">Imagem pendente (Link ML)</div>
+                <div class="product-title">Basike Caixa de Som Portátil Com Bluetooth Boombox 80W 8000Mah</div>
+                <div class="product-points">10.500 PONTOS</div>
+                <div class="product-value">Vale-compras: R$ 300,00</div>
+                <a href="https://meli.la/1YomsVg" class="btn-link" target="_blank">Ver Produto</a>
+            </div>
+
+            <!-- Produto 07 -->
+            <div class="product-card">
+                <div class="image-placeholder">Imagem pendente (Link ML)</div>
+                <div class="product-title">Panela De Arroz Elétrica Philco 6 Xícaras Inox 400w Ppa06a</div>
+                <div class="product-points">4.500 PONTOS</div>
+                <div class="product-value">Vale-compras: R$ 130,00</div>
+                <a href="https://meli.la/2V5AvY5" class="btn-link" target="_blank">Ver Produto</a>
+            </div>
+            
+            <!-- Produto 08 -->
+            <div class="product-card">
+                <div class="image-placeholder">Imagem pendente (Link ML)</div>
+                <div class="product-title">Gás cozinha P13</div>
+                <div class="product-points">3.500 PONTOS</div>
+                <div class="product-value">Vale-compras: R$ 110,00</div>
+                <a href="https://www.mercadolivre.com.br/botija-de-gas-botijao-vasilhame-vazio-sem-gas-13kg-p13-novo/up/MLBU3028059966?pdp_filters=item_id%3AMLB5293284270&matt_tool=38524122&ua=SZ4BlUl0lWqQFJ8G1uG_Jj2Z8WHSF9ZRNZQY3Daixmox_os#origin=share&sid=share&wid=MLB5293284270" class="btn-link" target="_blank">Ver Produto</a>
+            </div>
+
+            <!-- Produto 09 -->
+            <div class="product-card">
+                <div class="image-placeholder">Imagem pendente (Link ML)</div>
+                <div class="product-title">Chaleira Elétrica Inox 1,8L 1000W Aquecimento Rápido Automática</div>
+                <div class="product-points">2.500 PONTOS</div>
+                <div class="product-value">Vale-compras: R$ 80,00</div>
+                <a href="https://meli.la/1RVjqGd" class="btn-link" target="_blank">Ver Produto</a>
+            </div>
+
+            <!-- Produto 10 -->
+            <div class="product-card">
+                <div class="image-placeholder">Imagem pendente (Link ML)</div>
+                <div class="product-title">Fogareiro Fogão A Gas Camping Aventura Trilha Idea</div>
+                <div class="product-points">3.000 PONTOS</div>
+                <div class="product-value">Vale-compras: R$ 80,00</div>
+                <a href="https://meli.la/2MiuwLF" class="btn-link" target="_blank">Ver Produto</a>
+            </div>
+
+            <!-- Produto 11 -->
+            <div class="product-card">
+                <div class="image-placeholder">Imagem pendente (Link ML)</div>
+                <div class="product-title">Geladeira Brastemp Frost Free 385 Litros Duplex Branca - BRM46MB</div>
+                <div class="product-points">62.500 PONTOS</div>
+                <div class="product-value">Vale-compras: R$ 1.800,00</div>
+                <a href="https://meli.la/1DQcKE3" class="btn-link" target="_blank">Ver Produto</a>
+            </div>
+
+            <!-- Produto 12 -->
+            <div class="product-card">
+                <div class="image-placeholder">Imagem pendente (Link ML)</div>
+                <div class="product-title">Lavadora De Roupas Midea Wave Agitator 13kg Branca 127v</div>
+                <div class="product-points">50.000 PONTOS</div>
+                <div class="product-value">Vale-compras: R$ 1.600,00</div>
+                <a href="https://meli.la/1DP8ZYT" class="btn-link" target="_blank">Ver Produto</a>
+            </div>
+
+            <!-- Produto 13 - Info Incompleta -->
+            <div class="product-card">
+                <div class="alert-box">Informação Ausente: Nome não fornecido</div>
+                <div class="image-placeholder">Imagem pendente</div>
+                <div class="product-title" style="color: #888;">[Produto não especificado]</div>
+                <div class="product-points">4.000 PONTOS</div>
+                <div class="product-value">Vale-compras: R$ 120,00</div>
+                <a href="https://meli.la/2UP9soj" class="btn-link" target="_blank">Ver Produto</a>
+            </div>
+
+            <!-- Produto 14 - Info Incompleta -->
+            <div class="product-card">
+                <div class="alert-box">Informação Ausente: Nome não fornecido</div>
+                <div class="image-placeholder">Imagem pendente</div>
+                <div class="product-title" style="color: #888;">[Produto não especificado]</div>
+                <div class="product-points">5.500 PONTOS</div>
+                <div class="product-value">Vale-compras: R$ 180,00</div>
+                <a href="https://meli.la/2iPknkZ" class="btn-link" target="_blank">Ver Produto</a>
+            </div>
+
+            <!-- Produto 15 - Info Incompleta -->
+            <div class="product-card">
+                <div class="alert-box">Informação Ausente: Nome não fornecido</div>
+                <div class="image-placeholder">Imagem pendente</div>
+                <div class="product-title" style="color: #888;">[Produto não especificado]</div>
+                <div class="product-points">18.500 PONTOS</div>
+                <div class="product-value">Vale-compras: R$ 400,00</div>
+                <a href="https://meli.la/2QW4yQn" class="btn-link" target="_blank">Ver Produto</a>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Página Final -->
+    <div class="footer-page">
+        <h2>Como Funciona?</h2>
+        <ul class="rules-list">
+            <li><strong>1. Acumule Pontos:</strong> A cada <strong>R$ 1,00</strong> gasto em nossa conveniência, você ganha <strong>1 ponto</strong>.</li>
+            <li><strong>2. Escolha seu prêmio:</strong> Consulte nosso catálogo e veja qual produto atende suas necessidades.</li>
+            <li><strong>3. Troque por Vale-Compras:</strong> Seus pontos se convertem no valor correspondente ao <strong>Vale-Compras na Conveniência Moreira</strong> para adquirir o produto desejado.</li>
+            <li><strong>4. Simples e Rápido:</strong> O saldo é contabilizado a cada compra. Sem complicação, você acompanha e troca!</li>
+        </ul>
+    </div>
+
+</body>
+</html>
