@@ -1,132 +1,46 @@
-Análise de notícia → Roteiro de vídeo para Instagram
+# Prompt — Análise de notícia para Reels
 
-LINK DA NOTÍCIA:
+**LINK DA NOTÍCIA:**  
 [COLE O LINK AQUI]
 
-⸻
+Analise a notícia acima como um estrategista de conteúdo para Instagram, considerando que ela acabou de ser publicada e pertence ao meu nicho.
 
-Analise a notícia do link acima considerando que ela acabou de ser publicada e pertence ao meu nicho.
+Quero transformar a **headline da notícia + minha reação em câmera** em um vídeo curto, profissional e com potencial de engajamento.
 
-Meu objetivo é criar um vídeo curto para Instagram Reels, utilizando:
+## Entregue:
 
-* Tela dividida: print/headline da notícia + minha câmera;
-* Eu aparecendo e comentando a notícia;
-* Tom profissional, natural, direto e seguro;
-* O objetivo não é simplesmente repetir a notícia, mas gerar valor por meio da minha análise, interpretação e contexto.
+1. **Resumo da notícia:** o que aconteceu e por que isso importa para meu público.
+2. **Ângulo do vídeo:** qual abordagem gera mais valor e evita simplesmente repetir a notícia.
+3. **Roteiro falado**, com:
+   - **Hook (0–3s):** frase forte para prender atenção imediatamente.
+   - **Contextualização:** explique rapidamente o fato.
+   - **Minha análise/reação:** interpretação, implicações, opinião técnica ou ponto que a maioria pode não perceber.
+   - **Valor:** entregue uma conclusão útil, insight ou aprendizado.
+   - **CTA final:** peça para seguir meu perfil de forma natural, profissional e objetiva, sem frases genéricas, exageros ou "firula". O CTA deve reforçar meu posicionamento como referência no nicho.
 
-1. Analise a notícia
+4. **Texto exato para falar**, em linguagem natural, como alguém falando diretamente para a câmera — sem parecer que está lendo um roteiro.
+5. **Headline/print na tela:** indique quais trechos da notícia devem aparecer visualmente e em que momento.
+6. **Texto na tela:** sugira apenas textos curtos e relevantes para reforçar os pontos principais.
+7. **Legenda do Reels:** curta, complementar ao vídeo e pensada para estimular comentários.
+8. **Pergunta para gerar comentários**, relacionada diretamente ao conteúdo.
 
-Identifique:
+## Formato visual
 
-* O que aconteceu;
-* Por que isso importa;
-* Qual é o fato mais relevante;
-* O que a notícia não explica ou deixa implícito;
-* Possíveis consequências;
-* Quem será afetado;
-* O que pode acontecer a seguir;
-* Se existe alguma informação que merece cautela ou verificação.
+O vídeo será composto pela **captura/print da headline da notícia ocupando a maior parte da tela**, enquanto minha câmera aparece no **canto inferior direito**, com aproximadamente **1/3 da altura da tela**.
 
-Não invente informações. Diferencie claramente fato, interpretação e hipótese.
+Considere esse formato ao escrever o roteiro: minha fala deve complementar o que está sendo mostrado, e não simplesmente ler a notícia.
 
-2. Encontre o melhor ângulo para o vídeo
+## Regras
 
-Determine qual abordagem tem maior potencial de gerar:
+- Priorize **retenção, clareza, autoridade e valor**.
+- Comece pelo ponto mais interessante; não faça introduções como "olá pessoal".
+- Não invente informações que não estejam na notícia ou em fontes confiáveis.
+- Diferencie claramente **fato, interpretação e opinião**.
+- Se a notícia estiver incompleta, sensacionalista ou apresentar alguma informação duvidosa, aponte isso.
+- Evite clickbait enganoso.
+- Não use humor forçado, memes, bordões ou excesso de emojis.
+- Não seja genérico: encontre **o melhor insight específico dessa notícia para o meu nicho**.
+- O vídeo deve parecer uma **análise rápida de alguém que domina o assunto**, e não uma simples leitura de notícia.
+- Priorize um roteiro de aproximadamente **30–60 segundos**, salvo se a complexidade da notícia justificar outro tempo.
 
-* retenção;
-* comentários;
-* compartilhamentos;
-* salvamentos;
-* percepção de autoridade.
-
-Priorize insight, contexto e opinião fundamentada, e não sensacionalismo.
-
-Explique em 2–3 frases por que esse é o melhor ângulo.
-
-3. Crie o roteiro
-
-Crie um roteiro de 30–60 segundos, seguindo esta estrutura:
-
-Hook — 0–3s
-
-Uma abertura forte que faça a pessoa querer continuar assistindo.
-
-Evite:
-
-* “Você viu essa notícia?”
-* “Gente, olha isso…”
-* introduções genéricas;
-* clickbait enganoso.
-
-Contexto — 3–10s
-
-Explique rapidamente o que aconteceu, sem simplesmente ler a headline.
-
-Análise — 10–45s
-
-Apresente o principal insight.
-
-Responda:
-“O que uma pessoa comum provavelmente não percebe nessa notícia?”
-
-Inclua contexto, implicações e, quando pertinente, minha interpretação sobre o assunto.
-
-Fechamento — 45–55s
-
-Conclua com uma ideia forte que faça a pessoa entender por que aquele assunto importa.
-
-CTA — últimos segundos
-
-Crie uma chamada para seguir o perfil que seja:
-
-* natural;
-* curta;
-* profissional;
-* coerente com o conteúdo;
-* sem parecer desesperada por seguidores.
-
-A CTA deve deixar claro por que vale a pena me seguir, e não apenas pedir “segue aí”.
-
-4. Direção de gravação
-
-Sugira objetivamente:
-
-* onde colocar meu rosto na tela;
-* qual parte da headline deve aparecer;
-* quando trocar ou aproximar o print;
-* onde inserir texto na tela;
-* quais palavras destacar;
-* cortes necessários;
-* ritmo de edição;
-* elementos visuais que aumentem a retenção.
-
-Não recomende efeitos, memes, emojis ou firulas desnecessárias.
-
-5. Entregue também
-
-Headline do vídeo
-
-Crie 3 opções curtas para o texto da capa.
-
-Texto na tela
-
-Liste os textos essenciais que devem aparecer durante o vídeo.
-
-Legenda
-
-Crie uma legenda curta, complementar ao vídeo, sem simplesmente repetir o roteiro.
-
-Comentário fixado
-
-Crie uma pergunta ou provocação relevante que estimule comentários qualificados.
-
-Veredito
-
-Finalize indicando:
-
-Potencial de conteúdo: baixo / médio / alto
-Principal oportunidade: [qual é]
-Principal risco: [qual é]
-Ângulo recomendado: [qual é]
-
-Regra principal: o vídeo deve parecer uma análise de alguém que domina o assunto e está trazendo uma perspectiva útil sobre uma notícia nova — não alguém apenas reagindo à manchete.
+**Objetivo principal:** fazer o espectador pensar *"esse cara entende do assunto e vale a pena acompanhar"*.
