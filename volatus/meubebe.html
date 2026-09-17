@@ -1,0 +1,1264 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Registro Materno</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- jsPDF e AutoTable -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #050505;
+            color: #ffffff;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        ::-webkit-scrollbar {
+            width: 0px;
+            background: transparent;
+        }
+
+        .glass-panel {
+            background: rgba(25, 25, 30, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .timeline-line {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background-color: #3b224c;
+            transform: translateX(-50%);
+            z-index: 0;
+        }
+
+        .btn-gradient {
+            background: linear-gradient(135deg, #7c2d7f 0%, #4a1954 100%);
+            box-shadow: 0 4px 15px rgba(124, 45, 127, 0.4);
+            transition: all 0.2s ease;
+        }
+        
+        .btn-gradient-active {
+            background: linear-gradient(135deg, #e11d48 0%, #9f1239 100%);
+            box-shadow: 0 4px 15px rgba(225, 29, 72, 0.4);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(225, 29, 72, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(225, 29, 72, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(225, 29, 72, 0); }
+        }
+
+        .drawer-transition {
+            transition: transform 0.3s ease-in-out;
+        }
+        
+        select {
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            background-size: 1em;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col relative pb-28 overflow-x-hidden">
+
+    <header class="flex items-center justify-between p-4 sticky top-0 z-20 bg-[#050505]/95 backdrop-blur">
+        <div class="flex gap-2">
+            <!-- Menu Principal (Profiles/Diaries) -->
+            <button onclick="openDrawer()" class="w-10 h-10 rounded-full glass-panel flex items-center justify-center hover:bg-gray-800 transition text-blue-400">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+            </button>
+            <div class="flex flex-col justify-center">
+                <h1 class="text-sm font-bold tracking-wide leading-tight" id="header-baby-name">Carregando...</h1>
+                <p class="text-[10px] text-gray-400" id="header-profile-name">Perfil</p>
+            </div>
+        </div>
+
+        <div class="flex gap-2">
+            <!-- Upload JSON -->
+            <label for="import-json" class="w-10 h-10 rounded-full glass-panel flex items-center justify-center cursor-pointer hover:bg-gray-800 transition" title="Importar JSON">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-400"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+            </label>
+            <input type="file" id="import-json" accept=".json" class="hidden" onchange="importData(event)">
+            
+            <!-- Download JSON -->
+            <button onclick="exportJSON()" class="w-10 h-10 rounded-full glass-panel flex items-center justify-center hover:bg-gray-800 transition" title="Exportar Backup (JSON)">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-400"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+            </button>
+            
+            <!-- Download PDF -->
+            <button onclick="exportPDF()" class="w-10 h-10 rounded-full glass-panel flex items-center justify-center hover:bg-gray-800 transition text-purple-400" title="Exportar Relatório (PDF)">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+            </button>
+        </div>
+    </header>
+
+    <div class="px-4 mb-2">
+        <div id="ga-banner" class="glass-panel rounded-xl flex items-center justify-around py-2 mb-4 hidden border-purple-500/30">
+            <div class="text-center">
+                <div class="text-[9px] text-purple-300 uppercase tracking-wider">IG (DUM)</div>
+                <div class="text-sm font-bold text-white" id="ga-dum">--</div>
+            </div>
+            <div class="w-px h-6 bg-gray-700"></div>
+            <div class="text-center">
+                <div class="text-[9px] text-blue-300 uppercase tracking-wider">IG (USG)</div>
+                <div class="text-sm font-bold text-white" id="ga-usg">--</div>
+            </div>
+        </div>
+
+        <div class="glass-panel rounded-2xl flex divide-x divide-gray-800 py-3 text-center">
+            <div class="flex-1 px-2">
+                <div class="text-[10px] text-gray-400 uppercase tracking-wider mb-1">Contrações/hr</div>
+                <div class="text-lg font-bold" id="stat-qty">0</div>
+            </div>
+            <div class="flex-1 px-2">
+                <div class="text-[10px] text-gray-400 uppercase tracking-wider mb-1">Duração média</div>
+                <div class="text-lg font-bold" id="stat-duration">00:00</div>
+            </div>
+            <div class="flex-1 px-2">
+                <div class="text-[10px] text-gray-400 uppercase tracking-wider mb-1">Média intervalo</div>
+                <div class="text-lg font-bold" id="stat-interval">00:00</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="px-4 flex text-xs text-gray-500 uppercase tracking-wider mb-2">
+        <div class="w-[40%] text-right pr-4">Detalhes</div>
+        <div class="w-[20%] text-center"></div>
+        <div class="w-[40%] text-left pl-4">Intervalo/Info</div>
+    </div>
+
+    <main class="flex-1 overflow-y-auto px-4 relative" id="timeline-container">
+        <div class="timeline-line"></div>
+        <div id="events-list" class="relative z-10 flex flex-col gap-6 py-4">
+            <!-- Eventos dinâmicos -->
+        </div>
+    </main>
+
+    <div class="fixed bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-[#050505] via-[#050505] to-transparent z-30">
+        <button id="main-btn" onclick="toggleTimer()" class="w-full btn-gradient text-white rounded-full py-4 px-6 text-sm font-bold tracking-wider flex items-center justify-center gap-3 shadow-lg">
+            <svg id="btn-icon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" class="animate-pulse"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            <span id="btn-text">INÍCIO DA CONTRAÇÃO</span>
+        </button>
+    </div>
+
+    <!-- Add Generic Event Button -->
+    <button onclick="openEventModal()" class="fixed bottom-28 right-6 w-12 h-12 bg-gray-900/90 backdrop-blur border border-purple-500/50 rounded-full shadow-[0_0_15px_rgba(124,45,127,0.3)] flex items-center justify-center z-30 hover:bg-gray-800 transition text-purple-400" title="Adicionar Evento Clínico">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+    </button>
+
+    <div id="drawer-overlay" class="fixed inset-0 bg-black/80 z-40 hidden backdrop-blur-sm" onclick="closeDrawer()"></div>
+    <div id="drawer" class="fixed top-0 left-0 bottom-0 w-80 bg-[#111115] border-r border-gray-800 z-50 transform -translate-x-full drawer-transition flex flex-col">
+        <div class="p-6 border-b border-gray-800 flex justify-between items-center bg-[#050505]">
+            <h2 class="text-lg font-bold text-purple-400">Gerenciar Diários</h2>
+            <button onclick="closeDrawer()" class="text-gray-400 hover:text-white">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+        </div>
+        <div class="flex-1 overflow-y-auto p-4 space-y-6" id="drawer-content">
+            <!-- Conteúdo populado por JS -->
+        </div>
+        <div class="p-4 border-t border-gray-800 flex flex-col gap-3">
+            <button onclick="openProfileModal()" class="w-full py-3 rounded-xl bg-gray-800 hover:bg-gray-700 text-sm font-semibold transition border border-gray-700 text-white flex items-center justify-center gap-2">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                Novo Perfil
+            </button>
+            <button onclick="openDiaryModal()" class="w-full py-3 rounded-xl btn-gradient text-sm font-semibold transition text-white flex items-center justify-center gap-2">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 4v16m8-8H4"></path></svg>
+                Novo Diário
+            </button>
+        </div>
+    </div>
+
+    <div id="event-modal" class="fixed inset-0 bg-black/85 z-50 hidden flex-col items-center justify-center p-4 backdrop-blur-sm overflow-y-auto">
+        <div class="glass-panel p-6 rounded-2xl w-full max-w-sm border border-gray-700 shadow-2xl my-auto">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-lg font-bold" id="event-modal-title">Registrar Evento</h3>
+                <button onclick="closeEventModal()" class="text-gray-400 hover:text-white p-1">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+            </div>
+            
+            <div class="space-y-4 mb-6">
+                <!-- Tipo de Evento -->
+                <div>
+                    <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wide mb-1">Tipo de Registro</label>
+                    <select id="ev-type" onchange="renderEventFields()" class="w-full bg-[#050505] border border-gray-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#7c2d7f] text-sm">
+                        <option value="contraction">Contração (Manual)</option>
+                        <option value="dilation">Dilatação</option>
+                        <option value="mucous_plug">Perda do Tampão Mucoso</option>
+                        <option value="water_break">Rompimento da Bolsa</option>
+                        <option value="bleeding">Hemorragia</option>
+                        <option value="birth">Parto</option>
+                        <option value="custom">Outro (Especificar)</option>
+                    </select>
+                </div>
+
+                <!-- Data e Hora (Comum a todos) -->
+                <div class="flex gap-2">
+                    <div class="w-1/2">
+                        <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wide mb-1">Data</label>
+                        <input type="date" id="ev-date" class="w-full bg-[#050505] border border-gray-700 rounded-xl px-4 py-2 text-white focus:outline-none focus:border-[#7c2d7f] text-sm">
+                    </div>
+                    <div class="w-1/2">
+                        <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wide mb-1">Hora</label>
+                        <input type="time" step="1" id="ev-time" class="w-full bg-[#050505] border border-gray-700 rounded-xl px-4 py-2 text-white focus:outline-none focus:border-[#7c2d7f] text-sm text-center">
+                    </div>
+                </div>
+
+                <!-- Campos Dinâmicos -->
+                <div id="dynamic-fields" class="space-y-4"></div>
+            </div>
+            
+            <button onclick="saveEvent()" class="w-full py-3 rounded-xl btn-gradient text-white font-bold tracking-wide">SALVAR EVENTO</button>
+        </div>
+    </div>
+
+    <div id="intensity-modal" class="fixed inset-0 bg-black/85 z-50 hidden flex-col items-center justify-center p-4 backdrop-blur-sm">
+        <div class="glass-panel p-6 rounded-2xl w-full max-w-sm text-center shadow-2xl border border-gray-700">
+            <h3 class="text-xl font-bold mb-2">Fim da Contração</h3>
+            <p class="text-gray-400 text-sm mb-6">Qual foi a intensidade desta contração?</p>
+            <div class="flex flex-col gap-3">
+                <button onclick="saveTimerContraction('Leve')" class="py-3 px-4 rounded-xl bg-green-900/20 text-green-400 border border-green-500/30 hover:bg-green-900/40 font-semibold transition">Leve</button>
+                <button onclick="saveTimerContraction('Moderado')" class="py-3 px-4 rounded-xl bg-yellow-900/20 text-yellow-400 border border-yellow-500/30 hover:bg-yellow-900/40 font-semibold transition">Moderado</button>
+                <button onclick="saveTimerContraction('Intenso')" class="py-3 px-4 rounded-xl bg-red-900/20 text-red-400 border border-red-500/30 hover:bg-red-900/40 font-semibold transition">Intenso</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="profile-modal" class="fixed inset-0 bg-black/85 z-50 hidden flex-col items-center justify-center p-4 backdrop-blur-sm overflow-y-auto">
+        <div class="glass-panel p-6 rounded-2xl w-full max-w-md border border-gray-700 shadow-2xl my-auto">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-lg font-bold" id="profile-modal-title">Dados da Paciente</h3>
+                <button onclick="closeProfileModal()" class="text-gray-400 hover:text-white p-1">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+            </div>
+            <div class="space-y-4 mb-6 max-h-[60vh] overflow-y-auto pr-2">
+                <div>
+                    <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wide mb-1">Nome Completo</label>
+                    <input type="text" id="prof-name" oninput="this.value = this.value.toUpperCase()" class="w-full bg-[#050505] border border-gray-700 rounded-xl px-4 py-2 text-white focus:outline-none focus:border-[#7c2d7f] text-sm">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wide mb-1">CPF</label>
+                    <input type="text" id="prof-cpf" oninput="formatCPFInput(event)" maxlength="14" placeholder="000.000.000-00" class="w-full bg-[#050505] border border-gray-700 rounded-xl px-4 py-2 text-white focus:outline-none focus:border-[#7c2d7f] text-sm">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wide mb-1">Data de Nascimento</label>
+                    <input type="date" id="prof-dob" class="w-full bg-[#050505] border border-gray-700 rounded-xl px-4 py-2 text-white focus:outline-none focus:border-[#7c2d7f] text-sm">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wide mb-1">Nome da Mãe</label>
+                    <input type="text" id="prof-mother" class="w-full bg-[#050505] border border-gray-700 rounded-xl px-4 py-2 text-white focus:outline-none focus:border-[#7c2d7f] text-sm">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wide mb-1">Nome do Pai</label>
+                    <input type="text" id="prof-father" class="w-full bg-[#050505] border border-gray-700 rounded-xl px-4 py-2 text-white focus:outline-none focus:border-[#7c2d7f] text-sm">
+                </div>
+                <div class="flex gap-2">
+                    <div class="flex-1">
+                        <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wide mb-1">RG</label>
+                        <input type="text" id="prof-rg" class="w-full bg-[#050505] border border-gray-700 rounded-xl px-4 py-2 text-white focus:outline-none focus:border-[#7c2d7f] text-sm">
+                    </div>
+                    <div class="w-1/3">
+                        <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wide mb-1">Órgão Exp.</label>
+                        <input type="text" id="prof-rg-org" class="w-full bg-[#050505] border border-gray-700 rounded-xl px-4 py-2 text-white focus:outline-none focus:border-[#7c2d7f] text-sm uppercase">
+                    </div>
+                </div>
+            </div>
+            <button onclick="saveProfile()" class="w-full py-3 rounded-xl btn-gradient text-white font-bold tracking-wide">SALVAR PERFIL</button>
+        </div>
+    </div>
+
+    <div id="diary-modal" class="fixed inset-0 bg-black/85 z-50 hidden flex-col items-center justify-center p-4 backdrop-blur-sm overflow-y-auto">
+        <div class="glass-panel p-6 rounded-2xl w-full max-w-sm border border-gray-700 shadow-2xl my-auto">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-lg font-bold" id="diary-modal-title">Dados do Diário</h3>
+                <button onclick="closeDiaryModal()" class="text-gray-400 hover:text-white p-1">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+            </div>
+            <div class="space-y-4 mb-6">
+                <div id="diary-profile-select-container">
+                    <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wide mb-1">Vincular a Qual Perfil?</label>
+                    <select id="diary-profile-id" class="w-full bg-[#050505] border border-gray-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#7c2d7f] text-sm"></select>
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wide mb-1">Nome do Bebê/Diário</label>
+                    <input type="text" id="diary-baby-name" placeholder="Ex: Gestação Lucas" class="w-full bg-[#050505] border border-gray-700 rounded-xl px-4 py-2 text-white focus:outline-none focus:border-[#7c2d7f] text-sm">
+                </div>
+                <div class="p-3 bg-gray-900/50 rounded-xl border border-gray-800">
+                    <h4 class="text-xs font-bold text-purple-400 uppercase mb-2">Cálculo de Idade Gestacional</h4>
+                    <div class="mb-3">
+                        <label class="block text-[10px] font-semibold text-gray-400 uppercase tracking-wide mb-1">D.U.M. (Data da Última Menstruação)</label>
+                        <input type="date" id="diary-dum" class="w-full bg-[#050505] border border-gray-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-[#7c2d7f] text-sm">
+                    </div>
+                    <div class="border-t border-gray-800 pt-3">
+                        <label class="block text-[10px] font-semibold text-gray-400 uppercase tracking-wide mb-1">Data da 1ª USG</label>
+                        <input type="date" id="diary-us-date" class="w-full bg-[#050505] border border-gray-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-[#7c2d7f] text-sm mb-2">
+                        
+                        <label class="block text-[10px] font-semibold text-gray-400 uppercase tracking-wide mb-1">Idade Constatada na 1ª USG</label>
+                        <div class="flex gap-2">
+                            <div class="flex-1">
+                                <input type="number" id="diary-us-weeks" min="0" placeholder="Semanas" class="w-full bg-[#050505] border border-gray-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-[#7c2d7f] text-sm text-center">
+                            </div>
+                            <div class="flex-1">
+                                <input type="number" id="diary-us-days" min="0" max="6" placeholder="Dias" class="w-full bg-[#050505] border border-gray-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-[#7c2d7f] text-sm text-center">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button onclick="saveDiary()" class="w-full py-3 rounded-xl btn-gradient text-white font-bold tracking-wide">SALVAR DIÁRIO</button>
+        </div>
+    </div>
+
+    <script>
+        // --- DATA STATE ARCHITECTURE ---
+        let appState = {
+            profiles: [], 
+            diaries: [], 
+            events: [], 
+            activeProfileId: null,
+            activeDiaryId: null
+        };
+
+        // Runtime variables
+        let isTracking = false;
+        let activeStartTime = null;
+        let timerInterval = null;
+        let pendingContractionTime = null;
+        let editingEventId = null;
+        let editingProfileId = null;
+        let editingDiaryId = null;
+
+        // Elements
+        const btnMain = document.getElementById('main-btn');
+        const btnText = document.getElementById('btn-text');
+        const btnIcon = document.getElementById('btn-icon');
+        const listContainer = document.getElementById('events-list');
+
+        function init() {
+            loadAndMigrateData();
+            
+            // Resume timer if active
+            const savedTracking = localStorage.getItem('isTracking');
+            const savedStartTime = localStorage.getItem('activeStartTime');
+            if (savedTracking === 'true' && savedStartTime) {
+                isTracking = true;
+                activeStartTime = parseInt(savedStartTime, 10);
+                startVisualTimer();
+                updateButtonUI();
+            }
+
+            updateUI();
+        }
+
+        function loadAndMigrateData() {
+            const stateStr = localStorage.getItem('maternalAppState');
+            if (stateStr) {
+                try {
+                    appState = JSON.parse(stateStr);
+                } catch(e) {}
+            } else {
+                // MIGRATION SCRIPT: Se for a primeira vez na v2, migra os dados antigos se existirem
+                const oldC = localStorage.getItem('contractionsData');
+                const oldD = localStorage.getItem('dilationsData');
+                const oldP = localStorage.getItem('patientInfo');
+                
+                if (oldC || oldD || oldP) {
+                    let defaultProfile = {
+                        id: 'prof_' + Date.now(),
+                        fullName: 'Paciente Padrão'
+                    };
+                    if (oldP) {
+                        try {
+                            const pObj = JSON.parse(oldP);
+                            defaultProfile = { ...defaultProfile, ...pObj };
+                        } catch(e){}
+                    }
+                    
+                    let defaultDiary = {
+                        id: 'diary_' + Date.now(),
+                        profileId: defaultProfile.id,
+                        babyName: 'Diário Padrão',
+                        dumDate: '', usDate: '', usWeeks: '', usDays: ''
+                    };
+
+                    appState.profiles.push(defaultProfile);
+                    appState.diaries.push(defaultDiary);
+                    appState.activeProfileId = defaultProfile.id;
+                    appState.activeDiaryId = defaultDiary.id;
+
+                    if (oldC) {
+                        try {
+                            let parsed = JSON.parse(oldC);
+                            parsed.forEach(c => {
+                                appState.events.push({
+                                    id: c.id || 'ev_' + Math.random(),
+                                    diaryId: defaultDiary.id,
+                                    type: 'contraction',
+                                    timestamp: c.startTime,
+                                    duration: c.duration,
+                                    intensity: c.intensity || '',
+                                    interval: c.interval || 0
+                                });
+                            });
+                        } catch(e){}
+                    }
+                    if (oldD) {
+                        try {
+                            let parsed = JSON.parse(oldD);
+                            parsed.forEach(d => {
+                                appState.events.push({
+                                    id: d.id || 'ev_' + Math.random(),
+                                    diaryId: defaultDiary.id,
+                                    type: 'dilation',
+                                    timestamp: d.time,
+                                    cm: d.cm
+                                });
+                            });
+                        } catch(e){}
+                    }
+                    saveState();
+                    localStorage.removeItem('contractionsData');
+                    localStorage.removeItem('dilationsData');
+                    localStorage.removeItem('patientInfo');
+                }
+            }
+
+            // Garante consistência básica se estiver vazio
+            if (appState.profiles.length === 0) {
+                let pId = 'prof_' + Date.now();
+                let dId = 'diary_' + Date.now();
+                appState.profiles.push({ id: pId, fullName: 'Minha Gestação' });
+                appState.diaries.push({ id: dId, profileId: pId, babyName: 'Meu Bebê' });
+                appState.activeProfileId = pId;
+                appState.activeDiaryId = dId;
+                saveState();
+            }
+            
+            // Validar active IDs
+            if (!appState.profiles.find(p => p.id === appState.activeProfileId)) {
+                appState.activeProfileId = appState.profiles[0].id;
+            }
+            if (!appState.diaries.find(d => d.id === appState.activeDiaryId)) {
+                const available = appState.diaries.filter(d => d.profileId === appState.activeProfileId);
+                appState.activeDiaryId = available.length > 0 ? available[0].id : null;
+            }
+        }
+
+        function saveState() {
+            localStorage.setItem('maternalAppState', JSON.stringify(appState));
+        }
+
+        function calculateGestationalAge(diary, targetDateMs = Date.now()) {
+            let res = { dum: null, us: null };
+            let targetDate = new Date(targetDateMs);
+            targetDate.setHours(12,0,0,0); // Normalizar alvo pro meio dia pra evitar bugs de fuso
+            
+            if (diary.dumDate) {
+                let dum = new Date(diary.dumDate + "T12:00:00");
+                let diff = Math.floor((targetDate - dum) / (1000 * 60 * 60 * 24));
+                if (diff >= 0) res.dum = { w: Math.floor(diff/7), d: diff%7 };
+            }
+
+            if (diary.usDate && diary.usWeeks !== '') {
+                let us = new Date(diary.usDate + "T12:00:00");
+                let diff = Math.floor((targetDate - us) / (1000 * 60 * 60 * 24));
+                let baseDays = (parseInt(diary.usWeeks) * 7) + (parseInt(diary.usDays || 0));
+                let totalDays = baseDays + diff;
+                if (totalDays >= 0) res.us = { w: Math.floor(totalDays/7), d: totalDays%7 };
+            }
+            return res;
+        }
+
+        function formatGA(gaObj) {
+            if (!gaObj) return '--';
+            return `${gaObj.w}s ${gaObj.d}d`;
+        }
+
+        const drawer = document.getElementById('drawer');
+        const drawerOverlay = document.getElementById('drawer-overlay');
+
+        function openDrawer() {
+            drawerOverlay.classList.remove('hidden');
+            drawer.classList.remove('-translate-x-full');
+            renderDrawerContent();
+        }
+
+        function closeDrawer() {
+            drawer.classList.add('-translate-x-full');
+            setTimeout(() => drawerOverlay.classList.add('hidden'), 300);
+        }
+
+        function renderDrawerContent() {
+            const container = document.getElementById('drawer-content');
+            let html = '';
+
+            appState.profiles.forEach(profile => {
+                html += `
+                    <div class="mb-6">
+                        <div class="flex justify-between items-center mb-2">
+                            <h3 class="font-bold text-gray-300 uppercase text-xs tracking-widest">${profile.fullName || 'Sem Nome'}</h3>
+                            <button onclick="openProfileModal('${profile.id}')" class="text-blue-400 hover:text-blue-300 p-1"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+                        </div>
+                        <div class="space-y-2 pl-2 border-l-2 border-gray-800">
+                `;
+                const pDiaries = appState.diaries.filter(d => d.profileId === profile.id);
+                pDiaries.forEach(diary => {
+                    const isActive = appState.activeDiaryId === diary.id;
+                    html += `
+                        <div class="flex justify-between items-center p-2 rounded-xl border ${isActive ? 'border-purple-500/50 bg-purple-900/20' : 'border-gray-800 bg-gray-900/30'}">
+                            <button onclick="switchDiary('${diary.id}')" class="flex-1 text-left ${isActive ? 'text-white font-bold' : 'text-gray-400 hover:text-gray-200'} text-sm truncate pr-2">
+                                ${diary.babyName || 'Sem Nome'}
+                            </button>
+                            <button onclick="openDiaryModal('${diary.id}')" class="text-gray-500 hover:text-white p-1"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg></button>
+                        </div>
+                    `;
+                });
+                if(pDiaries.length === 0) html += `<div class="text-xs text-gray-600 italic p-2">Nenhum diário vinculado.</div>`;
+                html += `</div></div>`;
+            });
+            container.innerHTML = html;
+        }
+
+        function switchDiary(diaryId) {
+            const diary = appState.diaries.find(d => d.id === diaryId);
+            if (diary) {
+                appState.activeDiaryId = diary.id;
+                appState.activeProfileId = diary.profileId;
+                saveState();
+                updateUI();
+                closeDrawer();
+            }
+        }
+
+        function formatCPFInput(e) {
+            let val = e.target.value.replace(/\D/g, '');
+            if (val.length <= 11) {
+                val = val.replace(/(\d{3})(\d)/, '$1.$2');
+                val = val.replace(/(\d{3})(\d)/, '$1.$2');
+                val = val.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+            }
+            e.target.value = val;
+        }
+
+        function openProfileModal(id = null) {
+            editingProfileId = id;
+            document.getElementById('profile-modal-title').innerText = id ? "Editar Perfil" : "Novo Perfil";
+            if (id) {
+                const p = appState.profiles.find(x => x.id === id);
+                document.getElementById('prof-name').value = p.fullName || '';
+                document.getElementById('prof-cpf').value = p.cpf || '';
+                document.getElementById('prof-dob').value = p.dob || '';
+                document.getElementById('prof-mother').value = p.motherName || '';
+                document.getElementById('prof-father').value = p.fatherName || '';
+                document.getElementById('prof-rg').value = p.rg || '';
+                document.getElementById('prof-rg-org').value = p.rgOrg || '';
+            } else {
+                ['name','cpf','dob','mother','father','rg','rg-org'].forEach(f => document.getElementById('prof-'+f).value = '');
+            }
+            document.getElementById('profile-modal').classList.replace('hidden', 'flex');
+        }
+
+        function closeProfileModal() { document.getElementById('profile-modal').classList.replace('flex', 'hidden'); }
+
+        function saveProfile() {
+            const fullName = document.getElementById('prof-name').value.trim() || 'Sem Nome';
+            const newData = {
+                fullName,
+                cpf: document.getElementById('prof-cpf').value,
+                dob: document.getElementById('prof-dob').value,
+                motherName: document.getElementById('prof-mother').value,
+                fatherName: document.getElementById('prof-father').value,
+                rg: document.getElementById('prof-rg').value,
+                rgOrg: document.getElementById('prof-rg-org').value
+            };
+
+            if (editingProfileId) {
+                let idx = appState.profiles.findIndex(x => x.id === editingProfileId);
+                if (idx > -1) appState.profiles[idx] = { ...appState.profiles[idx], ...newData };
+            } else {
+                const newId = 'prof_' + Date.now();
+                appState.profiles.push({ id: newId, ...newData });
+                appState.activeProfileId = newId; // switch to it
+            }
+            saveState();
+            closeProfileModal();
+            updateUI();
+            if(!document.getElementById('drawer-overlay').classList.contains('hidden')) renderDrawerContent();
+            showToast("Perfil salvo!");
+        }
+
+        function openDiaryModal(id = null) {
+            editingDiaryId = id;
+            document.getElementById('diary-modal-title').innerText = id ? "Editar Diário" : "Novo Diário";
+            
+            const pSelect = document.getElementById('diary-profile-id');
+            pSelect.innerHTML = appState.profiles.map(p => `<option value="${p.id}">${p.fullName}</option>`).join('');
+            
+            if (id) {
+                const d = appState.diaries.find(x => x.id === id);
+                document.getElementById('diary-profile-select-container').style.display = 'none'; // Lock profile on edit to avoid orphans
+                document.getElementById('diary-baby-name').value = d.babyName || '';
+                document.getElementById('diary-dum').value = d.dumDate || '';
+                document.getElementById('diary-us-date').value = d.usDate || '';
+                document.getElementById('diary-us-weeks').value = d.usWeeks || '';
+                document.getElementById('diary-us-days').value = d.usDays || '';
+            } else {
+                document.getElementById('diary-profile-select-container').style.display = 'block';
+                pSelect.value = appState.activeProfileId || (appState.profiles[0]?.id || '');
+                ['baby-name','dum','us-date','us-weeks','us-days'].forEach(f => document.getElementById('diary-'+f).value = '');
+            }
+            document.getElementById('diary-modal').classList.replace('hidden', 'flex');
+        }
+        function closeDiaryModal() { document.getElementById('diary-modal').classList.replace('flex', 'hidden'); }
+
+        function saveDiary() {
+            const babyName = document.getElementById('diary-baby-name').value.trim() || 'Gestação';
+            const newData = {
+                babyName,
+                dumDate: document.getElementById('diary-dum').value,
+                usDate: document.getElementById('diary-us-date').value,
+                usWeeks: document.getElementById('diary-us-weeks').value,
+                usDays: document.getElementById('diary-us-days').value
+            };
+
+            if (editingDiaryId) {
+                let idx = appState.diaries.findIndex(x => x.id === editingDiaryId);
+                if (idx > -1) appState.diaries[idx] = { ...appState.diaries[idx], ...newData };
+            } else {
+                const newId = 'diary_' + Date.now();
+                const profileId = document.getElementById('diary-profile-id').value;
+                appState.diaries.push({ id: newId, profileId, ...newData });
+                appState.activeDiaryId = newId;
+                appState.activeProfileId = profileId;
+            }
+            saveState();
+            closeDiaryModal();
+            updateUI();
+            if(!document.getElementById('drawer-overlay').classList.contains('hidden')) renderDrawerContent();
+            showToast("Diário salvo!");
+        }
+
+        function openEventModal(id = null) {
+            if(!appState.activeDiaryId) { showToast("Crie ou selecione um diário primeiro.", true); return; }
+            editingEventId = id;
+            document.getElementById('event-modal-title').innerText = id ? "Editar Registro" : "Adicionar Registro";
+            
+            const typeSelect = document.getElementById('ev-type');
+            const dateInput = document.getElementById('ev-date');
+            const timeInput = document.getElementById('ev-time');
+            
+            if (id) {
+                const ev = appState.events.find(x => x.id === id);
+                typeSelect.value = ev.type;
+                typeSelect.disabled = true; // No type changing during edit
+                
+                const d = new Date(ev.timestamp);
+                dateInput.value = d.toISOString().split('T')[0];
+                timeInput.value = d.toTimeString().slice(0, 8);
+                
+                // Store ev data globally temporarily to bind it to dynamic inputs
+                window._editingEventData = ev; 
+            } else {
+                typeSelect.disabled = false;
+                typeSelect.value = 'contraction';
+                const now = new Date();
+                dateInput.value = now.toISOString().split('T')[0];
+                timeInput.value = now.toTimeString().slice(0, 8);
+                window._editingEventData = null;
+            }
+            
+            renderEventFields();
+            document.getElementById('event-modal').classList.replace('hidden', 'flex');
+        }
+
+        function closeEventModal() { document.getElementById('event-modal').classList.replace('flex', 'hidden'); }
+
+        function renderEventFields() {
+            const type = document.getElementById('ev-type').value;
+            const container = document.getElementById('dynamic-fields');
+            const data = window._editingEventData || {};
+            let html = '';
+
+            switch(type) {
+                case 'contraction':
+                    html = `
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wide mb-1">Duração (Segundos)</label>
+                            <input type="number" id="field-duration" value="${data.duration ? Math.round(data.duration/1000) : ''}" placeholder="Ex: 45" class="w-full bg-[#050505] border border-gray-700 rounded-xl px-4 py-2 text-white focus:outline-none focus:border-[#7c2d7f] text-sm text-center">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wide mb-1">Intensidade</label>
+                            <select id="field-intensity" class="w-full bg-[#050505] border border-gray-700 rounded-xl px-4 py-2 text-white focus:outline-none focus:border-[#7c2d7f] text-sm">
+                                <option value="" ${data.intensity===''?'selected':''}>Não informada</option>
+                                <option value="Leve" ${data.intensity==='Leve'?'selected':''}>Leve</option>
+                                <option value="Moderado" ${data.intensity==='Moderado'?'selected':''}>Moderado</option>
+                                <option value="Intenso" ${data.intensity==='Intenso'?'selected':''}>Intenso</option>
+                            </select>
+                        </div>
+                    `;
+                    break;
+                case 'dilation':
+                    html = `
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wide mb-1">Medida (cm)</label>
+                            <input type="number" id="field-cm" min="0" max="10" step="0.5" value="${data.cm||''}" placeholder="Ex: 5" class="w-full bg-[#050505] border border-gray-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#7c2d7f] text-lg text-center font-bold">
+                        </div>
+                    `;
+                    break;
+                case 'mucous_plug':
+                    html = `
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wide mb-1">Cor / Aspecto</label>
+                            <select id="field-color" class="w-full bg-[#050505] border border-gray-700 rounded-xl px-4 py-2 text-white focus:outline-none focus:border-[#7c2d7f] text-sm">
+                                <option value="Transparente" ${data.color==='Transparente'?'selected':''}>Transparente / Claro</option>
+                                <option value="Brancacento" ${data.color==='Brancacento'?'selected':''}>Brancacento</option>
+                                <option value="Amarelado" ${data.color==='Amarelado'?'selected':''}>Amarelado</option>
+                                <option value="Marrom" ${data.color==='Marrom'?'selected':''}>Marrom escuro</option>
+                                <option value="Sanguinolento" ${data.color==='Sanguinolento'?'selected':''}>Com raias de sangue</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wide mb-1">Quantidade</label>
+                            <select id="field-intensity" class="w-full bg-[#050505] border border-gray-700 rounded-xl px-4 py-2 text-white focus:outline-none focus:border-[#7c2d7f] text-sm">
+                                <option value="Pouco" ${data.intensity==='Pouco'?'selected':''}>Pequena</option>
+                                <option value="Moderado" ${data.intensity==='Moderado'?'selected':''}>Moderada</option>
+                                <option value="Muito" ${data.intensity==='Muito'?'selected':''}>Grande quantidade</option>
+                            </select>
+                        </div>
+                    `;
+                    break;
+                case 'water_break':
+                    html = `
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wide mb-1">Aspecto do Líquido</label>
+                            <select id="field-aspect" class="w-full bg-[#050505] border border-gray-700 rounded-xl px-4 py-2 text-white focus:outline-none focus:border-[#7c2d7f] text-sm">
+                                <option value="Claro" ${data.aspect==='Claro'?'selected':''}>Claro / Transparente</option>
+                                <option value="Meconial" ${data.aspect==='Meconial'?'selected':''}>Meconial (Esverdeado/Escuro)</option>
+                                <option value="Sanguinolento" ${data.aspect==='Sanguinolento'?'selected':''}>Sanguinolento</option>
+                            </select>
+                        </div>
+                    `;
+                    break;
+                case 'bleeding':
+                    html = `
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wide mb-1">Intensidade</label>
+                            <select id="field-intensity" class="w-full bg-[#050505] border border-gray-700 rounded-xl px-4 py-2 text-white focus:outline-none focus:border-[#7c2d7f] text-sm">
+                                <option value="Leve" ${data.intensity==='Leve'?'selected':''}>Leve (Ex: Sujou calcinha)</option>
+                                <option value="Moderado" ${data.intensity==='Moderado'?'selected':''}>Moderado (Ex: Menstruação normal)</option>
+                                <option value="Intenso" ${data.intensity==='Intenso'?'selected':''}>Intenso (Ex: Fluxo muito forte)</option>
+                            </select>
+                        </div>
+                    `;
+                    break;
+                case 'birth':
+                    html = `
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wide mb-1">Via de Parto</label>
+                            <select id="field-delivery" class="w-full bg-[#050505] border border-gray-700 rounded-xl px-4 py-2 text-white focus:outline-none focus:border-[#7c2d7f] text-sm">
+                                <option value="Normal" ${data.deliveryType==='Normal'?'selected':''}>Parto Vaginal (Normal)</option>
+                                <option value="Cesárea" ${data.deliveryType==='Cesárea'?'selected':''}>Parto Cesariana</option>
+                            </select>
+                        </div>
+                    `;
+                    break;
+                case 'custom':
+                    html = `
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wide mb-1">Título do Evento</label>
+                            <input type="text" id="field-title" value="${data.title||''}" placeholder="Ex: Analgesia" class="w-full bg-[#050505] border border-gray-700 rounded-xl px-4 py-2 text-white focus:outline-none focus:border-[#7c2d7f] text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wide mb-1">Índice / Valor (Opcional)</label>
+                            <input type="text" id="field-index" value="${data.customIndex||''}" placeholder="Ex: Pressão 12x8, BCF 140..." class="w-full bg-[#050505] border border-gray-700 rounded-xl px-4 py-2 text-white focus:outline-none focus:border-[#7c2d7f] text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wide mb-1">Observações</label>
+                            <textarea id="field-obs" rows="2" class="w-full bg-[#050505] border border-gray-700 rounded-xl px-4 py-2 text-white focus:outline-none focus:border-[#7c2d7f] text-sm">${data.obs||''}</textarea>
+                        </div>
+                    `;
+                    break;
+            }
+            container.innerHTML = html;
+        }
+
+        function saveEvent() {
+            const type = document.getElementById('ev-type').value;
+            const dateStr = document.getElementById('ev-date').value;
+            const timeStr = document.getElementById('ev-time').value;
+            
+            if (!dateStr || !timeStr) { showToast("Preencha data e hora.", true); return; }
+
+            const [y, M, d] = dateStr.split('-');
+            const [h, m, s = 0] = timeStr.split(':');
+            const timestamp = new Date(y, M-1, d, h, m, s).getTime();
+
+            let payload = {
+                diaryId: appState.activeDiaryId,
+                type: type,
+                timestamp: timestamp
+            };
+
+            // Capture dynamic fields
+            try {
+                if (type === 'contraction') {
+                    let durSec = parseInt(document.getElementById('field-duration').value, 10);
+                    if (isNaN(durSec)) throw "Preencha a duração.";
+                    payload.duration = durSec * 1000;
+                    payload.intensity = document.getElementById('field-intensity').value;
+                    payload.interval = 0; // Recalculated later
+                } else if (type === 'dilation') {
+                    let cm = document.getElementById('field-cm').value;
+                    if (!cm) throw "Preencha a medida.";
+                    payload.cm = cm;
+                } else if (type === 'mucous_plug') {
+                    payload.color = document.getElementById('field-color').value;
+                    payload.intensity = document.getElementById('field-intensity').value;
+                } else if (type === 'water_break') {
+                    payload.aspect = document.getElementById('field-aspect').value;
+                } else if (type === 'bleeding') {
+                    payload.intensity = document.getElementById('field-intensity').value;
+                } else if (type === 'birth') {
+                    payload.deliveryType = document.getElementById('field-delivery').value;
+                } else if (type === 'custom') {
+                    payload.title = document.getElementById('field-title').value || 'Evento';
+                    payload.customIndex = document.getElementById('field-index').value;
+                    payload.obs = document.getElementById('field-obs').value;
+                }
+            } catch(err) {
+                showToast(typeof err === 'string' ? err : "Erro ao ler campos", true);
+                return;
+            }
+
+            if (editingEventId) {
+                let idx = appState.events.findIndex(x => x.id === editingEventId);
+                if (idx > -1) {
+                    appState.events[idx] = { ...appState.events[idx], ...payload };
+                }
+            } else {
+                payload.id = 'ev_' + Date.now();
+                appState.events.push(payload);
+            }
+
+            recalculateIntervals();
+            saveState();
+            updateUI();
+            closeEventModal();
+            showToast("Salvo!");
+            editingEventId = null;
+        }
+
+        function deleteEvent(id) {
+            appState.events = appState.events.filter(e => e.id !== id);
+            recalculateIntervals();
+            saveState();
+            updateUI();
+        }
+
+        // Interval calculation is specifically for contractions of the SAME diary
+        function recalculateIntervals() {
+            if(!appState.activeDiaryId) return;
+            let contractions = appState.events.filter(e => e.diaryId === appState.activeDiaryId && e.type === 'contraction');
+            contractions.sort((a, b) => b.timestamp - a.timestamp); // Mais nova pra mais velha
+            
+            for (let i = 0; i < contractions.length; i++) {
+                if (i === contractions.length - 1) {
+                    contractions[i].interval = 0;
+                } else {
+                    contractions[i].interval = contractions[i].timestamp - contractions[i+1].timestamp;
+                }
+            }
+        }
+
+        function toggleTimer() {
+            if(!appState.activeDiaryId) { showToast("Crie ou selecione um diário primeiro.", true); return; }
+
+            if (!isTracking) {
+                isTracking = true;
+                activeStartTime = Date.now();
+                localStorage.setItem('isTracking', 'true');
+                localStorage.setItem('activeStartTime', activeStartTime.toString());
+                startVisualTimer();
+            } else {
+                isTracking = false;
+                const endTime = Date.now();
+                clearInterval(timerInterval);
+                pendingContractionTime = { start: activeStartTime, duration: endTime - activeStartTime };
+                
+                document.getElementById('intensity-modal').classList.replace('hidden', 'flex');
+                
+                localStorage.removeItem('isTracking');
+                localStorage.removeItem('activeStartTime');
+            }
+            updateButtonUI();
+        }
+
+        function saveTimerContraction(intensity) {
+            if (!pendingContractionTime) return;
+            
+            appState.events.push({
+                id: 'ev_' + Date.now(),
+                diaryId: appState.activeDiaryId,
+                type: 'contraction',
+                timestamp: pendingContractionTime.start,
+                duration: pendingContractionTime.duration,
+                intensity: intensity,
+                interval: 0
+            });
+            
+            pendingContractionTime = null;
+            document.getElementById('intensity-modal').classList.replace('flex', 'hidden');
+            recalculateIntervals();
+            saveState();
+            updateUI();
+        }
+
+        function startVisualTimer() {
+            timerInterval = setInterval(() => {
+                const currentDuration = Date.now() - activeStartTime;
+                btnText.innerText = `PARAR (${formatDuration(currentDuration)})`;
+            }, 1000);
+        }
+
+        function updateButtonUI() {
+            if (isTracking) {
+                btnMain.classList.replace('btn-gradient', 'btn-gradient-active');
+                const currentDuration = Date.now() - activeStartTime;
+                btnText.innerText = `PARAR (${formatDuration(currentDuration)})`;
+                btnIcon.innerHTML = `<rect x="6" y="6" width="12" height="12" fill="currentColor"/>`;
+            } else {
+                btnMain.classList.replace('btn-gradient-active', 'btn-gradient');
+                btnText.innerText = "INÍCIO DA CONTRAÇÃO";
+                btnIcon.innerHTML = `<path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>`;
+            }
+        }
+
+        function getIntensityStyles(intensity) {
+            if(intensity==='Leve'||intensity==='Pouco') return 'text-green-400 border-green-500/30 bg-green-900/20';
+            if(intensity==='Moderado') return 'text-yellow-400 border-yellow-500/30 bg-yellow-900/20';
+            if(intensity==='Intenso'||intensity==='Muito') return 'text-red-400 border-red-500/30 bg-red-900/20';
+            return 'text-gray-400 border-gray-600/30 bg-gray-800/50';
+        }
+
+        function calculateStats(events) {
+            const contractions = events.filter(e => e.type === 'contraction');
+            if (contractions.length === 0) {
+                document.getElementById('stat-qty').innerText = "0";
+                document.getElementById('stat-duration').innerText = "00:00";
+                document.getElementById('stat-interval').innerText = "00:00";
+                return;
+            }
+            const oneHourAgo = Date.now() - (60 * 60 * 1000);
+            const recent = contractions.filter(c => c.timestamp >= oneHourAgo);
+            document.getElementById('stat-qty').innerText = recent.length.toString();
+
+            const avgDur = contractions.reduce((s, c) => s + c.duration, 0) / contractions.length;
+            document.getElementById('stat-duration').innerText = formatDuration(avgDur);
+
+            const withInt = contractions.filter(c => c.interval > 0);
+            if (withInt.length > 0) {
+                const avgInt = withInt.reduce((s, c) => s + c.interval, 0) / withInt.length;
+                document.getElementById('stat-interval').innerText = formatInterval(avgInt);
+            } else {
+                document.getElementById('stat-interval').innerText = "--:--";
+            }
+        }
+
+        function getIconForEvent(type, extraHTML = '') {
+            let svg = '';
+            let style = '';
+            if (type === 'dilation') {
+                return `<div class="w-6 h-6 rounded-full border-2 border-purple-500 bg-[#050505] flex items-center justify-center shadow-[0_0_8px_rgba(168,85,247,0.4)]"><div class="w-2 h-2 bg-purple-400 rounded-full"></div></div>`;
+            } else if (type === 'mucous_plug') {
+                svg = `<path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path>`;
+                style = "border-yellow-600 shadow-[0_0_8px_rgba(202,138,4,0.4)] text-yellow-500";
+            } else if (type === 'water_break') {
+                svg = `<path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path><path d="M12 12a2 2 0 1 0 0-4 2 2 0 0 0 0 4z" fill="currentColor"></path>`;
+                style = "border-blue-500 shadow-[0_0_8px_rgba(59,130,246,0.4)] text-blue-400";
+            } else if (type === 'bleeding') {
+                svg = `<path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path>`;
+                style = "border-red-600 shadow-[0_0_8px_rgba(220,38,38,0.4)] text-red-500";
+            } else if (type === 'birth') {
+                svg = `<path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>`;
+                style = "border-yellow-400 shadow-[0_0_12px_rgba(250,204,21,0.6)] text-yellow-300";
+            } else if (type === 'custom') {
+                svg = `<circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line>`;
+                style = "border-gray-500 shadow-[0_0_8px_rgba(107,114,128,0.4)] text-gray-400";
+            } else { // contraction
+                return `<div class="w-10 h-10 rounded-full border-[3px] border-[#3b224c] bg-[#050505] flex items-center justify-center font-bold text-white shadow-[0_0_10px_rgba(59,34,76,0.5)]">${extraHTML}</div>`;
+            }
+            return `<div class="w-8 h-8 rounded-full border-2 bg-[#050505] flex items-center justify-center ${style}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round">${svg}</svg></div>`;
+        }
+
+        function updateUI() {
+            const activeProfile = appState.profiles.find(p => p.id === appState.activeProfileId);
+            const activeDiary = appState.diaries.find(d => d.id === appState.activeDiaryId);
+
+            document.getElementById('header-profile-name').innerText = activeProfile ? activeProfile.fullName : 'Sem Perfil';
+            document.getElementById('header-baby-name').innerText = activeDiary ? activeDiary.babyName : 'Sem Diário';
+
+            // GA
+            if (activeDiary) {
+                const ga = calculateGestationalAge(activeDiary);
+                if (ga.dum || ga.us) {
+                    document.getElementById('ga-banner').classList.replace('hidden', 'flex');
+                    document.getElementById('ga-dum').innerText = formatGA(ga.dum);
+                    document.getElementById('ga-usg').innerText = formatGA(ga.us);
+                } else {
+                    document.getElementById('ga-banner').classList.replace('flex', 'hidden');
+                }
+            } else {
+                document.getElementById('ga-banner').classList.replace('flex', 'hidden');
+            }
+
+            const currentEvents = appState.events.filter(e => e.diaryId === appState.activeDiaryId);
+            calculateStats(currentEvents);
+
+            // Setup Timeline
+            listContainer.innerHTML = '';
+            
+            // Sort to render (Newest first)
+            currentEvents.sort((a, b) => b.timestamp - a.timestamp);
+            
+            // Re-number contractions for display
+            let contNum = currentEvents.filter(e => e.type === 'contraction').length;
+
+            if (currentEvents.length === 0) {
+                listContainer.innerHTML = `<div class="text-center text-gray-500 mt-10 p-4 bg-gray-900/50 rounded-xl backdrop-blur">Nenhum evento neste diário.</div>`;
+                return;
+            }
+
+            currentEvents.forEach(evt => {
+                let leftCol = '', rightCol = '', centerIcon = '';
+                
+                // Formata Data/Hora
+                const timeStr = formatTime(evt.timestamp);
+
+                if (evt.type === 'contraction') {
+                    leftCol = `
+                        <div class="text-gray-500 text-xs mb-1">${timeStr}</div>
+                        <div class="text-white font-bold text-lg leading-none">${formatDuration(evt.duration)}</div>
+                        ${evt.intensity ? `<div class="text-[9px] uppercase font-bold mt-1.5 px-2 py-0.5 rounded-full inline-block border ${getIntensityStyles(evt.intensity)}">${evt.intensity}</div>` : ''}
+                    `;
+                    centerIcon = getIconForEvent('contraction', contNum--);
+                    rightCol = `<div class="text-gray-400 text-sm font-medium">${evt.interval > 0 ? formatInterval(evt.interval) : '--:--'}</div>`;
+                } 
+                else if (evt.type === 'dilation') {
+                    leftCol = `
+                        <div class="text-gray-500 text-xs mb-1">${timeStr}</div>
+                        <div class="text-purple-400/80 font-semibold text-[10px] uppercase tracking-wide leading-tight">Dilatação</div>
+                    `;
+                    centerIcon = getIconForEvent('dilation');
+                    rightCol = `<div class="text-white font-bold text-lg">${evt.cm} <span class="text-sm font-normal text-gray-400">cm</span></div>`;
+                }
+                else {
+                    // Mapeamento Generico para os outros
+                    let typeName = '', detail = '', badge = '';
+                    if (evt.type === 'mucous_plug') { typeName = "Tampão Mucoso"; detail = evt.color||''; badge = evt.intensity; }
+                    else if (evt.type === 'water_break') { typeName = "Romp. Bolsa"; detail = evt.aspect||''; }
+                    else if (evt.type === 'bleeding') { typeName = "Hemorragia"; badge = evt.intensity; }
+                    else if (evt.type === 'birth') { typeName = "Parto"; detail = evt.deliveryType||''; }
+                    else if (evt.type === 'custom') { typeName = evt.title||'Evento'; detail = evt.customIndex||''; badge = evt.obs ? 'c/ obs' : ''; }
+
+                    leftCol = `
+                        <div class="text-gray-500 text-xs mb-1">${timeStr}</div>
+                        <div class="text-gray-200 font-semibold text-[10px] uppercase tracking-wide leading-tight break-words max-w-[100px] float-right text-right">${typeName}</div>
+                    `;
+                    centerIcon = getIconForEvent(evt.type);
+                    rightCol = `
+                        <div class="flex flex-col items-start w-full pr-12">
+                            ${detail ? `<div class="text-white font-bold text-sm truncate w-full">${detail}</div>` : ''}
+                            ${badge ? `<div class="text-[9px] uppercase font-bold mt-1 px-1.5 py-0.5 rounded border border-gray-600 text-gray-300 bg-gray-800/50">${badge}</div>` : ''}
+                        </div>
+                    `;
+                }
+
+                const actions = `
+                    <div class="flex gap-1 absolute right-0 top-1/2 -translate-y-1/2">
+                        <button onclick="openEventModal('${evt.id}')" class="text-gray-600 hover:text-blue-400 transition-colors p-1" title="Editar"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+                        <button onclick="deleteEvent('${evt.id}')" class="text-gray-600 hover:text-red-400 transition-colors p-1" title="Apagar"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
+                    </div>
+                `;
+
+                const itemHTML = `
+                    <div class="flex items-center relative w-full group min-h-[50px] py-1">
+                        <div class="w-[40%] text-right pr-4 flex flex-col items-end justify-center">${leftCol}</div>
+                        <div class="w-[20%] flex justify-center relative z-10">${centerIcon}</div>
+                        <div class="w-[40%] text-left pl-4 flex items-center relative">${rightCol}${actions}</div>
+                    </div>
+                `;
+                listContainer.insertAdjacentHTML('beforeend', itemHTML);
+            });
+        }
+
+        function formatDuration(ms) {
+            if (isNaN(ms) || ms < 0) return "00:00";
+            const totalSeconds = Math.floor(ms / 1000);
+            const minutes = Math.floor(totalSeconds / 60);
+            const seconds = totalSeconds % 60;
+            return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+        function formatTime(timestamp) {
+            const d = new Date(timestamp);
+            return `${d.getHours().toString().padStart(2, '0')}:${d.getMinutes().toString().padStart(2, '0')}`;
+        }
+        function formatInterval(ms) {
+            if (isNaN(ms) || ms < 0) return "--:--";
+            const totalSeconds = Math.floor(ms / 1000);
+            const h = Math.floor(totalSeconds / 3600);
+            const m = Math.floor((totalSeconds % 3600) / 60);
+            const s = totalSeconds % 60;
+            return h > 0 ? `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}` 
+                         : `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+        }
+        function formatDateForFile(date) { return date.toISOString().split('T')[0] + '_' + date.getHours() + date.getMinutes(); }
+
+        function showToast(message, isError = false) {
+            const toast = document.createElement('div');
+            toast.className = `fixed top-20 left-1/2 transform -translate-x-1/2 px-6 py-3 rounded-full shadow-lg text-sm font-medium z-50 transition-opacity duration-300 ${isError ? 'bg-red-600 text-white' : 'bg-green-600 text-white'}`;
+            toast.innerText = message;
+            document.body.appendChild(toast);
+            setTimeout(() => { toast.style.opacity = '0'; setTimeout(() => document.body.removeChild(toast), 300); }, 3000);
+        }
+
+        function exportJSON() {
+            const dataStr = JSON.stringify(appState, null, 2);
+            const blob = new Blob([dataStr], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `materno_backup_${formatDateForFile(new Date())}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        function importData(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const imported = JSON.parse(e.target.result);
+                    // Merge logic: avoid duplicates by ID
+                    if (imported.profiles) imported.profiles.forEach(p => { if(!appState.profiles.find(x => x.id===p.id)) appState.profiles.push(p); });
+                    if (imported.diaries) imported.diaries.forEach(d => { if(!appState.diaries.find(x => x.id===d.id)) appState.diaries.push(d); });
+                    if (imported.events) imported.events.forEach(ev => { if(!appState.events.find(x => x.id===ev.id)) appState.events.push(ev); });
+                    
+                    saveState();
+                    updateUI();
+                    showToast("Dados importados/mesclados com sucesso!");
+                } catch (error) { showToast("Erro ao ler JSON.", true); }
+            };
+            reader.readAsText(file);
+            event.target.value = '';
+        }
+
+        function exportPDF() {
+            const activeProfile = appState.profiles.find(p => p.id === appState.activeProfileId);
+            const activeDiary = appState.diaries.find(d => d.id === appState.activeDiaryId);
+            let events = appState.events.filter(e => e.diaryId === appState.activeDiaryId);
+            
+            if (events.length === 0 && (!activeProfile || !activeProfile.fullName)) {
+                showToast("Sem dados para exportar.", true); return;
+            }
+
+            showToast("Gerando PDF...");
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            
+            doc.setFontSize(18);
+            doc.text("Relatório de Acompanhamento Gestacional", 14, 22);
+            
+            let currentY = 32;
+
+            if (activeProfile) {
+                doc.setFontSize(12); doc.setTextColor(20);
+                doc.text(`Paciente: ${activeProfile.fullName || 'Não informado'}`, 14, currentY); currentY += 6;
+                doc.setFontSize(10); doc.setTextColor(100);
+                if (activeProfile.cpf) doc.text(`CPF: ${activeProfile.cpf}`, 14, currentY);
+                if (activeProfile.rg) doc.text(`RG: ${activeProfile.rg} ${activeProfile.rgOrg ? '('+activeProfile.rgOrg+')' : ''}`, 70, currentY);
+                if (activeProfile.dob) {
+                    const dt = activeProfile.dob.split('-');
+                    doc.text(`Nasc: ${dt[2]}/${dt[1]}/${dt[0]}`, 130, currentY);
+                }
+                currentY += 6;
+                if (activeProfile.motherName) doc.text(`Mãe: ${activeProfile.motherName}`, 14, currentY);
+                if (activeProfile.fatherName) doc.text(`Pai: ${activeProfile.fatherName}`, 100, currentY);
+                currentY += 8;
+            }
+
+            if (activeDiary) {
+                doc.setFontSize(11); doc.setTextColor(50);
+                doc.text(`Diário / Bebê: ${activeDiary.babyName || 'Não informado'}`, 14, currentY); currentY += 6;
+                doc.setFontSize(10); doc.setTextColor(100);
+                const ga = calculateGestationalAge(activeDiary);
+                let gaStr = [];
+                if (ga.dum) gaStr.push(`IG (DUM): ${formatGA(ga.dum)}`);
+                if (ga.us) gaStr.push(`IG (USG): ${formatGA(ga.us)}`);
+                if (gaStr.length > 0) { doc.text(gaStr.join("  |  "), 14, currentY); currentY += 6; }
+                currentY += 4;
+            }
+
+            doc.setFontSize(9); doc.setTextColor(150);
+            doc.text(`Gerado em: ${new Date().toLocaleString('pt-BR')}`, 14, currentY);
+            currentY += 8;
+
+            events.sort((a, b) => a.timestamp - b.timestamp); // Cronológico para impressão
+
+            const tableData = events.map(evt => {
+                const date = new Date(evt.timestamp).toLocaleDateString('pt-BR');
+                const time = formatTime(evt.timestamp);
+                let typeMap = { 'contraction': 'Contração', 'dilation': 'Dilatação', 'mucous_plug': 'Tampão', 'water_break': 'Bolsa', 'bleeding': 'Hemorragia', 'birth': 'Parto', 'custom': evt.title || 'Evento' };
+                let tName = typeMap[evt.type] || 'Evento';
+                
+                let details = '';
+                if(evt.type==='contraction') details = `Dur: ${formatDuration(evt.duration)} ${evt.intensity?'('+evt.intensity+')':''}`;
+                else if(evt.type==='dilation') details = `${evt.cm} cm`;
+                else if(evt.type==='mucous_plug') details = `Cor: ${evt.color||'-'}, Int: ${evt.intensity||'-'}`;
+                else if(evt.type==='water_break') details = `Aspecto: ${evt.aspect||'-'}`;
+                else if(evt.type==='bleeding') details = `Int: ${evt.intensity||'-'}`;
+                else if(evt.type==='birth') details = `Via: ${evt.deliveryType||'-'}`;
+                else if(evt.type==='custom') details = `${evt.customIndex||''} ${evt.obs? '\nObs: '+evt.obs : ''}`;
+
+                let extra = evt.type === 'contraction' && evt.interval > 0 ? `Int: ${formatInterval(evt.interval)}` : '-';
+                
+                return [tName, date, time, details, extra];
+            });
+
+            if (tableData.length > 0) {
+                doc.autoTable({
+                    startY: currentY,
+                    head: [['Tipo', 'Data', 'Hora', 'Detalhes', 'Infos Extra']],
+                    body: tableData,
+                    theme: 'striped',
+                    headStyles: { fillColor: [124, 45, 127] },
+                    styles: { fontSize: 9, cellPadding: 2 }
+                });
+            } else {
+                doc.text("Nenhum evento registrado.", 14, currentY+10);
+            }
+
+            doc.save(`relatorio_${formatDateForFile(new Date())}.pdf`);
+        }
+
+        window.onload = init;
+    </script>
+</body>
+</html>
