@@ -14,7 +14,7 @@ rem  PC da suspensao (WakeToRun) e rodar tambem na bateria.
 rem  Requer que os "despertadores" estejam ativos no plano de
 rem  energia - o script tenta habilita-los automaticamente.
 rem =========================================================
-set "DIRETORIO_ALVO=C:\VolatusLab\central-security-main"
+set "DIRETORIO_ALVO=C:\dev\central-security-main"
 
 rem Comando que cada tarefa executara (Claude Code na pasta alvo).
 set "COMANDO_CLAUDE=powershell.exe -NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -Command \"Set-Location -Path '%DIRETORIO_ALVO%'; cmd.exe /c claude\""
