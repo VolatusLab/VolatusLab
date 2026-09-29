@@ -16,6 +16,8 @@
 
 O **VolatusLab** é um ecossistema de software focado em aplicações AI-native, inteligência policial (OSINT) e ferramentas de utilidade pública e financeira. A arquitetura dos projetos prioriza o desenvolvimento de agentes autônomos, plataformas táticas (offline-first) e sistemas escaláveis de alta performance, projetados e mantidos por [Leandro Moreira](https://github.com/leandro-moreira).
 
+**Site:** [volatuslab.com](https://volatuslab.com)
+
 ---
 
 ## :: Repository Map
