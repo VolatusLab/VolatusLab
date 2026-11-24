@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Otimização Estratégica de Instagram | Conveniência Moreira – Ceres-GO</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Plus Jakarta Sans & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#fffbeb',
+                            100: '#fef3c7',
+                            500: '#f59e0b',
+                            600: '#d97706',
+                            900: '#78350f',
+                        },
+                        slate: {
+                            850: '#151e2e',
+                            950: '#090d16',
+                        }
+                    },
+                    boxShadow: {
+                        'soft': '0 10px 40px -10px rgba(0, 0, 0, 0.08)',
+                        'glow': '0 0 30px rgba(245, 158, 11, 0.25)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom subtle patterns and smooth transitions */
+        .hero-grid {
+            background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+        .ig-gradient-ring {
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        /* Hide scrollbar for horizontal pill containers on mobile */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased selection:bg-amber-500 selection:text-white overflow-x-hidden">
+
+    <!-- Toast Notification Container (Replaces alert()) -->
+    <div id="toast" class="fixed bottom-5 right-5 z-50 transform translate-y-24 opacity-0 transition-all duration-300 pointer-events-none">
+        <div class="bg-slate-900 text-white px-5 py-3.5 rounded-2xl shadow-2xl border border-slate-700 flex items-center gap-3">
+            <span class="flex h-7 w-7 items-center justify-center rounded-full bg-emerald-500/20 text-emerald-400">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+            </span>
+            <div>
+                <p id="toast-title" class="text-sm font-semibold">Copiado com sucesso!</p>
+                <p id="toast-desc" class="text-xs text-slate-400">Pronto para colar no seu Instagram.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sticky Top Navigation -->
+    <header class="sticky top-0 z-40 bg-slate-950/90 backdrop-blur-md border-b border-white/10">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-2.5">
+                <div class="w-8 h-8 rounded-xl bg-gradient-to-br from-amber-400 to-orange-600 flex items-center justify-center text-slate-950 font-display font-extrabold text-sm shadow-md">
+                    CM
+                </div>
+                <div>
+                    <span class="text-white font-display font-bold text-sm sm:text-base tracking-tight block leading-none">Auditoria & Conversão</span>
+                    <span class="text-amber-400 text-[11px] font-medium">@convenienciamoreiraceresgo</span>
+                </div>
+            </div>
+
+            <nav class="hidden md:flex items-center gap-6 text-xs font-medium text-slate-300">
+                <a href="#diagnostico" class="hover:text-amber-400 transition-colors">Diagnóstico</a>
+                <a href="#antes-depois" class="hover:text-amber-400 transition-colors">Nova Bio</a>
+                <a href="#link-bio" class="hover:text-amber-400 transition-colors">Link Central</a>
+                <a href="#destaques-conteudo" class="hover:text-amber-400 transition-colors">Destaques & Conteúdo</a>
+                <a href="#presenca-digital" class="hover:text-amber-400 transition-colors">Presença Local</a>
+            </nav>
+
+            <a href="#contratar" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-semibold text-xs sm:text-sm px-4 py-2.5 rounded-xl transition-all shadow-lg shadow-amber-500/20 active:scale-95">
+                Ativar Otimização
+            </a>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="relative bg-slate-950 text-white pt-12 pb-20 sm:pt-20 sm:pb-28 overflow-hidden hero-grid">
+        <!-- Ambient Glow -->
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-amber-500/15 blur-[120px] rounded-full pointer-events-none"></div>
+
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
+            <div class="max-w-3xl mx-auto text-center">
+                <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 text-amber-400 text-xs font-semibold tracking-wide uppercase mb-6">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                    Estudo Personalizado • Ceres – GO
+                </div>
+
+                <h1 class="font-display text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.12] mb-6">
+                    Sua vitrine já tem <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-amber-400 to-orange-500">3.063 seguidores</span>. Agora ela precisa fechar vendas.
+                </h1>
+
+                <p class="text-slate-300 text-base sm:text-lg leading-relaxed mb-8 max-w-2xl mx-auto">
+                    Preparamos um plano completo de reestruturação de Bio, Link de Pedidos e Posicionamento Local para transformar o perfil da <strong>Conveniência Moreira</strong> no principal canal de pedidos no varejo e atacado em Ceres-GO.
+                </p>
+
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-3.5">
+                    <a href="#antes-depois" class="w-full sm:w-auto px-7 py-4 rounded-2xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-sm sm:text-base transition-all shadow-xl shadow-amber-500/25 flex items-center justify-center gap-2">
+                        <span>Ver Nova Bio Otimizada</span>
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+                    </a>
+                    <a href="#contratar" class="w-full sm:w-auto px-7 py-4 rounded-2xl bg-white/10 hover:bg-white/15 border border-white/15 text-white font-semibold text-sm sm:text-base transition-all flex items-center justify-center gap-2">
+                        <span>Contratar Implementação Completa</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Current Account Snapshot Bar -->
+            <div class="mt-14 max-w-4xl mx-auto glass-card rounded-3xl p-5 sm:p-6">
+                <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+                    <div class="flex items-center gap-4">
+                        <div class="w-16 h-16 rounded-full ig-gradient-ring p-[2.5px] shrink-0">
+                            <div class="w-full h-full rounded-full bg-slate-900 flex items-center justify-center font-display font-bold text-lg text-amber-400">
+                                CM
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex flex-wrap items-center gap-2">
+                                <h2 class="font-display font-bold text-white text-base sm:text-lg">@convenienciamoreiraceresgo</h2>
+                                <span class="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 text-[11px] font-semibold border border-emerald-500/30">Manter @</span>
+                            </div>
+                            <p class="text-xs sm:text-sm text-slate-400 mt-0.5">Ceres – GO · Comércio de conveniência e mercearia</p>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-3 gap-4 sm:gap-8 w-full md:w-auto border-t md:border-t-0 border-white/10 pt-4 md:pt-0 text-center">
+                        <div>
+                            <span class="block font-display font-extrabold text-xl sm:text-2xl text-white">3.063</span>
+                            <span class="text-xs text-slate-400">Seguidores</span>
+                        </div>
+                        <div>
+                            <span class="block font-display font-extrabold text-xl sm:text-2xl text-white">221</span>
+                            <span class="text-xs text-slate-400">Seguindo</span>
+                        </div>
+                        <div>
+                            <span class="block font-display font-extrabold text-xl sm:text-2xl text-amber-400">3 Pilares</span>
+                            <span class="text-xs text-slate-400">Oportunidade</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 1. DIAGNÓSTICO INICIAL -->
+    <section id="diagnostico" class="py-16 sm:py-24 max-w-6xl mx-auto px-4 sm:px-6">
+        <div class="max-w-3xl mb-12">
+            <span class="text-amber-600 font-bold text-xs uppercase tracking-wider">01. Diagnóstico Inicial</span>
+            <h2 class="font-display text-2xl sm:text-4xl font-extrabold text-slate-900 mt-2">
+                O perfil tem base funcional, mas perde vendas na primeira impressão.
+            </h2>
+            <p class="text-slate-600 mt-3 text-base leading-relaxed">
+                A bio atual cumpre a função básica de informar telefone, entrega, atacado e horário. Porém, repete o nome da empresa sem necessidade e deixa de ativar os <strong>3 gatilhos essenciais</strong> de conversão local:
+            </p>
+        </div>
+
+        <!-- 3 Core Pillars -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-14">
+            <div class="bg-white rounded-3xl p-7 shadow-soft border border-slate-100 hover:border-amber-300 transition-all">
+                <div class="w-12 h-12 rounded-2xl bg-amber-100 text-amber-600 flex items-center justify-center mb-5">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                </div>
+                <h3 class="font-display font-bold text-lg text-slate-900 mb-2">1. Encontrabilidade Local</h3>
+                <p class="text-sm text-slate-600 leading-relaxed">
+                    Facilitar que qualquer pessoa buscando por <em>"conveniência em Ceres"</em> ou <em>"bebidas Ceres GO"</em> encontre o perfil imediatamente nas buscas internas do Instagram.
+                </p>
+            </div>
+
+            <div class="bg-white rounded-3xl p-7 shadow-soft border border-slate-100 hover:border-amber-300 transition-all">
+                <div class="w-12 h-12 rounded-2xl bg-blue-100 text-blue-600 flex items-center justify-center mb-5">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+                </div>
+                <h3 class="font-display font-bold text-lg text-slate-900 mb-2">2. Proposta Comercial Clara</h3>
+                <p class="text-sm text-slate-600 leading-relaxed">
+                    Deixar explícito logo nos primeiros 3 segundos o que a loja oferece (conveniência, mercearia, bebidas, varejo e atacado) e os horários exatos de operação.
+                </p>
+            </div>
+
+            <div class="bg-white rounded-3xl p-7 shadow-soft border border-slate-100 hover:border-amber-300 transition-all">
+                <div class="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-600 flex items-center justify-center mb-5">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                </div>
+                <h3 class="font-display font-bold text-lg text-slate-900 mb-2">3. Conversão Direta</h3>
+                <p class="text-sm text-slate-600 leading-relaxed">
+                    Conduzir o visitante sem atrito para a ação mais lucrativa: <strong>fazer um pedido pelo WhatsApp</strong> ou solicitar orçamento no atacado em um toque.
+                </p>
+            </div>
+        </div>
+
+        <!-- Audit Matrix & 4 Specific Problems -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            <!-- Element Table -->
+            <div class="lg:col-span-7 bg-white rounded-3xl shadow-soft border border-slate-100 overflow-hidden">
+                <div class="px-6 py-5 border-b border-slate-100 flex items-center justify-between">
+                    <h3 class="font-display font-bold text-slate-900">Raio-X da Bio Atual</h3>
+                    <span class="text-xs font-medium text-slate-400">8 pontos avaliados</span>
+                </div>
+                <div class="divide-y divide-slate-100 text-sm">
+                    <div class="px-6 py-3.5 flex items-center justify-between">
+                        <span class="font-medium text-slate-800">Nome da empresa</span>
+                        <span class="px-3 py-1 rounded-full bg-amber-50 text-amber-700 text-xs font-semibold">Correto, mas redundante</span>
+                    </div>
+                    <div class="px-6 py-3.5 flex items-center justify-between">
+                        <span class="font-medium text-slate-800">Localização (Ceres-GO)</span>
+                        <span class="px-3 py-1 rounded-full bg-rose-50 text-rose-700 text-xs font-semibold">Não aparece claramente</span>
+                    </div>
+                    <div class="px-6 py-3.5 flex items-center justify-between">
+                        <span class="font-medium text-slate-800">Produtos / segmento</span>
+                        <span class="px-3 py-1 rounded-full bg-amber-50 text-amber-700 text-xs font-semibold">Pouco específicos</span>
+                    </div>
+                    <div class="px-6 py-3.5 flex items-center justify-between">
+                        <span class="font-medium text-slate-800">Telefone na descrição</span>
+                        <span class="px-3 py-1 rounded-full bg-slate-100 text-slate-700 text-xs font-semibold">Mover para botão WhatsApp</span>
+                    </div>
+                    <div class="px-6 py-3.5 flex items-center justify-between">
+                        <span class="font-medium text-slate-800">Entrega (Delivery)</span>
+                        <span class="px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 text-xs font-semibold">Bom diferencial</span>
+                    </div>
+                    <div class="px-6 py-3.5 flex items-center justify-between">
+                        <span class="font-medium text-slate-800">Atacado</span>
+                        <span class="px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 text-xs font-semibold">Bom diferencial</span>
+                    </div>
+                    <div class="px-6 py-3.5 flex items-center justify-between">
+                        <span class="font-medium text-slate-800">Horário</span>
+                        <span class="px-3 py-1 rounded-full bg-blue-50 text-blue-700 text-xs font-semibold">Padronizar formato</span>
+                    </div>
+                    <div class="px-6 py-3.5 flex items-center justify-between">
+                        <span class="font-medium text-slate-800">Chamada para Ação (CTA)</span>
+                        <span class="px-3 py-1 rounded-full bg-rose-50 text-rose-700 text-xs font-semibold">Genérica e pouco direcionada</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4 Problems Identified -->
+            <div class="lg:col-span-5 space-y-4">
+                <div class="bg-slate-900 text-white rounded-3xl p-6 shadow-lg">
+                    <span class="text-amber-400 text-xs font-bold uppercase tracking-wider">Gargalo A • Desperdício de Espaço</span>
+                    <h4 class="font-display font-bold text-base mt-1">Repetição do nome da empresa</h4>
+                    <p class="text-xs text-slate-300 mt-2 leading-relaxed">
+                        Usar <em>"Conveniência Moreira Ltda"</em> no Nome e repetir <em>"CONVENIÊNCIA MOREIRA"</em> na bio desperdiça caracteres nobres. Substituiremos por <strong>Conveniência Moreira | Ceres GO</strong> + categoria <strong>Loja de conveniência</strong>.
+                    </p>
+                </div>
+
+                <div class="bg-white rounded-3xl p-6 shadow-soft border border-slate-100">
+                    <span class="text-rose-600 text-xs font-bold uppercase tracking-wider">Gargalo B • Falta de Cidade</span>
+                    <h4 class="font-display font-bold text-slate-900 text-base mt-1">Localização invisível na bio</h4>
+                    <p class="text-xs text-slate-600 mt-2 leading-relaxed">
+                        O visitante precisa identificar na hora que o atendimento e as entregas são em <strong>Ceres-GO</strong>.
+                    </p>
+                </div>
+
+                <div class="bg-white rounded-3xl p-6 shadow-soft border border-slate-100">
+                    <span class="text-amber-600 text-xs font-bold uppercase tracking-wider">Gargalos C & D • Ação & Horário</span>
+                    <h4 class="font-display font-bold text-slate-900 text-base mt-1">CTA Comercial & Horário Padronizado</h4>
+                    <p class="text-xs text-slate-600 mt-2 leading-relaxed">
+                        Trocamos textos passivos por chamadas diretas de conversão (<em>👇 Pedidos e catálogo no link</em>) e horário padronizado (<em>🕒 7h30 às 21h30</em>).
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. INTERACTIVE BEFORE & AFTER SIMULATOR -->
+    <section id="antes-depois" class="py-16 sm:py-24 bg-slate-950 text-white">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <span class="text-amber-400 font-bold text-xs uppercase tracking-wider">02. A Transformação na Prática</span>
+                <h2 class="font-display text-2xl sm:text-4xl font-extrabold mt-2">
+                    Compare a Bio Atual com a Nova Proposta Otimizada
+                </h2>
+                <p class="text-slate-400 mt-3 text-sm sm:text-base">
+                    Alterne entre os modos abaixo para visualizar o impacto visual e estratégico no celular do seu cliente.
+                </p>
+
+                <!-- Interactive Toggle Switch -->
+                <div class="inline-flex items-center p-1.5 rounded-2xl bg-white/10 border border-white/10 mt-7">
+                    <button id="btn-mode-after" onclick="setProfileMode('after')" class="px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-amber-500 text-slate-950 shadow-md transition-all">
+                        ✨ Nova Bio Otimizada
+                    </button>
+                    <button id="btn-mode-before" onclick="setProfileMode('before')" class="px-5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold text-slate-300 hover:text-white transition-all">
+                        Como está hoje
+                    </button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+                <!-- Mobile Phone Mockup -->
+                <div class="lg:col-span-5 flex justify-center">
+                    <div class="w-full max-w-[350px] bg-white text-slate-900 rounded-[2.75rem] p-4 shadow-2xl border-[6px] border-slate-800 relative">
+                        <!-- Phone Notch -->
+                        <div class="w-28 h-5 bg-slate-900 rounded-full mx-auto mb-3"></div>
+
+                        <!-- IG Top Header -->
+                        <div class="flex items-center justify-between px-2 pb-3 border-b border-slate-100">
+                            <div class="flex items-center gap-1.5">
+                                <span class="font-bold text-xs tracking-tight text-slate-900">convenienciamoreiraceresgo</span>
+                                <svg class="w-3.5 h-3.5 text-blue-500" fill="currentColor" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                            </div>
+                            <span id="mock-badge" class="px-2 py-0.5 rounded-md bg-emerald-100 text-emerald-800 text-[10px] font-bold">OTIMIZADO</span>
+                        </div>
+
+                        <!-- IG Profile Stats -->
+                        <div class="flex items-center justify-between px-2 py-4">
+                            <div class="w-16 h-16 rounded-full ig-gradient-ring p-[2px] shrink-0">
+                                <div class="w-full h-full rounded-full bg-slate-900 flex items-center justify-center text-amber-400 font-display font-extrabold text-base">
+                                    CM
+                                </div>
+                            </div>
+                            <div class="flex gap-4 text-center pr-2">
+                                <div>
+                                    <span class="block font-bold text-sm text-slate-900">148</span>
+                                    <span class="text-[11px] text-slate-500">Posts</span>
+                                </div>
+                                <div>
+                                    <span class="block font-bold text-sm text-slate-900">3.063</span>
+                                    <span class="text-[11px] text-slate-500">Seguidores</span>
+                                </div>
+                                <div>
+                                    <span class="block font-bold text-sm text-slate-900">221</span>
+                                    <span class="text-[11px] text-slate-500">Seguindo</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- IG Name, Category & Bio Content (Dynamic) -->
+                        <div id="mock-bio-container" class="px-2 space-y-1 text-xs transition-all duration-300">
+                            <p class="font-bold text-slate-900 text-[13px]">Conveniência Moreira | Ceres GO</p>
+                            <p class="text-slate-500 font-medium text-[11px]">Loja de conveniência</p>
+                            <div class="text-slate-800 leading-[1.45] pt-1 space-y-0.5">
+                                <p>🥤 Conveniência, mercearia e bebidas</p>
+                                <p>📍 Ceres-GO | Entregas</p>
+                                <p>📦 Atacado e varejo</p>
+                                <p>🕒 7h30 às 21h30</p>
+                                <p>👇 Pedidos e catálogo no link</p>
+                            </div>
+                            <div class="pt-1.5 flex items-center gap-1 text-blue-900 font-semibold text-[11px]">
+                                <svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
+                                <span>conveniencia-moreira.vercel.app</span>
+                            </div>
+                        </div>
+
+                        <!-- IG Action Buttons -->
+                        <div id="mock-buttons" class="grid grid-cols-3 gap-1.5 px-2 mt-4">
+                            <div class="bg-blue-500 text-white text-center py-1.5 rounded-lg font-semibold text-[11px]">Seguir</div>
+                            <div class="bg-slate-100 text-slate-900 text-center py-1.5 rounded-lg font-semibold text-[11px]">Mensagem</div>
+                            <div class="bg-emerald-500 text-white text-center py-1.5 rounded-lg font-bold text-[11px]">WhatsApp</div>
+                        </div>
+
+                        <!-- IG Highlights Row -->
+                        <div class="grid grid-cols-4 gap-2 px-2 mt-4 pt-3 border-t border-slate-100 text-center">
+                            <div>
+                                <div class="w-11 h-11 rounded-full bg-slate-900 border-2 border-amber-400 mx-auto flex items-center justify-center text-sm">🛒</div>
+                                <span class="text-[10px] text-slate-700 font-medium block mt-1 truncate">Pedidos</span>
+                            </div>
+                            <div>
+                                <div class="w-11 h-11 rounded-full bg-slate-900 border-2 border-amber-400 mx-auto flex items-center justify-center text-sm">🏷️</div>
+                                <span class="text-[10px] text-slate-700 font-medium block mt-1 truncate">Ofertas</span>
+                            </div>
+                            <div>
+                                <div class="w-11 h-11 rounded-full bg-slate-900 border-2 border-amber-400 mx-auto flex items-center justify-center text-sm">🛵</div>
+                                <span class="text-[10px] text-slate-700 font-medium block mt-1 truncate">Entrega</span>
+                            </div>
+                            <div>
+                                <div class="w-11 h-11 rounded-full bg-slate-900 border-2 border-amber-400 mx-auto flex items-center justify-center text-sm">🎁</div>
+                                <span class="text-[10px] text-slate-700 font-medium block mt-1 truncate">Prêmios</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Copyable Bio Box & Strategic Explanation -->
+                <div class="lg:col-span-7 space-y-6">
+                    <div class="glass-card rounded-3xl p-6 sm:p-8">
+                        <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+                            <div>
+                                <span class="text-xs font-bold uppercase tracking-wider text-emerald-400">Texto Pronto Para Aplicar</span>
+                                <h3 class="font-display font-bold text-xl text-white mt-0.5">Bio Otimizada Recomendada</h3>
+                            </div>
+                            <button onclick="copyRecommendedBio()" class="px-4 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs sm:text-sm flex items-center gap-2 transition-all active:scale-95 shadow-lg shadow-emerald-500/20">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+                                <span>Copiar Texto da Bio</span>
+                            </button>
+                        </div>
+
+                        <!-- Hidden textarea for clean clipboard copy -->
+                        <textarea id="bio-copy-source" class="sr-only" readonly>Conveniência Moreira | Ceres GO
+🥤 Conveniência, mercearia e bebidas
+📍 Ceres-GO | Entregas
+📦 Atacado e varejo
+🕒 7h30 às 21h30
+👇 Pedidos e catálogo no link</textarea>
+
+                        <div class="bg-slate-900/90 border border-white/10 rounded-2xl p-5 font-mono text-xs sm:text-sm text-slate-200 leading-relaxed space-y-1">
+                            <p class="text-amber-400 font-bold">Campo Nome: <span class="text-white font-normal">Conveniência Moreira | Ceres GO</span></p>
+                            <p class="text-amber-400 font-bold">Categoria: <span class="text-white font-normal">Loja de conveniência</span></p>
+                            <hr class="border-white/10 my-3">
+                            <p>🥤 Conveniência, mercearia e bebidas</p>
+                            <p>📍 Ceres-GO | Entregas</p>
+                            <p>📦 Atacado e varejo</p>
+                            <p>🕒 7h30 às 21h30</p>
+                            <p>👇 Pedidos e catálogo no link</p>
+                        </div>
+
+                        <div class="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs text-slate-300">
+                            <div class="flex items-start gap-2.5 bg-white/5 p-3.5 rounded-xl">
+                                <span class="text-emerald-400 font-bold text-base leading-none">✓</span>
+                                <p><strong>@ Mantido:</strong> <code>@convenienciamoreiraceresgo</code> já contém marca + cidade e preserva a base de 3.063 seguidores.</p>
+                            </div>
+                            <div class="flex items-start gap-2.5 bg-white/5 p-3.5 rounded-xl">
+                                <span class="text-emerald-400 font-bold text-base leading-none">✓</span>
+                                <p><strong>Botão WhatsApp:</strong> O número de telefone sai do texto da bio e vai para o botão oficial de contato direto.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. LINK DA BIO: CENTRAL COMERCIAL -->
+    <section id="link-bio" class="py-16 sm:py-24 max-w-6xl mx-auto px-4 sm:px-6">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            <div class="lg:col-span-6">
+                <span class="text-amber-600 font-bold text-xs uppercase tracking-wider">03. Otimização do Link da Bio</span>
+                <h2 class="font-display text-2xl sm:text-4xl font-extrabold text-slate-900 mt-2">
+                    De apenas "Catálogo de Prêmios" para uma Central Comercial de Vendas.
+                </h2>
+                <p class="text-slate-600 mt-4 text-base leading-relaxed">
+                    Atualmente, o link <code>conveniencia-moreira.vercel.app</code> apresenta o título público de <strong>Catálogo de Prêmios</strong>. Embora o programa de fidelidade seja um ótimo ativo, o visitante que quer comprar agora não pode ter que procurar como fazer um pedido.
+                </p>
+
+                <div class="mt-6 p-5 rounded-2xl bg-amber-50 border border-amber-200/80">
+                    <p class="text-sm text-amber-950 font-medium">
+                        <strong>Regra de Ouro da Conversão:</strong> Não obrigue o cliente a procurar como comprar. O pedido no WhatsApp deve ser sempre o botão nº 1 da página.
+                    </p>
+                </div>
+
+                <div class="mt-8 space-y-3 text-sm text-slate-700">
+                    <div class="flex items-center gap-3">
+                        <span class="w-6 h-6 rounded-full bg-emerald-600 text-white font-bold text-xs flex items-center justify-center shrink-0">1</span>
+                        <span><strong>Fazer Pedido pelo WhatsApp:</strong> Compra rápida, delivery e orçamento no atacado.</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <span class="w-6 h-6 rounded-full bg-slate-800 text-white font-bold text-xs flex items-center justify-center shrink-0">2</span>
+                        <span><strong>Catálogo de Prêmios:</strong> Consulta de recompensas e benefícios do programa de fidelidade.</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <span class="w-6 h-6 rounded-full bg-slate-800 text-white font-bold text-xs flex items-center justify-center shrink-0">3</span>
+                        <span><strong>Como Chegar:</strong> Rota direta no Google Maps até a loja em Ceres-GO.</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <span class="w-6 h-6 rounded-full bg-slate-800 text-white font-bold text-xs flex items-center justify-center shrink-0">4</span>
+                        <span><strong>Horário de Funcionamento:</strong> Informação clara e atualizada de atendimento.</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Interactive Link Hub Wireframe Preview -->
+            <div class="lg:col-span-6 flex justify-center">
+                <div class="w-full max-w-md bg-slate-900 rounded-[2.5rem] p-6 sm:p-8 text-white shadow-2xl border border-slate-800">
+                    <div class="text-center mb-6">
+                        <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-amber-400 to-orange-600 text-slate-950 font-display font-extrabold text-xl flex items-center justify-center mx-auto shadow-lg">
+                            CM
+                        </div>
+                        <h3 class="font-display font-bold text-lg mt-3">Conveniência Moreira</h3>
+                        <p class="text-xs text-slate-400">Ceres – GO • Varejo, Atacado e Entregas</p>
+                    </div>
+
+                    <div class="space-y-3.5">
+                        <!-- Primary CTA -->
+                        <div class="p-4 rounded-2xl bg-gradient-to-r from-emerald-500 to-emerald-600 text-slate-950 shadow-lg shadow-emerald-500/20 flex items-center justify-between">
+                            <div>
+                                <span class="inline-block px-2 py-0.5 rounded bg-slate-950/20 text-[10px] font-extrabold uppercase tracking-wider mb-1">Ação Principal</span>
+                                <h4 class="font-display font-extrabold text-sm sm:text-base">FAZER PEDIDO PELO WHATSAPP</h4>
+                                <p class="text-xs font-medium text-slate-900/90">Compra, entrega e orçamento no atacado</p>
+                            </div>
+                            <span class="w-9 h-9 rounded-xl bg-slate-950/15 flex items-center justify-center font-bold">→</span>
+                        </div>
+
+                        <!-- Secondary Actions -->
+                        <div class="p-4 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 transition-all flex items-center justify-between">
+                            <div>
+                                <h4 class="font-display font-bold text-sm text-amber-400">🎁 CATÁLOGO DE PRÊMIOS</h4>
+                                <p class="text-xs text-slate-400">Consulte suas recompensas e programa de fidelidade</p>
+                            </div>
+                            <span class="text-slate-400">→</span>
+                        </div>
+
+                        <div class="p-4 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 transition-all flex items-center justify-between">
+                            <div>
+                                <h4 class="font-display font-bold text-sm text-white">📍 COMO CHEGAR</h4>
+                                <p class="text-xs text-slate-400">Abrir endereço e rota no Google Maps</p>
+                            </div>
+                            <span class="text-slate-400">→</span>
+                        </div>
+
+                        <div class="p-4 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-between">
+                            <div>
+                                <h4 class="font-display font-bold text-sm text-white">🕒 HORÁRIO DE FUNCIONAMENTO</h4>
+                                <p class="text-xs text-slate-400">Atendimento diário das 7h30 às 21h30</p>
+                            </div>
+                            <span class="px-2 py-1 rounded-lg bg-emerald-500/20 text-emerald-300 text-[10px] font-bold">Aberto</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. DESTAQUES, 5 PILARES & 3 POSTS FIXADOS -->
+    <section id="destaques-conteudo" class="py-16 sm:py-24 bg-slate-100 border-y border-slate-200/80">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6">
+            <!-- Highlights Order -->
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <span class="text-amber-600 font-bold text-xs uppercase tracking-wider">04. Vitrine & Conteúdo Estratégico</span>
+                <h2 class="font-display text-2xl sm:text-4xl font-extrabold text-slate-900 mt-2">
+                    Organização dos Destaques e Posts Fixados
+                </h2>
+                <p class="text-slate-600 mt-3 text-sm sm:text-base">
+                    Capas uniformes com identidade visual da marca, ícones simples e ordem pensada para tirar dúvidas antes mesmo do cliente chamar no WhatsApp.
+                </p>
+            </div>
+
+            <!-- 6 Highlights Grid -->
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 mb-16">
+                <div class="bg-white rounded-3xl p-5 text-center shadow-soft border border-slate-100">
+                    <div class="w-14 h-14 rounded-full bg-slate-900 border-[3px] border-amber-500 mx-auto flex items-center justify-center text-2xl shadow-md">🛒</div>
+                    <span class="inline-block mt-3 text-[11px] font-bold text-amber-600 uppercase">Destaque 1</span>
+                    <h3 class="font-display font-bold text-slate-900 text-base">Pedidos</h3>
+                    <p class="text-xs text-slate-500 mt-0.5">Como comprar</p>
+                </div>
+
+                <div class="bg-white rounded-3xl p-5 text-center shadow-soft border border-slate-100">
+                    <div class="w-14 h-14 rounded-full bg-slate-900 border-[3px] border-amber-500 mx-auto flex items-center justify-center text-2xl shadow-md">🏷️</div>
+                    <span class="inline-block mt-3 text-[11px] font-bold text-amber-600 uppercase">Destaque 2</span>
+                    <h3 class="font-display font-bold text-slate-900 text-base">Ofertas</h3>
+                    <p class="text-xs text-slate-500 mt-0.5">Promoções</p>
+                </div>
+
+                <div class="bg-white rounded-3xl p-5 text-center shadow-soft border border-slate-100">
+                    <div class="w-14 h-14 rounded-full bg-slate-900 border-[3px] border-amber-500 mx-auto flex items-center justify-center text-2xl shadow-md">🛵</div>
+                    <span class="inline-block mt-3 text-[11px] font-bold text-amber-600 uppercase">Destaque 3</span>
+                    <h3 class="font-display font-bold text-slate-900 text-base">Entrega</h3>
+                    <p class="text-xs text-slate-500 mt-0.5">Delivery</p>
+                </div>
+
+                <div class="bg-white rounded-3xl p-5 text-center shadow-soft border border-slate-100">
+                    <div class="w-14 h-14 rounded-full bg-slate-900 border-[3px] border-amber-500 mx-auto flex items-center justify-center text-2xl shadow-md">🎁</div>
+                    <span class="inline-block mt-3 text-[11px] font-bold text-amber-600 uppercase">Destaque 4</span>
+                    <h3 class="font-display font-bold text-slate-900 text-base">Prêmios</h3>
+                    <p class="text-xs text-slate-500 mt-0.5">Fidelidade</p>
+                </div>
+
+                <div class="bg-white rounded-3xl p-5 text-center shadow-soft border border-slate-100">
+                    <div class="w-14 h-14 rounded-full bg-slate-900 border-[3px] border-amber-500 mx-auto flex items-center justify-center text-2xl shadow-md">📍</div>
+                    <span class="inline-block mt-3 text-[11px] font-bold text-amber-600 uppercase">Destaque 5</span>
+                    <h3 class="font-display font-bold text-slate-900 text-base">Localização</h3>
+                    <p class="text-xs text-slate-500 mt-0.5">Como chegar</p>
+                </div>
+
+                <div class="bg-white rounded-3xl p-5 text-center shadow-soft border border-slate-100">
+                    <div class="w-14 h-14 rounded-full bg-slate-900 border-[3px] border-amber-500 mx-auto flex items-center justify-center text-2xl shadow-md">🕒</div>
+                    <span class="inline-block mt-3 text-[11px] font-bold text-amber-600 uppercase">Destaque 6</span>
+                    <h3 class="font-display font-bold text-slate-900 text-base">Horários</h3>
+                    <p class="text-xs text-slate-500 mt-0.5">Atendimento</p>
+                </div>
+            </div>
+
+            <!-- 3 Pinned Posts + 5 Content Pillars -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                <!-- 3 Pinned Posts -->
+                <div class="lg:col-span-7 bg-white rounded-3xl p-6 sm:p-8 shadow-soft border border-slate-100">
+                    <div class="flex items-center justify-between mb-6">
+                        <div>
+                            <span class="text-xs font-bold uppercase tracking-wider text-amber-600">Vitrine Permanente</span>
+                            <h3 class="font-display font-bold text-xl text-slate-900 mt-0.5">3 Publicações Fixadas no Topo</h3>
+                        </div>
+                        <span class="px-3 py-1 rounded-full bg-slate-100 text-slate-700 text-xs font-semibold">📌 Essencial</span>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        <div class="rounded-2xl bg-slate-900 text-white p-5 flex flex-col justify-between">
+                            <div>
+                                <span class="text-amber-400 font-display font-extrabold text-xs">FIXADO 01</span>
+                                <h4 class="font-display font-bold text-base mt-2">Conheça a Conveniência Moreira</h4>
+                                <p class="text-xs text-slate-300 mt-2 leading-relaxed">
+                                    Apresentação da loja, localização em Ceres, horário, variedade e formas de atendimento.
+                                </p>
+                            </div>
+                            <span class="mt-4 inline-block text-[11px] text-amber-300 font-semibold">Autoridade & Confiança</span>
+                        </div>
+
+                        <div class="rounded-2xl bg-slate-900 text-white p-5 flex flex-col justify-between">
+                            <div>
+                                <span class="text-emerald-400 font-display font-extrabold text-xs">FIXADO 02</span>
+                                <h4 class="font-display font-bold text-base mt-2">Faça seu Pedido</h4>
+                                <p class="text-xs text-slate-300 mt-2 leading-relaxed">
+                                    Passo a passo visual de como funciona o atendimento rápido, entregas e pedidos no atacado.
+                                </p>
+                            </div>
+                            <span class="mt-4 inline-block text-[11px] text-emerald-300 font-semibold">Conversão Direta</span>
+                        </div>
+
+                        <div class="rounded-2xl bg-slate-900 text-white p-5 flex flex-col justify-between">
+                            <div>
+                                <span class="text-blue-400 font-display font-extrabold text-xs">FIXADO 03</span>
+                                <h4 class="font-display font-bold text-base mt-2">Programa de Prêmios</h4>
+                                <p class="text-xs text-slate-300 mt-2 leading-relaxed">
+                                    Explicação simples de como funciona o catálogo de prêmios, como participar e vantagens.
+                                </p>
+                            </div>
+                            <span class="mt-4 inline-block text-[11px] text-blue-300 font-semibold">Recorrência & Fidelidade</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 5 Content Pillars -->
+                <div class="lg:col-span-5 bg-white rounded-3xl p-6 sm:p-8 shadow-soft border border-slate-100">
+                    <span class="text-xs font-bold uppercase tracking-wider text-amber-600">Linha Editorial</span>
+                    <h3 class="font-display font-bold text-xl text-slate-900 mt-0.5 mb-5">5 Pilares de Conteúdo</h3>
+                    <p class="text-xs text-slate-600 mb-5">Para deixar de ser apenas um catálogo estático e gerar visitas e recompra recorrente:</p>
+
+                    <div class="space-y-3 text-sm">
+                        <div class="p-3 rounded-xl bg-slate-50 flex items-center justify-between">
+                            <span class="font-bold text-slate-900">1. Promoções</span>
+                            <span class="text-xs text-slate-500">Preços, descontos e ofertas do dia</span>
+                        </div>
+                        <div class="p-3 rounded-xl bg-slate-50 flex items-center justify-between">
+                            <span class="font-bold text-slate-900">2. Produtos</span>
+                            <span class="text-xs text-slate-500">Novidades, variedade e reposição</span>
+                        </div>
+                        <div class="p-3 rounded-xl bg-slate-50 flex items-center justify-between">
+                            <span class="font-bold text-slate-900">3. Conveniência</span>
+                            <span class="text-xs text-slate-500">Entregas, praticidade e agilidade</span>
+                        </div>
+                        <div class="p-3 rounded-xl bg-slate-50 flex items-center justify-between">
+                            <span class="font-bold text-slate-900">4. Relacionamento</span>
+                            <span class="text-xs text-slate-500">Clientes, bastidores e comunidade</span>
+                        </div>
+                        <div class="p-3 rounded-xl bg-slate-50 flex items-center justify-between">
+                            <span class="font-bold text-slate-900">5. Fidelização</span>
+                            <span class="text-xs text-slate-500">Prêmios, benefícios e campanhas</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. ACHADO ADICIONAL: CONSISTÊNCIA DIGITAL & ROADMAP -->
+    <section id="presenca-digital" class="py-16 sm:py-24 max-w-6xl mx-auto px-4 sm:px-6">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+            <!-- Digital Presence Discrepancies -->
+            <div class="lg:col-span-6 bg-amber-50/80 border border-amber-200 rounded-3xl p-6 sm:p-8 flex flex-col justify-between">
+                <div>
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/20 text-amber-900 text-xs font-bold mb-4">
+                        ⚠️ Achado Adicional de Auditoria
+                    </div>
+                    <h3 class="font-display text-xl sm:text-2xl font-extrabold text-slate-900">
+                        Divergências em Cadastros Públicos (Ceres-GO)
+                    </h3>
+                    <p class="text-sm text-slate-700 mt-2 leading-relaxed">
+                        Durante a verificação de diretórios comerciais associados ao CNPJ <code>19.271.645/0001-97</code>, identificamos dados distintos que podem confundir clientes no Google:
+                    </p>
+
+                    <div class="mt-5 bg-white rounded-2xl border border-amber-200/80 overflow-hidden text-xs sm:text-sm">
+                        <div class="grid grid-cols-3 bg-amber-100/70 px-4 py-2.5 font-bold text-slate-900">
+                            <span>Dado</span>
+                            <span class="col-span-2">Registros Encontrados</span>
+                        </div>
+                        <div class="grid grid-cols-3 px-4 py-3 border-t border-amber-100">
+                            <span class="font-semibold text-slate-800">Endereço</span>
+                            <span class="col-span-2 text-slate-600"><strong>Lote 02</strong> em um cadastro vs. <strong>Lote 03</strong> em outro</span>
+                        </div>
+                        <div class="grid grid-cols-3 px-4 py-3 border-t border-amber-100">
+                            <span class="font-semibold text-slate-800">Telefone</span>
+                            <span class="col-span-2 text-slate-600"><strong>(62) 3307-3950</strong> vs. <strong>(62) 98482-1123</strong></span>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="text-xs text-slate-600 mt-5 leading-relaxed">
+                    <strong>Recomendação:</strong> Uniformizar Nome, Endereço e Telefone oficial entre Google Meu Negócio, Instagram e site aumenta a confiança do consumidor e melhora o ranqueamento nas buscas locais em Ceres.
+                </p>
+            </div>
+
+            <!-- Implementation Priorities -->
+            <div class="lg:col-span-6 bg-white rounded-3xl p-6 sm:p-8 shadow-soft border border-slate-100 flex flex-col justify-between">
+                <div>
+                    <span class="text-amber-600 font-bold text-xs uppercase tracking-wider">05. Plano de Execução</span>
+                    <h3 class="font-display text-xl sm:text-2xl font-extrabold text-slate-900 mt-1">
+                        Prioridades de Implementação
+                    </h3>
+                    <p class="text-sm text-slate-600 mt-2">
+                        Ordem estratégica para gerar resultado rápido sem interromper a operação da loja:
+                    </p>
+
+                    <div class="mt-5 space-y-3">
+                        <div class="flex items-center justify-between p-3.5 rounded-2xl bg-rose-50/70 border border-rose-100">
+                            <span class="text-sm font-semibold text-slate-900">Otimizar Nome, Categoria e Bio + Botão WhatsApp</span>
+                            <span class="px-2.5 py-1 rounded-lg bg-rose-600 text-white text-[11px] font-bold shrink-0">ALTA</span>
+                        </div>
+                        <div class="flex items-center justify-between p-3.5 rounded-2xl bg-rose-50/70 border border-rose-100">
+                            <span class="text-sm font-semibold text-slate-900">Reestruturar hierarquia do Link da Bio</span>
+                            <span class="px-2.5 py-1 rounded-lg bg-rose-600 text-white text-[11px] font-bold shrink-0">ALTA</span>
+                        </div>
+                        <div class="flex items-center justify-between p-3.5 rounded-2xl bg-amber-50/70 border border-amber-100">
+                            <span class="text-sm font-semibold text-slate-900">Organizar 6 Destaques + Criar 3 Posts Fixados</span>
+                            <span class="px-2.5 py-1 rounded-lg bg-amber-500 text-slate-950 text-[11px] font-bold shrink-0">MÉDIA</span>
+                        </div>
+                        <div class="flex items-center justify-between p-3.5 rounded-2xl bg-slate-50 border border-slate-200/70">
+                            <span class="text-sm font-semibold text-slate-900">Calendário de 5 pilares + Auditoria visual de 30 dias</span>
+                            <span class="px-2.5 py-1 rounded-lg bg-slate-800 text-white text-[11px] font-bold shrink-0">CONTÍNUA</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-5 pt-4 border-t border-slate-100 text-xs text-slate-500">
+                    <strong>Etapa 2 (Pós-implantação):</strong> Análise interna de alcance, visitas ao perfil, cliques no link e salvamentos dos últimos 30 dias para escalar o que mais gera pedidos.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. SERVICE OFFER / CONVERSION SECTION -->
+    <section id="contratar" class="py-16 sm:py-24 bg-slate-950 text-white relative overflow-hidden">
+        <div class="absolute bottom-0 right-0 w-[500px] h-[500px] bg-amber-500/10 blur-[130px] rounded-full pointer-events-none"></div>
+
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 relative z-10">
+            <div class="bg-gradient-to-br from-slate-900 via-slate-900 to-slate-850 border border-white/15 rounded-[2.5rem] p-7 sm:p-12 shadow-2xl">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+                    <div class="lg:col-span-7">
+                        <span class="inline-block px-3.5 py-1 rounded-full bg-amber-500/20 text-amber-400 text-xs font-bold uppercase tracking-wider mb-4">
+                            Proposta de Implementação Chave na Mão
+                        </span>
+                        <h2 class="font-display text-2xl sm:text-4xl font-extrabold leading-tight">
+                            Deixe o perfil da Conveniência Moreira pronto para vender todos os dias.
+                        </h2>
+                        <p class="text-slate-300 text-sm sm:text-base mt-4 leading-relaxed">
+                            Nós executamos toda a reestruturação técnica, visual e estratégica apresentada nesta auditoria para que cada visitante entenda na hora o que você vende, onde fica e como pedir.
+                        </p>
+
+                        <ul class="mt-6 space-y-3 text-sm text-slate-200">
+                            <li class="flex items-center gap-3">
+                                <span class="w-5 h-5 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xs font-bold">✓</span>
+                                <span>Atualização completa de <strong>Nome SEO, Categoria e Bio de Alta Conversão</strong></span>
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <span class="w-5 h-5 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xs font-bold">✓</span>
+                                <span>Configuração do <strong>Botão Oficial de WhatsApp</strong> para pedidos e atacado</span>
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <span class="w-5 h-5 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xs font-bold">✓</span>
+                                <span>Reorganização da <strong>Central Comercial do Link da Bio</strong></span>
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <span class="w-5 h-5 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xs font-bold">✓</span>
+                                <span>Design das <strong>6 Capas Padronizadas de Destaques</strong> + Roteiro dos <strong>3 Posts Fixados</strong></span>
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <span class="w-5 h-5 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xs font-bold">✓</span>
+                                <span><strong>Bônus:</strong> Checklist de unificação de Endereço e Telefone (Google & Diretórios)</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="lg:col-span-5">
+                        <div class="bg-slate-950/90 border border-white/10 rounded-3xl p-6 sm:p-7 text-center">
+                            <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Pacote Otimização & Vitrine</span>
+                            <div class="mt-3 mb-2">
+                                <span class="text-slate-400 text-sm line-through block">De R$ 497,00</span>
+                                <span class="font-display font-extrabold text-4xl sm:text-5xl text-white">R$ 297</span>
+                                <span class="text-xs text-amber-400 font-semibold block mt-1">Pagamento único • Entrega em até 48h</span>
+                            </div>
+
+                            <p class="text-xs text-slate-400 mt-3 mb-6">
+                                Inclui reunião rápida de alinhamento de horários, telefones oficiais e link de destino.
+                            </p>
+
+                            <button onclick="openProposalModal()" class="w-full py-4 px-6 rounded-2xl bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-slate-950 font-display font-extrabold text-sm sm:text-base shadow-xl shadow-amber-500/25 transition-all active:scale-95">
+                                Aprovar e Iniciar Mudança
+                            </button>
+
+                            <button onclick="copyRecommendedBio()" class="w-full mt-3 py-3 px-4 rounded-xl bg-white/5 hover:bg-white/10 text-slate-300 font-semibold text-xs transition-all">
+                                Ou copiar texto da Bio gratuitamente
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-950 border-t border-white/10 py-8 text-center text-xs text-slate-500">
+        <div class="max-w-6xl mx-auto px-4">
+            <p>Diagnóstico Estratégico & Otimização de Perfil Comercial • Preparado exclusivamente para <strong>Conveniência Moreira (@convenienciamoreiraceresgo)</strong> – Ceres, GO.</p>
+        </div>
+    </footer>
+
+    <!-- CUSTOM PROPOSAL MODAL (No alert/confirm) -->
+    <div id="proposal-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm">
+        <div class="bg-white text-slate-900 rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl border border-slate-200 relative animate-fadeIn">
+            <button onclick="closeProposalModal()" class="absolute top-5 right-5 w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-600 font-bold">
+                ✕
+            </button>
+
+            <div class="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-600 flex items-center justify-center mb-4">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+            </div>
+
+            <h3 class="font-display font-extrabold text-xl text-slate-900">Solicitar Implementação da Bio</h3>
+            <p class="text-xs sm:text-sm text-slate-600 mt-1.5 leading-relaxed">
+                Confirme os dados oficiais da <strong>Conveniência Moreira</strong> abaixo para gerarmos a mensagem de aprovação imediata:
+            </p>
+
+            <form onsubmit="handleProposalSubmit(event)" class="mt-5 space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">Telefone / WhatsApp Oficial para Pedidos</label>
+                    <input id="input-phone" type="text" value="(62) 98482-1123" required class="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-sm focus:outline-none focus:border-amber-500">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">Endereço Oficial (Unificação Google/Insta)</label>
+                    <select id="input-address" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-sm focus:outline-none focus:border-amber-500 bg-white">
+                        <option value="Lote 02 – Ceres, GO">Confirmar Lote 02 – Ceres, GO</option>
+                        <option value="Lote 03 – Ceres, GO">Confirmar Lote 03 – Ceres, GO</option>
+                        <option value="Definir no alinhamento">Definir durante o alinhamento</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="w-full py-3.5 px-5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm shadow-lg shadow-emerald-600/20 transition-all">
+                    Copiar Mensagem de Aprovação
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Interactive JavaScript -->
+    <script>
+        // Toggle between "Before" (current state) and "After" (optimized state) in the phone mockup
+        function setProfileMode(mode) {
+            const btnAfter = document.getElementById('btn-mode-after');
+            const btnBefore = document.getElementById('btn-mode-before');
+            const mockBadge = document.getElementById('mock-badge');
+            const bioContainer = document.getElementById('mock-bio-container');
+            const mockButtons = document.getElementById('mock-buttons');
+
+            if (mode === 'after') {
+                btnAfter.className = 'px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-amber-500 text-slate-950 shadow-md transition-all';
+                btnBefore.className = 'px-5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold text-slate-300 hover:text-white transition-all';
+                
+                mockBadge.textContent = 'OTIMIZADO';
+                mockBadge.className = 'px-2 py-0.5 rounded-md bg-emerald-100 text-emerald-800 text-[10px] font-bold';
+
+                bioContainer.innerHTML = `
+                    <p class="font-bold text-slate-900 text-[13px]">Conveniência Moreira | Ceres GO</p>
+                    <p class="text-slate-500 font-medium text-[11px]">Loja de conveniência</p>
+                    <div class="text-slate-800 leading-[1.45] pt-1 space-y-0.5">
+                        <p>🥤 Conveniência, mercearia e bebidas</p>
+                        <p>📍 Ceres-GO | Entregas</p>
+                        <p>📦 Atacado e varejo</p>
+                        <p>🕒 7h30 às 21h30</p>
+                        <p>👇 Pedidos e catálogo no link</p>
+                    </div>
+                    <div class="pt-1.5 flex items-center gap-1 text-blue-900 font-semibold text-[11px]">
+                        <svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
+                        <span>conveniencia-moreira.vercel.app</span>
+                    </div>
+                `;
+
+                mockButtons.className = 'grid grid-cols-3 gap-1.5 px-2 mt-4';
+                mockButtons.innerHTML = `
+                    <div class="bg-blue-500 text-white text-center py-1.5 rounded-lg font-semibold text-[11px]">Seguir</div>
+                    <div class="bg-slate-100 text-slate-900 text-center py-1.5 rounded-lg font-semibold text-[11px]">Mensagem</div>
+                    <div class="bg-emerald-500 text-white text-center py-1.5 rounded-lg font-bold text-[11px]">WhatsApp</div>
+                `;
+            } else {
+                btnBefore.className = 'px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-rose-500 text-white shadow-md transition-all';
+                btnAfter.className = 'px-5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold text-slate-300 hover:text-white transition-all';
+
+                mockBadge.textContent = 'ATUAL';
+                mockBadge.className = 'px-2 py-0.5 rounded-md bg-rose-100 text-rose-800 text-[10px] font-bold';
+
+                bioContainer.innerHTML = `
+                    <p class="font-bold text-slate-900 text-[13px]">Conveniência Moreira Ltda</p>
+                    <div class="text-slate-700 leading-[1.45] pt-1 space-y-0.5">
+                        <p class="text-rose-600 font-medium">CONVENIÊNCIA MOREIRA <span class="text-[10px] bg-rose-50 px-1 rounded">(Repetido)</span></p>
+                        <p>Entregamos</p>
+                        <p>Orçamento no atacado no WhatsApp</p>
+                        <p>Horário: 7h30 às 21h30</p>
+                        <p class="text-slate-500">Tel: (62) 98482-1123</p>
+                    </div>
+                    <div class="pt-1.5 flex items-center gap-1 text-blue-900 font-semibold text-[11px]">
+                        <span>conveniencia-moreira.vercel.app</span>
+                    </div>
+                `;
+
+                mockButtons.className = 'grid grid-cols-2 gap-1.5 px-2 mt-4';
+                mockButtons.innerHTML = `
+                    <div class="bg-blue-500 text-white text-center py-1.5 rounded-lg font-semibold text-[11px]">Seguir</div>
+                    <div class="bg-slate-100 text-slate-900 text-center py-1.5 rounded-lg font-semibold text-[11px]">Mensagem</div>
+                `;
+            }
+        }
+
+        // Copy Recommended Bio text using execCommand('copy')
+        function copyRecommendedBio() {
+            const copyText = document.getElementById('bio-copy-source');
+            copyText.classList.remove('sr-only');
+            copyText.select();
+            copyText.setSelectionRange(0, 99999);
+            try {
+                document.execCommand('copy');
+                showToast('Bio copiada com sucesso!', 'Cole diretamente na edição de perfil do Instagram.');
+            } catch (err) {
+                showToast('Texto selecionado', 'Use Ctrl+C para copiar a bio.');
+            }
+            copyText.classList.add('sr-only');
+        }
+
+        // Custom Toast Notification
+        let toastTimeout;
+        function showToast(title, desc) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-title').textContent = title;
+            document.getElementById('toast-desc').textContent = desc;
+
+            toast.classList.remove('translate-y-24', 'opacity-0');
+            clearTimeout(toastTimeout);
+            toastTimeout = setTimeout(() => {
+                toast.classList.add('translate-y-24', 'opacity-0');
+            }, 3500);
+        }
+
+        // Modal Controls
+        function openProposalModal() {
+            const modal = document.getElementById('proposal-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeProposalModal() {
+            const modal = document.getElementById('proposal-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        function handleProposalSubmit(e) {
+            e.preventDefault();
+            const phone = document.getElementById('input-phone').value;
+            const address = document.getElementById('input-address').value;
+
+            const message = `Olá! Analisei a Auditoria do Instagram da *Conveniência Moreira (@convenienciamoreiraceresgo)* e quero aprovar o *Pacote de Otimização & Vitrine (R$ 297)*.\n\n• WhatsApp Oficial: ${phone}\n• Endereço Oficial: ${address}\n\nPodemos iniciar a implementação!`;
+
+            const tempInput = document.createElement('textarea');
+            tempInput.value = message;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+
+            closeProposalModal();
+            showToast('Mensagem de aprovação copiada!', 'Agora é só colar no WhatsApp para iniciar o serviço.');
+        }
+    </script>
+</body>
+</html>
