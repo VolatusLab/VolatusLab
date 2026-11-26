@@ -2,82 +2,160 @@
 <html lang="pt-BR" class="dark">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <meta name="theme-color" content="#090b0e" id="metaThemeColor" />
   <title>Simulador TAF PMTO — Manutenção Periódica</title>
+  <meta name="description" content="Simulador interativo do TAF PMTO (Manutenção Periódica). Calcule sua média geral e índices mínimos (nota 7,0) por idade e sexo: Barra Fixa, Flexão de Braço, Flexão Abdominal, Prancha e Corrida." />
+  <link rel="canonical" href="https://propostas.volatuslab.com/pages/2026/11/TAF.html" />
+
+  <!-- OpenGraph / WhatsApp -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="VolatusLab • TAF PMTO" />
+  <meta property="og:locale" content="pt_BR" />
+  <meta property="og:url" content="https://propostas.volatuslab.com/pages/2026/11/TAF.html" />
+  <meta property="og:title" content="Simulador TAF PMTO — Manutenção Periódica" />
+  <meta property="og:description" content="Simule suas notas e índices mínimos (7,0) por idade e sexo: Barra Fixa, Flexão de Braço, Flexão Abdominal, Prancha e Corrida 12 min." />
+  <meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAwIiBoZWlnaHQ9IjYzMCIgdmlld0JveD0iMCAwIDEyMDAgNjMwIj48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImciIHgxPSIwIiB5MT0iMCIgeDI9IjEiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjMDkwYjBlIi8+PHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjMTExODIxIi8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+PHJlY3Qgd2lkdGg9IjEyMDAiIGhlaWdodD0iNjMwIiBmaWxsPSJ1cmwoI2cpIi8+PHJlY3QgeD0iNTYiIHk9IjU2IiB3aWR0aD0iMTA4OCIgaGVpZ2h0PSI1MTgiIHJ4PSIyNCIgZmlsbD0iIzExMTRhIiBzdHJva2U9IiMxZTI5M2IiIHN0cm9rZS13aWR0aD0iMiIvPjxyZWN0IHg9Ijk2IiB5PSIxMDAiIHdpZHRoPSIyMjAiIGhlaWdodD0iNDQiIHJ4PSIyMiIgZmlsbD0iIzFiMmE0YSIvPjx0ZXh0IHg9IjIwNiIgeT0iMTI4IiBmaWxsPSIjOTNjNWZkIiBmb250LWZhbWlseT0ic3lzdGVtLXVpLC1hcHBsZS1zeXN0ZW0sc2Fucy1zZXJpZiIgZm9udC1zaXplPSIyMCIgZm9udC13ZWlnaHQ9IjcwMCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+QU5FWE8gSSDigKIgUE1UTzwvdGV4dD48dGV4dCB4PSI5NiIgeT0iMjMwIiBmaWxsPSIjZjNmNGY2IiBmb250LWZhbWlseT0ic3lzdGVtLXVpLC1hcHBsZS1zeXN0ZW0sc2Fucy1zZXJpZiIgZm9udC1zaXplPSI1OCIgZm9udC13ZWlnaHQ9IjcwMCI+U2ltdWxhZG9yIFRBRiBQTVRPPC90ZXh0Pjx0ZXh0IHg9Ijk2IiB5PSIyOTUiIGZpbGw9IiM5Y2EzYWYiIGZvbnQtZmFtaWx5PSJzeXN0ZW0tdWksLWFwcGxlLXN5c3RlbSxzYW5zLXNlcmlmIiBmb250LXNpemU9IjMyIj5NYW51dGVuw6fDo28gUGVyacOzZGljYSDigKIgw41uZGljZXMgcG9yIElkYWRlIGUgU2V4bzwvdGV4dD48cmVjdCB4PSI5NiIgeT0iMzU1IiB3aWR0aD0iMTAwOCIgheightPSIyIiBmaWxsPSIjMWUyOTNiIi8+PHRleHQgeD0iOTYiIHk9IjQyNSIgZmlsbD0iIzZlZTdiNyIgZm9udC1mYW1pbHk9InN5c3RlbS11aSwtYXBwbGUtc3lzdGVtLHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMjYiIGZvbnQtd2VpZ2h0PSI2MDAiPkJhcnJhIEZpeGEg4oCiIEZsZXjDo28gZGUgQnJhw6dvIOKAoiBGbGV4w6NvIEFiZG9taW5hbCDigKIgUHJhbmNoYSDigKIgQ29ycmlkYSAxMiBtaW48L3RleHQ+PHRleHQgeD0iOTYiIHk9IjUxMCIgZmlsbD0iIzZiNzI4MCIgZm9udC1mYW1pbHk9InVpLW1vbm9zcGFjZSxtb25vc3BhY2UiIGZvbnQtc2l6ZT0iMjIiPk5vdGEgTcOtbmltYTogNyw0IC8gNyw0IC0+IDcsMCAoNzAgcHRzKSDigKIgcHJvcG9zdGFzLnZvbGF0dXNsYWIuY29tPC90ZXh0Pjwvc3ZnPg==" />
+  <meta property="og:image:type" content="image/svg+xml" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Simulador TAF PMTO — Manutenção Periódica" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Simulador TAF PMTO — Manutenção Periódica" />
+  <meta name="twitter:description" content="Simule suas notas e índices mínimos (7,0) por idade e sexo no TAF da PMTO." />
+
+  <!-- Inline Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%233b82f6' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z'/%3E%3Cpath d='m9 12 2 2 4-4'/%3E%3C/svg%3E" />
+
   <style>
     :root {
       --bg-canvas: #090b0e;
       --bg-surface: #11141a;
       --bg-elevated: #171b23;
       --bg-hover: #1e232e;
+      --bg-sticky: rgba(9, 11, 14, 0.88);
       --border-subtle: rgba(255, 255, 255, 0.08);
       --border-strong: rgba(255, 255, 255, 0.16);
       --text-primary: #f3f4f6;
       --text-secondary: #9ca3af;
       --text-muted: #6b7280;
       --accent: #3b82f6;
+      --accent-text: #93c5fd;
       --accent-soft: rgba(59, 130, 246, 0.14);
+      --accent-border: rgba(59, 130, 246, 0.35);
       --good: #10b981;
+      --good-text: #6ee7b7;
       --good-soft: rgba(16, 185, 129, 0.14);
       --good-border: rgba(16, 185, 129, 0.35);
       --warn: #f59e0b;
+      --warn-text: #fcd34d;
       --warn-soft: rgba(245, 158, 11, 0.14);
       --warn-border: rgba(245, 158, 11, 0.35);
       --bad: #ef4444;
+      --bad-text: #fca5a5;
       --bad-soft: rgba(239, 68, 68, 0.14);
       --bad-border: rgba(239, 68, 68, 0.35);
-      --radius-sm: 6px;
-      --radius-md: 10px;
-      --radius-lg: 14px;
+      --track-bg: #232936;
+      --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
       --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", "Segoe UI", Roboto, sans-serif;
       --font-mono: "SF Mono", "JetBrains Mono", "Fira Code", ui-monospace, monospace;
+    }
+
+    html.light {
+      --bg-canvas: #f4f6f9;
+      --bg-surface: #ffffff;
+      --bg-elevated: #f1f5f9;
+      --bg-hover: #e2e8f0;
+      --bg-sticky: rgba(244, 246, 249, 0.9);
+      --border-subtle: rgba(15, 23, 42, 0.09);
+      --border-strong: rgba(15, 23, 42, 0.18);
+      --text-primary: #0f172a;
+      --text-secondary: #475569;
+      --text-muted: #64748b;
+      --accent: #2563eb;
+      --accent-text: #1d4ed8;
+      --accent-soft: rgba(37, 99, 235, 0.1);
+      --accent-border: rgba(37, 99, 235, 0.3);
+      --good: #059669;
+      --good-text: #047857;
+      --good-soft: rgba(5, 150, 105, 0.11);
+      --good-border: rgba(5, 150, 105, 0.35);
+      --warn: #d97706;
+      --warn-text: #b45309;
+      --warn-soft: rgba(217, 119, 6, 0.11);
+      --warn-border: rgba(217, 119, 6, 0.35);
+      --bad: #dc2626;
+      --bad-text: #b91c1c;
+      --bad-soft: rgba(220, 38, 38, 0.1);
+      --bad-border: rgba(220, 38, 38, 0.32);
+      --track-bg: #cbd5e1;
+      --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.08);
     }
 
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
+      -webkit-tap-highlight-color: transparent;
     }
 
     body {
       background-color: var(--bg-canvas);
       color: var(--text-primary);
       font-family: var(--font-sans);
-      line-height: 1.5;
+      line-height: 1.45;
       -webkit-font-smoothing: antialiased;
-      padding: 24px 16px 48px;
+      padding: 12px 12px 56px;
+      transition: background-color 0.2s ease, color 0.2s ease;
+    }
+
+    @media (min-width: 768px) {
+      body {
+        padding: 24px 20px 64px;
+      }
     }
 
     .container {
-      max-width: 1180px;
+      max-width: 1160px;
       margin: 0 auto;
       display: flex;
       flex-direction: column;
-      gap: 20px;
+      gap: 14px;
+    }
+
+    @media (min-width: 768px) {
+      .container {
+        gap: 20px;
+      }
     }
 
     /* Header */
     .topbar {
       display: flex;
-      flex-wrap: wrap;
       align-items: center;
       justify-content: space-between;
-      gap: 16px;
-      padding-bottom: 16px;
+      gap: 10px;
+      padding-bottom: 12px;
       border-bottom: 1px solid var(--border-subtle);
     }
 
     .brand {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
+      min-width: 0;
     }
 
     .brand-icon {
-      width: 38px;
-      height: 38px;
+      width: 36px;
+      height: 36px;
       border-radius: var(--radius-md);
-      background: var(--bg-elevated);
+      background: var(--bg-surface);
       border: 1px solid var(--border-strong);
       display: grid;
       place-items: center;
@@ -85,25 +163,42 @@
       flex-shrink: 0;
     }
 
+    .brand-text {
+      min-width: 0;
+    }
+
     .brand-title {
-      font-size: 1.125rem;
-      font-weight: 600;
+      font-size: 1rem;
+      font-weight: 700;
       letter-spacing: -0.02em;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    @media (min-width: 768px) {
+      .brand-title {
+        font-size: 1.125rem;
+      }
     }
 
     .brand-sub {
-      font-size: 0.8125rem;
+      font-size: 0.75rem;
       color: var(--text-secondary);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .topbar-actions {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 6px;
+      flex-shrink: 0;
     }
 
     .save-indicator {
-      display: inline-flex;
+      display: none;
       align-items: center;
       gap: 6px;
       font-size: 0.75rem;
@@ -114,6 +209,12 @@
       border-radius: 999px;
     }
 
+    @media (min-width: 768px) {
+      .save-indicator {
+        display: inline-flex;
+      }
+    }
+
     .save-dot {
       width: 7px;
       height: 7px;
@@ -121,37 +222,154 @@
       background: var(--good);
     }
 
-    button.btn-ghost {
+    button.icon-btn {
       background: var(--bg-surface);
       color: var(--text-secondary);
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-sm);
-      padding: 6px 12px;
+      height: 36px;
+      padding: 0 10px;
       font-size: 0.8125rem;
       font-weight: 500;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
+      justify-content: center;
       gap: 6px;
       transition: all 0.15s ease;
     }
 
-    button.btn-ghost:hover {
+    button.icon-btn:hover {
       background: var(--bg-hover);
       color: var(--text-primary);
       border-color: var(--border-strong);
     }
 
+    button.icon-btn.whatsapp {
+      color: var(--good-text);
+      border-color: var(--good-border);
+      background: var(--good-soft);
+    }
+
+    button.icon-btn.whatsapp:hover {
+      filter: brightness(1.08);
+    }
+
+    .btn-label-desktop {
+      display: none;
+    }
+
+    @media (min-width: 640px) {
+      .btn-label-desktop {
+        display: inline;
+      }
+    }
+
+    /* Sticky Live Result Bar (Mobile-First) */
+    .sticky-score-bar {
+      position: sticky;
+      top: 8px;
+      z-index: 30;
+      background: var(--bg-sticky);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius-md);
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .sticky-score-bar.good {
+      border-color: var(--good-border);
+    }
+
+    .sticky-score-bar.warn {
+      border-color: var(--warn-border);
+    }
+
+    .sticky-score-bar.bad {
+      border-color: var(--bad-border);
+    }
+
+    .sticky-left {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+    }
+
+    .sticky-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--text-secondary);
+    }
+
+    .sticky-value {
+      font-family: var(--font-mono);
+      font-size: 1.35rem;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .sticky-pts {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+    }
+
+    .sticky-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .status-pill.good {
+      background: var(--good-soft);
+      color: var(--good-text);
+      border: 1px solid var(--good-border);
+    }
+
+    .status-pill.warn {
+      background: var(--warn-soft);
+      color: var(--warn-text);
+      border: 1px solid var(--warn-border);
+    }
+
+    .status-pill.bad {
+      background: var(--bad-soft);
+      color: var(--bad-text);
+      border: 1px solid var(--bad-border);
+    }
+
     /* Profile & Global Control Grid */
     .top-grid {
       display: grid;
-      grid-template-columns: 1.15fr 1fr;
-      gap: 16px;
+      grid-template-columns: 1fr;
+      gap: 14px;
     }
 
-    @media (max-width: 900px) {
+    @media (min-width: 900px) {
       .top-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1.1fr 1fr;
+        gap: 16px;
       }
     }
 
@@ -159,31 +377,37 @@
       background: var(--bg-surface);
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-lg);
-      padding: 20px;
+      padding: 16px;
+    }
+
+    @media (min-width: 768px) {
+      .card {
+        padding: 20px;
+      }
     }
 
     .card-header {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 12px;
-      margin-bottom: 16px;
+      gap: 10px;
+      margin-bottom: 14px;
     }
 
     .card-title {
-      font-size: 0.8125rem;
-      font-weight: 600;
+      font-size: 0.75rem;
+      font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.06em;
       color: var(--text-secondary);
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 7px;
     }
 
     .badge {
       font-family: var(--font-mono);
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       font-weight: 600;
       padding: 3px 8px;
       border-radius: var(--radius-sm);
@@ -194,27 +418,34 @@
 
     .badge-accent {
       background: var(--accent-soft);
-      border-color: rgba(59, 130, 246, 0.35);
-      color: #93c5fd;
+      border-color: var(--accent-border);
+      color: var(--accent-text);
     }
 
-    /* Form Controls */
+    /* Mobile-First Profile Form */
     .profile-fields {
       display: grid;
-      grid-template-columns: 1.6fr 0.7fr 1fr;
-      gap: 12px;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
     }
 
-    @media (max-width: 600px) {
+    .profile-fields .field-name {
+      grid-column: 1 / -1;
+    }
+
+    @media (min-width: 640px) {
       .profile-fields {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1.5fr 0.85fr 1fr;
+      }
+      .profile-fields .field-name {
+        grid-column: auto;
       }
     }
 
     .field {
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      gap: 5px;
     }
 
     .field label {
@@ -224,24 +455,75 @@
     }
 
     input[type="text"],
-    input[type="number"],
-    select {
+    input[type="number"] {
       width: 100%;
+      height: 40px;
       background: var(--bg-elevated);
       color: var(--text-primary);
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-sm);
-      padding: 9px 12px;
-      font-size: 0.875rem;
+      padding: 0 12px;
+      font-size: 0.9375rem;
       font-family: inherit;
       outline: none;
       transition: border-color 0.15s ease;
     }
 
     input[type="text"]:focus,
-    input[type="number"]:focus,
-    select:focus {
+    input[type="number"]:focus {
       border-color: var(--accent);
+    }
+
+    .stepper-group {
+      display: flex;
+      align-items: center;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      height: 40px;
+      overflow: hidden;
+    }
+
+    .stepper-group button {
+      width: 38px;
+      height: 100%;
+      background: transparent;
+      border: none;
+      color: var(--text-secondary);
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+      transition: background 0.12s ease, color 0.12s ease;
+    }
+
+    .stepper-group button:hover {
+      background: var(--bg-hover);
+      color: var(--text-primary);
+    }
+
+    .stepper-group button:active {
+      background: var(--accent-soft);
+      color: var(--accent-text);
+    }
+
+    .stepper-group input {
+      border: none;
+      background: transparent;
+      text-align: center;
+      padding: 0 4px;
+      font-family: var(--font-mono);
+      font-weight: 600;
+      height: 100%;
+      -moz-appearance: textfield;
+    }
+
+    .stepper-group input::-webkit-outer-spin-button,
+    .stepper-group input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
     }
 
     .segmented {
@@ -252,6 +534,7 @@
       border-radius: var(--radius-sm);
       padding: 3px;
       gap: 3px;
+      height: 40px;
     }
 
     .segmented button {
@@ -259,128 +542,79 @@
       border: none;
       color: var(--text-secondary);
       font-size: 0.8125rem;
-      font-weight: 500;
-      padding: 6px 8px;
-      border-radius: 4px;
+      font-weight: 600;
+      border-radius: 6px;
       cursor: pointer;
       transition: all 0.15s ease;
     }
 
     .segmented button.active {
-      background: var(--bg-hover);
+      background: var(--bg-surface);
       color: var(--text-primary);
-      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+      box-shadow: var(--shadow-sm);
     }
 
-    /* Overall Score Summary */
+    .profile-meta {
+      margin-top: 12px;
+      padding-top: 10px;
+      border-top: 1px solid var(--border-subtle);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 8px;
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+    }
+
+    /* Master Camber & Presets */
     .summary-box {
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      gap: 16px;
+      gap: 14px;
     }
 
-    .score-hero {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      padding: 14px 16px;
+    .status-detail-box {
+      padding: 12px 14px;
       border-radius: var(--radius-md);
       background: var(--bg-elevated);
       border: 1px solid var(--border-subtle);
-    }
-
-    .score-hero.good {
-      background: var(--good-soft);
-      border-color: var(--good-border);
-    }
-
-    .score-hero.warn {
-      background: var(--warn-soft);
-      border-color: var(--warn-border);
-    }
-
-    .score-hero.bad {
-      background: var(--bad-soft);
-      border-color: var(--bad-border);
-    }
-
-    .score-number-wrap {
-      display: flex;
-      align-items: baseline;
-      gap: 10px;
-    }
-
-    .score-big {
-      font-family: var(--font-mono);
-      font-size: 2.25rem;
-      font-weight: 700;
-      line-height: 1;
-      letter-spacing: -0.03em;
-    }
-
-    .score-pts {
-      font-family: var(--font-mono);
-      font-size: 0.875rem;
-      color: var(--text-secondary);
-    }
-
-    .status-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 5px 10px;
-      border-radius: 999px;
-      font-size: 0.75rem;
-      font-weight: 600;
-      letter-spacing: 0.02em;
-      text-transform: uppercase;
-    }
-
-    .status-pill.good {
-      background: rgba(16, 185, 129, 0.2);
-      color: #6ee7b7;
-      border: 1px solid var(--good-border);
-    }
-
-    .status-pill.warn {
-      background: rgba(245, 158, 11, 0.2);
-      color: #fcd34d;
-      border: 1px solid var(--warn-border);
-    }
-
-    .status-pill.bad {
-      background: rgba(239, 68, 68, 0.2);
-      color: #fca5a5;
-      border: 1px solid var(--bad-border);
-    }
-
-    .status-detail {
       font-size: 0.8125rem;
       color: var(--text-secondary);
-      margin-top: 4px;
-    }
-
-    /* Master Camber Slider */
-    .master-control {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      padding-top: 4px;
-    }
-
-    .master-control-top {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      font-size: 0.8125rem;
+      gap: 10px;
+    }
+
+    .status-detail-box.good {
+      background: var(--good-soft);
+      border-color: var(--good-border);
+      color: var(--text-primary);
+    }
+
+    .status-detail-box.warn {
+      background: var(--warn-soft);
+      border-color: var(--warn-border);
+      color: var(--text-primary);
+    }
+
+    .status-detail-box.bad {
+      background: var(--bad-soft);
+      border-color: var(--bad-border);
+      color: var(--text-primary);
+    }
+
+    .master-control {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
     }
 
     .master-presets {
-      display: flex;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
       gap: 6px;
-      flex-wrap: wrap;
     }
 
     .preset-btn {
@@ -388,10 +622,12 @@
       border: 1px solid var(--border-subtle);
       color: var(--text-secondary);
       font-family: var(--font-mono);
-      font-size: 0.75rem;
-      padding: 3px 8px;
-      border-radius: 4px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 8px 4px;
+      border-radius: var(--radius-sm);
       cursor: pointer;
+      text-align: center;
       transition: all 0.15s ease;
     }
 
@@ -401,54 +637,74 @@
     }
 
     .preset-btn.cutoff {
-      border-color: rgba(59, 130, 246, 0.4);
-      color: #93c5fd;
+      background: var(--accent-soft);
+      border-color: var(--accent-border);
+      color: var(--accent-text);
+    }
+
+    /* Range Slider with 7.0 Cutoff Tick */
+    .slider-wrap {
+      position: relative;
+      padding: 6px 0;
+    }
+
+    .slider-cutoff-mark {
+      position: absolute;
+      left: 70%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 2px;
+      height: 14px;
+      background: var(--accent);
+      pointer-events: none;
+      opacity: 0.75;
     }
 
     input[type="range"] {
       -webkit-appearance: none;
       appearance: none;
       width: 100%;
-      height: 6px;
-      background: #232936;
+      height: 8px;
+      background: var(--track-bg);
       border-radius: 999px;
       outline: none;
       cursor: pointer;
+      display: block;
     }
 
     input[type="range"]::-webkit-slider-thumb {
       -webkit-appearance: none;
       appearance: none;
-      width: 16px;
-      height: 16px;
+      width: 22px;
+      height: 22px;
       border-radius: 50%;
-      background: var(--text-primary);
-      border: 2px solid var(--accent);
-      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+      background: var(--bg-surface);
+      border: 3px solid var(--accent);
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.45);
       cursor: pointer;
       transition: transform 0.1s ease;
     }
 
-    input[type="range"]::-webkit-slider-thumb:hover {
+    input[type="range"]::-webkit-slider-thumb:active {
       transform: scale(1.12);
     }
 
-    /* Exercises Grid */
+    /* Exercises Grid (Mobile-First 1 col -> 2 col -> 5 col) */
     .exercises-grid {
       display: grid;
-      grid-template-columns: repeat(5, 1fr);
+      grid-template-columns: 1fr;
       gap: 12px;
     }
 
-    @media (max-width: 1080px) {
+    @media (min-width: 640px) {
       .exercises-grid {
         grid-template-columns: repeat(2, 1fr);
       }
     }
 
-    @media (max-width: 600px) {
+    @media (min-width: 1100px) {
       .exercises-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(5, 1fr);
       }
     }
 
@@ -464,23 +720,23 @@
     }
 
     .ex-card.is-good {
-      border-color: rgba(16, 185, 129, 0.3);
+      border-color: var(--good-border);
     }
 
     .ex-card.is-bad {
-      border-color: rgba(239, 68, 68, 0.35);
+      border-color: var(--bad-border);
     }
 
     .ex-head {
       display: flex;
-      align-items: flex-start;
+      align-items: center;
       justify-content: space-between;
       gap: 8px;
     }
 
     .ex-name {
-      font-size: 0.875rem;
-      font-weight: 600;
+      font-size: 0.9375rem;
+      font-weight: 700;
       color: var(--text-primary);
     }
 
@@ -493,20 +749,20 @@
       font-family: var(--font-mono);
       font-size: 0.8125rem;
       font-weight: 700;
-      padding: 2px 7px;
-      border-radius: 5px;
+      padding: 3px 8px;
+      border-radius: 6px;
       flex-shrink: 0;
     }
 
     .ex-grade-badge.good {
       background: var(--good-soft);
-      color: #6ee7b7;
+      color: var(--good-text);
       border: 1px solid var(--good-border);
     }
 
     .ex-grade-badge.bad {
       background: var(--bad-soft);
-      color: #fca5a5;
+      color: var(--bad-text);
       border: 1px solid var(--bad-border);
     }
 
@@ -514,7 +770,7 @@
       background: var(--bg-elevated);
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-sm);
-      padding: 8px 10px;
+      padding: 10px 12px;
       display: flex;
       flex-direction: column;
       gap: 4px;
@@ -522,20 +778,20 @@
 
     .ex-perf-row {
       display: flex;
-      align-items: center;
+      align-items: baseline;
       justify-content: space-between;
       gap: 6px;
     }
 
     .ex-perf-label {
-      font-size: 0.72rem;
+      font-size: 0.75rem;
       color: var(--text-secondary);
     }
 
     .ex-perf-value {
       font-family: var(--font-mono);
-      font-size: 0.9375rem;
-      font-weight: 600;
+      font-size: 1.05rem;
+      font-weight: 700;
       color: var(--text-primary);
     }
 
@@ -548,42 +804,39 @@
 
     .ex-min-hint span {
       font-family: var(--font-mono);
+      font-weight: 600;
       color: var(--text-secondary);
     }
 
-    .ex-raw-input-wrap {
+    .ex-control-block {
       display: flex;
       flex-direction: column;
-      gap: 4px;
+      gap: 8px;
     }
 
-    .ex-raw-input-wrap label {
+    .ex-control-label {
+      display: flex;
+      justify-content: space-between;
       font-size: 0.72rem;
       color: var(--text-secondary);
     }
 
-    .ex-raw-input-wrap input {
-      padding: 6px 9px;
-      font-family: var(--font-mono);
-      font-size: 0.8125rem;
-    }
-
     .ex-status-line {
       font-size: 0.75rem;
-      font-weight: 500;
+      font-weight: 600;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding-top: 6px;
+      padding-top: 8px;
       border-top: 1px solid var(--border-subtle);
     }
 
     .ex-status-line.good {
-      color: #6ee7b7;
+      color: var(--good-text);
     }
 
     .ex-status-line.bad {
-      color: #fca5a5;
+      color: var(--bad-text);
     }
 
     /* Reference Table */
@@ -592,23 +845,23 @@
       flex-wrap: wrap;
       align-items: center;
       justify-content: space-between;
-      gap: 12px;
-      margin-bottom: 14px;
+      gap: 10px;
+      margin-bottom: 12px;
     }
 
     .legend {
       display: flex;
       flex-wrap: wrap;
       align-items: center;
-      gap: 14px;
-      font-size: 0.75rem;
+      gap: 12px;
+      font-size: 0.72rem;
       color: var(--text-secondary);
     }
 
     .legend-item {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      gap: 5px;
     }
 
     .swatch {
@@ -621,6 +874,7 @@
       overflow-x: auto;
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-md);
+      -webkit-overflow-scrolling: touch;
     }
 
     table {
@@ -636,9 +890,9 @@
     }
 
     th {
-      padding: 10px 12px;
-      font-weight: 600;
-      font-size: 0.75rem;
+      padding: 10px 10px;
+      font-weight: 700;
+      font-size: 0.72rem;
       text-transform: uppercase;
       letter-spacing: 0.04em;
       color: var(--text-secondary);
@@ -646,13 +900,26 @@
     }
 
     td {
-      padding: 9px 12px;
+      padding: 10px 10px;
       border-bottom: 1px solid var(--border-subtle);
       font-family: var(--font-mono);
       color: var(--text-primary);
       cursor: pointer;
       transition: background 0.12s ease;
       white-space: nowrap;
+    }
+
+    th:first-child,
+    td:first-child {
+      position: sticky;
+      left: 0;
+      background: var(--bg-surface);
+      z-index: 2;
+      border-right: 1px solid var(--border-subtle);
+    }
+
+    thead th:first-child {
+      background: var(--bg-elevated);
     }
 
     tbody tr:last-child td {
@@ -664,62 +931,59 @@
     }
 
     tbody tr.row-bad td:first-child {
-      color: #fca5a5;
+      color: var(--bad-text);
     }
 
     tbody tr.row-good td:first-child {
-      color: #6ee7b7;
+      color: var(--good-text);
     }
 
-    tbody tr.row-cutoff {
-      background: rgba(59, 130, 246, 0.09);
-      outline: 1px solid rgba(59, 130, 246, 0.35);
+    tbody tr.row-cutoff td {
+      background: var(--accent-soft);
     }
 
     td.cell-selected {
-      background: rgba(16, 185, 129, 0.22) !important;
-      color: #ffffff;
+      background: var(--good-soft) !important;
+      color: var(--good-text);
       font-weight: 700;
-      box-shadow: inset 0 0 0 1px var(--good);
+      box-shadow: inset 0 0 0 1.5px var(--good);
     }
 
     td.cell-selected-bad {
-      background: rgba(239, 68, 68, 0.22) !important;
-      color: #ffffff;
+      background: var(--bad-soft) !important;
+      color: var(--bad-text);
       font-weight: 700;
-      box-shadow: inset 0 0 0 1px var(--bad);
+      box-shadow: inset 0 0 0 1.5px var(--bad);
     }
 
     .tag-mini {
       display: inline-block;
       font-family: var(--font-sans);
       font-size: 0.65rem;
-      font-weight: 600;
+      font-weight: 700;
       text-transform: uppercase;
-      padding: 1px 5px;
-      border-radius: 3px;
-      margin-left: 6px;
-      vertical-align: middle;
+      padding: 2px 6px;
+      border-radius: 4px;
     }
 
     .tag-cutoff {
       background: var(--accent-soft);
-      color: #93c5fd;
-      border: 1px solid rgba(59, 130, 246, 0.35);
+      color: var(--accent-text);
+      border: 1px solid var(--accent-border);
     }
 
     .tag-bad {
       background: var(--bad-soft);
-      color: #fca5a5;
+      color: var(--bad-text);
     }
 
     .tag-good {
       background: var(--good-soft);
-      color: #6ee7b7;
+      color: var(--good-text);
     }
 
     .footnote {
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       color: var(--text-muted);
       display: flex;
       flex-wrap: wrap;
@@ -730,7 +994,7 @@
 </head>
 <body>
   <div class="container">
-    <!-- Top Bar -->
+    <!-- Header -->
     <header class="topbar">
       <div class="brand">
         <div class="brand-icon" aria-hidden="true">
@@ -739,30 +1003,61 @@
             <path d="m9 12 2 2 4-4"/>
           </svg>
         </div>
-        <div>
-          <div class="brand-title">TAF PMTO — Simulador de Manutenção Periódica</div>
-          <div class="brand-sub" id="greetingSub">Anexo I (Tabelas 1 e 2) • Nota mínima de referência: 7,0 (70 pts)</div>
+        <div class="brand-text">
+          <div class="brand-title">Simulador TAF PMTO</div>
+          <div class="brand-sub" id="greetingSub">Manutenção Periódica • Corte: 7,0 (70 pts)</div>
         </div>
       </div>
 
       <div class="topbar-actions">
-        <div class="save-indicator" title="Dados salvos automaticamente no navegador via localStorage">
+        <div class="save-indicator" title="Dados salvos localmente no navegador">
           <span class="save-dot"></span>
-          <span id="saveStatusText">Salvo no navegador</span>
+          <span id="saveStatusText">Salvo</span>
         </div>
-        <button type="button" class="btn-ghost" id="btnReset" title="Restaurar valores padrão e limpar dados salvos">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+
+        <button type="button" class="icon-btn whatsapp" id="btnShareWhatsapp" title="Compartilhar resultado no WhatsApp">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/>
+            <polyline points="16 6 12 2 8 6"/>
+            <line x1="12" y1="2" x2="12" y2="15"/>
+          </svg>
+          <span class="btn-label-desktop">WhatsApp</span>
+        </button>
+
+        <button type="button" class="icon-btn" id="btnThemeToggle" title="Alternar tema claro/escuro" aria-label="Alternar tema">
+          <svg id="iconSun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="4"/>
+            <path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/>
+          </svg>
+          <svg id="iconMoon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;">
+            <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>
+          </svg>
+        </button>
+
+        <button type="button" class="icon-btn" id="btnReset" title="Restaurar valores padrão">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
             <path d="M3 3v5h5"/>
           </svg>
-          Resetar
         </button>
       </div>
     </header>
 
-    <!-- Top Grid: Profile & Overall Estimate -->
+    <!-- Sticky Live Score Bar -->
+    <div class="sticky-score-bar good" id="stickyScoreBar" role="status" aria-live="polite">
+      <div class="sticky-left">
+        <span class="sticky-label">Média Geral</span>
+        <span class="sticky-value" id="overallGradeDisplay">7,00</span>
+        <span class="sticky-pts" id="overallPtsDisplay">(70 pts)</span>
+      </div>
+      <div class="sticky-right">
+        <span class="badge" id="cutoffPassCount">5/5 ≥ 7,0</span>
+        <span class="status-pill good" id="overallPill">Nota Boa • Apto</span>
+      </div>
+    </div>
+
+    <!-- Top Grid: Profile & Master Slider -->
     <section class="top-grid">
-      <!-- Identification & Bracket -->
       <div class="card">
         <div class="card-header">
           <div class="card-title">
@@ -770,38 +1065,41 @@
               <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/>
               <circle cx="12" cy="7" r="4"/>
             </svg>
-            Identificação &amp; Faixa Etária
+            Seus Dados
           </div>
           <span class="badge badge-accent" id="bracketBadge">Faixa: 31 a 35</span>
         </div>
 
         <div class="profile-fields">
-          <div class="field">
-            <label for="userName">Nome / Posto ou Graduação</label>
+          <div class="field field-name">
+            <label for="userName">Nome / Graduação</label>
             <input type="text" id="userName" placeholder="Ex.: Sd Leandro" autocomplete="off" />
           </div>
 
           <div class="field">
-            <label for="userAge">Idade (anos)</label>
-            <input type="number" id="userAge" min="17" max="80" value="31" />
+            <label for="userAge">Idade</label>
+            <div class="stepper-group">
+              <button type="button" id="btnAgeDown" aria-label="Diminuir idade">−</button>
+              <input type="number" id="userAge" min="17" max="80" value="31" inputmode="numeric" />
+              <button type="button" id="btnAgeUp" aria-label="Aumentar idade">+</button>
+            </div>
           </div>
 
           <div class="field">
-            <label>Sexo (Tabela)</label>
+            <label>Sexo</label>
             <div class="segmented" role="group" aria-label="Sexo">
-              <button type="button" id="btnSexM" class="active" data-sex="masculino">Masculino</button>
-              <button type="button" id="btnSexF" data-sex="feminino">Feminino</button>
+              <button type="button" id="btnSexM" class="active" data-sex="masculino">Masc</button>
+              <button type="button" id="btnSexF" data-sex="feminino">Fem</button>
             </div>
           </div>
         </div>
 
-        <div style="margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--border-subtle); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; font-size: 0.8125rem; color: var(--text-secondary);">
-          <div>Critério de aprovação: <strong style="color: var(--text-primary);">Nota ≥ 7,0 (70 pts)</strong></div>
-          <div>Tabela ativa: <strong style="color: var(--text-primary);" id="activeTableLabel">Tabela 1 — Sexo Masculino (Pág. 6)</strong></div>
+        <div class="profile-meta">
+          <span>Nota mínima: <strong style="color: var(--text-primary);">7,0 (70 pts)</strong></span>
+          <span id="activeTableLabel">Tabela 1 — Masculino (Pág. 6)</span>
         </div>
       </div>
 
-      <!-- Overall Average & Global Camber -->
       <div class="card summary-box">
         <div>
           <div class="card-header" style="margin-bottom: 10px;">
@@ -811,36 +1109,27 @@
                 <line x1="12" y1="20" x2="12" y2="4"/>
                 <line x1="6" y1="20" x2="6" y2="14"/>
               </svg>
-              Resultado Geral Estimado (Média das 5 Provas)
+              Simulação Geral (Nivelar Todas as Provas)
             </div>
-            <span class="badge" id="cutoffPassCount">5/5 provas ≥ 7,0</span>
           </div>
 
-          <div class="score-hero good" id="overallHero">
-            <div>
-              <div class="score-number-wrap">
-                <span class="score-big" id="overallGradeDisplay">7,00</span>
-                <span class="score-pts" id="overallPtsDisplay">(70,0 pts)</span>
-              </div>
-              <div class="status-detail" id="overallDetail">Média geral dentro do mínimo exigido e todas as provas aprovadas.</div>
-            </div>
-            <span class="status-pill good" id="overallPill">Nota Boa • Apto</span>
+          <div class="status-detail-box good" id="overallDetailBox">
+            <span id="overallDetail">Média geral ≥ 7,0 e todas as 5 provas atingiram o mínimo exigido.</span>
           </div>
         </div>
 
-        <!-- Master Camber Control -->
         <div class="master-control">
-          <div class="master-control-top">
-            <span style="color: var(--text-secondary); font-weight: 500;">Cambear Nota Geral (nivelar todas as provas):</span>
-            <div class="master-presets">
-              <button type="button" class="preset-btn" data-preset="50">5,0</button>
-              <button type="button" class="preset-btn cutoff" data-preset="70">7,0 (Mín)</button>
-              <button type="button" class="preset-btn" data-preset="80">8,0</button>
-              <button type="button" class="preset-btn" data-preset="90">9,0</button>
-              <button type="button" class="preset-btn" data-preset="100">10,0</button>
-            </div>
+          <div class="master-presets">
+            <button type="button" class="preset-btn" data-preset="50">5,0</button>
+            <button type="button" class="preset-btn cutoff" data-preset="70">7,0 Mín</button>
+            <button type="button" class="preset-btn" data-preset="80">8,0</button>
+            <button type="button" class="preset-btn" data-preset="90">9,0</button>
+            <button type="button" class="preset-btn" data-preset="100">10,0</button>
           </div>
-          <input type="range" id="masterSlider" min="10" max="100" step="5" value="70" aria-label="Cambear Nota Geral" />
+          <div class="slider-wrap">
+            <span class="slider-cutoff-mark" title="Corte mínimo: 7,0"></span>
+            <input type="range" id="masterSlider" min="10" max="100" step="5" value="70" aria-label="Nivelar todas as notas" />
+          </div>
         </div>
       </div>
     </section>
@@ -850,7 +1139,7 @@
       <div class="exercises-grid" id="exercisesGrid"></div>
     </section>
 
-    <!-- Full Reference Table for Active Bracket -->
+    <!-- Full Reference Table -->
     <section class="card">
       <div class="table-header-bar">
         <div>
@@ -860,15 +1149,15 @@
               <line x1="3" y1="9" x2="21" y2="9"/>
               <line x1="9" y1="21" x2="9" y2="9"/>
             </svg>
-            Tabela de Conversão da Faixa Selecionada
+            Tabela Oficial da Faixa Selecionada
           </div>
-          <div style="font-size: 0.78rem; color: var(--text-secondary);">Clique em qualquer célula da tabela para aplicar aquele índice/nota diretamente na simulação.</div>
+          <div style="font-size: 0.75rem; color: var(--text-secondary);">Toque em uma célula para aplicar o índice ou na nota para aplicar a linha inteira.</div>
         </div>
 
         <div class="legend">
-          <span class="legend-item"><span class="swatch" style="background: rgba(239,68,68,0.45);"></span>&lt; 7,0 (Nota Ruim)</span>
-          <span class="legend-item"><span class="swatch" style="background: rgba(59,130,246,0.5);"></span>7,0 (Nota Mínima)</span>
-          <span class="legend-item"><span class="swatch" style="background: rgba(16,185,129,0.5);"></span>≥ 7,0 (Nota Boa / Selecionado)</span>
+          <span class="legend-item"><span class="swatch" style="background: var(--bad);"></span>&lt; 7,0 Ruim</span>
+          <span class="legend-item"><span class="swatch" style="background: var(--accent);"></span>7,0 Mínimo</span>
+          <span class="legend-item"><span class="swatch" style="background: var(--good);"></span>≥ 7,0 Boa</span>
         </div>
       </div>
 
@@ -876,13 +1165,13 @@
         <table>
           <thead>
             <tr>
-              <th>Nota / Pontos</th>
+              <th>Nota</th>
               <th id="thBarra">Barra Fixa (Reps)</th>
-              <th>Flexão de Braço (Reps)</th>
+              <th>Flexão Braço (Reps)</th>
               <th>Flexão Abdominal (Reps)</th>
-              <th>Prancha (Estático)</th>
+              <th>Prancha (Seg)</th>
               <th>Corrida 12 min (m)</th>
-              <th>Classificação</th>
+              <th>Status</th>
             </tr>
           </thead>
           <tbody id="referenceTableBody"></tbody>
@@ -891,424 +1180,434 @@
     </section>
 
     <footer class="footnote">
-      <span>Fonte: Anexo I — Teste de Aptidão Física PMTO (Manutenção Periódica), Páginas 6 e 7.</span>
-      <span>Nota: As colunas 3 e 4 possuem cabeçalhos omitidos na extração do PDF original; valores preservados integralmente.</span>
+      <span>Anexo I — Teste de Aptidão Física PMTO (Manutenção Periódica), Páginas 6 e 7.</span>
+      <span>Provas: Barra Fixa, Flexão de Braço, Flexão Abdominal, Prancha e Corrida 12 min.</span>
     </footer>
   </div>
 
   <script>
     const TAF_DATA = {
       masculino: {
-        titulo: "Tabela 1 — Sexo Masculino (Pág. 6)",
+        titulo: "Tabela 1 — Masculino (Pág. 6)",
         faixas: {
           "Até 20 Anos": [
-            { pontos: 10, barra: null, flexao: 21, ex3: "23", ex4: "28", corrida: "1800-1849" },
-            { pontos: 15, barra: null, flexao: 22, ex3: "24", ex4: "29", corrida: "1850-1899" },
-            { pontos: 20, barra: null, flexao: 23, ex3: "25", ex4: "30", corrida: "1900-1949" },
-            { pontos: 25, barra: null, flexao: 24, ex3: "26", ex4: "31", corrida: "1950-1999" },
-            { pontos: 30, barra: null, flexao: 25, ex3: "27", ex4: "32", corrida: "2000-2049" },
-            { pontos: 35, barra: null, flexao: 26, ex3: "28", ex4: "33", corrida: "2050-2099" },
-            { pontos: 40, barra: null, flexao: 27, ex3: "29", ex4: "34", corrida: "2100-2149" },
-            { pontos: 45, barra: 1, flexao: 28, ex3: "30", ex4: "35", corrida: "2150-2199" },
-            { pontos: 50, barra: 2, flexao: 29, ex3: "31", ex4: "36", corrida: "2200-2249" },
-            { pontos: 55, barra: 3, flexao: 30, ex3: "32", ex4: "37", corrida: "2250-2299" },
-            { pontos: 60, barra: 4, flexao: 31, ex3: "33", ex4: "38", corrida: "2300-2349" },
-            { pontos: 65, barra: 5, flexao: 32, ex3: "34-35", ex4: "39", corrida: "2350-2399" },
-            { pontos: 70, barra: 6, flexao: 33, ex3: "36-37", ex4: "40-41", corrida: "2400-2449" },
-            { pontos: 75, barra: 7, flexao: 34, ex3: "38-39", ex4: "43-42", corrida: "2450-2499" },
-            { pontos: 80, barra: 8, flexao: 35, ex3: "40-41", ex4: "44-47", corrida: "2500-2549" },
-            { pontos: 85, barra: 9, flexao: 36, ex3: "42-43", ex4: "48-51", corrida: "2550-2599" },
-            { pontos: 90, barra: 10, flexao: 37, ex3: "44-45", ex4: "52-55", corrida: "2600-2649" },
-            { pontos: 95, barra: 11, flexao: 38, ex3: "46-47", ex4: "56-59", corrida: "2650-2699" },
-            { pontos: 100, barra: 12, flexao: 39, ex3: "≥ 48", ex4: "≥60", corrida: "≥ 2700" }
+            { pontos: 10, barra: null, flexao: 21, abdominal: "23", prancha: "28", corrida: "1800-1849" },
+            { pontos: 15, barra: null, flexao: 22, abdominal: "24", prancha: "29", corrida: "1850-1899" },
+            { pontos: 20, barra: null, flexao: 23, abdominal: "25", prancha: "30", corrida: "1900-1949" },
+            { pontos: 25, barra: null, flexao: 24, abdominal: "26", prancha: "31", corrida: "1950-1999" },
+            { pontos: 30, barra: null, flexao: 25, abdominal: "27", prancha: "32", corrida: "2000-2049" },
+            { pontos: 35, barra: null, flexao: 26, abdominal: "28", prancha: "33", corrida: "2050-2099" },
+            { pontos: 40, barra: null, flexao: 27, abdominal: "29", prancha: "34", corrida: "2100-2149" },
+            { pontos: 45, barra: 1, flexao: 28, abdominal: "30", prancha: "35", corrida: "2150-2199" },
+            { pontos: 50, barra: 2, flexao: 29, abdominal: "31", prancha: "36", corrida: "2200-2249" },
+            { pontos: 55, barra: 3, flexao: 30, abdominal: "32", prancha: "37", corrida: "2250-2299" },
+            { pontos: 60, barra: 4, flexao: 31, abdominal: "33", prancha: "38", corrida: "2300-2349" },
+            { pontos: 65, barra: 5, flexao: 32, abdominal: "34-35", prancha: "39", corrida: "2350-2399" },
+            { pontos: 70, barra: 6, flexao: 33, abdominal: "36-37", prancha: "40-41", corrida: "2400-2449" },
+            { pontos: 75, barra: 7, flexao: 34, abdominal: "38-39", prancha: "43-42", corrida: "2450-2499" },
+            { pontos: 80, barra: 8, flexao: 35, abdominal: "40-41", prancha: "44-47", corrida: "2500-2549" },
+            { pontos: 85, barra: 9, flexao: 36, abdominal: "42-43", prancha: "48-51", corrida: "2550-2599" },
+            { pontos: 90, barra: 10, flexao: 37, abdominal: "44-45", prancha: "52-55", corrida: "2600-2649" },
+            { pontos: 95, barra: 11, flexao: 38, abdominal: "46-47", prancha: "56-59", corrida: "2650-2699" },
+            { pontos: 100, barra: 12, flexao: 39, abdominal: "≥ 48", prancha: "≥60", corrida: "≥ 2700" }
           ],
           "21 a 25": [
-            { pontos: 10, barra: null, flexao: 20, ex3: "22", ex4: "27", corrida: "1750-1799" },
-            { pontos: 15, barra: null, flexao: 21, ex3: "23", ex4: "28", corrida: "1800-1849" },
-            { pontos: 20, barra: null, flexao: 22, ex3: "24", ex4: "29", corrida: "1850-1899" },
-            { pontos: 25, barra: null, flexao: 23, ex3: "25", ex4: "30", corrida: "1900-1949" },
-            { pontos: 30, barra: null, flexao: 24, ex3: "26", ex4: "31", corrida: "1950-1999" },
-            { pontos: 35, barra: null, flexao: 25, ex3: "27", ex4: "32", corrida: "2000-2049" },
-            { pontos: 40, barra: null, flexao: 26, ex3: "28", ex4: "33", corrida: "2050-2099" },
-            { pontos: 45, barra: null, flexao: 27, ex3: "29", ex4: "34", corrida: "2100-2149" },
-            { pontos: 50, barra: 1, flexao: 28, ex3: "30", ex4: "35", corrida: "2150-2199" },
-            { pontos: 55, barra: 2, flexao: 29, ex3: "31", ex4: "36", corrida: "2200-2249" },
-            { pontos: 60, barra: 3, flexao: 30, ex3: "32", ex4: "37", corrida: "2250-2299" },
-            { pontos: 65, barra: 4, flexao: 31, ex3: "33", ex4: "38", corrida: "2300-2349" },
-            { pontos: 70, barra: 5, flexao: 32, ex3: "34-35", ex4: "39", corrida: "2350-2399" },
-            { pontos: 75, barra: 6, flexao: 33, ex3: "36-37", ex4: "40-41", corrida: "2400-2449" },
-            { pontos: 80, barra: 7, flexao: 34, ex3: "38-39", ex4: "43-42", corrida: "2450-2499" },
-            { pontos: 85, barra: 8, flexao: 35, ex3: "40-41", ex4: "44-47", corrida: "2500-2549" },
-            { pontos: 90, barra: 9, flexao: 36, ex3: "42-43", ex4: "48-51", corrida: "2550-2599" },
-            { pontos: 95, barra: 10, flexao: 37, ex3: "44-45", ex4: "52-55", corrida: "2600-2649" },
-            { pontos: 100, barra: 11, flexao: 38, ex3: "46-47", ex4: "56-59", corrida: "2650-2699" }
+            { pontos: 10, barra: null, flexao: 20, abdominal: "22", prancha: "27", corrida: "1750-1799" },
+            { pontos: 15, barra: null, flexao: 21, abdominal: "23", prancha: "28", corrida: "1800-1849" },
+            { pontos: 20, barra: null, flexao: 22, abdominal: "24", prancha: "29", corrida: "1850-1899" },
+            { pontos: 25, barra: null, flexao: 23, abdominal: "25", prancha: "30", corrida: "1900-1949" },
+            { pontos: 30, barra: null, flexao: 24, abdominal: "26", prancha: "31", corrida: "1950-1999" },
+            { pontos: 35, barra: null, flexao: 25, abdominal: "27", prancha: "32", corrida: "2000-2049" },
+            { pontos: 40, barra: null, flexao: 26, abdominal: "28", prancha: "33", corrida: "2050-2099" },
+            { pontos: 45, barra: null, flexao: 27, abdominal: "29", prancha: "34", corrida: "2100-2149" },
+            { pontos: 50, barra: 1, flexao: 28, abdominal: "30", prancha: "35", corrida: "2150-2199" },
+            { pontos: 55, barra: 2, flexao: 29, abdominal: "31", prancha: "36", corrida: "2200-2249" },
+            { pontos: 60, barra: 3, flexao: 30, abdominal: "32", prancha: "37", corrida: "2250-2299" },
+            { pontos: 65, barra: 4, flexao: 31, abdominal: "33", prancha: "38", corrida: "2300-2349" },
+            { pontos: 70, barra: 5, flexao: 32, abdominal: "34-35", prancha: "39", corrida: "2350-2399" },
+            { pontos: 75, barra: 6, flexao: 33, abdominal: "36-37", prancha: "40-41", corrida: "2400-2449" },
+            { pontos: 80, barra: 7, flexao: 34, abdominal: "38-39", prancha: "43-42", corrida: "2450-2499" },
+            { pontos: 85, barra: 8, flexao: 35, abdominal: "40-41", prancha: "44-47", corrida: "2500-2549" },
+            { pontos: 90, barra: 9, flexao: 36, abdominal: "42-43", prancha: "48-51", corrida: "2550-2599" },
+            { pontos: 95, barra: 10, flexao: 37, abdominal: "44-45", prancha: "52-55", corrida: "2600-2649" },
+            { pontos: 100, barra: 11, flexao: 38, abdominal: "46-47", prancha: "56-59", corrida: "2650-2699" }
           ],
           "26 a 30": [
-            { pontos: 10, barra: null, flexao: 19, ex3: "21", ex4: "26", corrida: "1700-1749" },
-            { pontos: 15, barra: null, flexao: 20, ex3: "22", ex4: "27", corrida: "1750-1799" },
-            { pontos: 20, barra: null, flexao: 21, ex3: "23", ex4: "28", corrida: "1800-1849" },
-            { pontos: 25, barra: null, flexao: 22, ex3: "24", ex4: "29", corrida: "1850-1899" },
-            { pontos: 30, barra: null, flexao: 23, ex3: "25", ex4: "30", corrida: "1900-1949" },
-            { pontos: 35, barra: null, flexao: 24, ex3: "26", ex4: "31", corrida: "1950-1999" },
-            { pontos: 40, barra: null, flexao: 25, ex3: "27", ex4: "32", corrida: "2000-2049" },
-            { pontos: 45, barra: null, flexao: 26, ex3: "28", ex4: "33", corrida: "2050-2099" },
-            { pontos: 50, barra: null, flexao: 27, ex3: "29", ex4: "34", corrida: "2100-2149" },
-            { pontos: 55, barra: 1, flexao: 28, ex3: "30", ex4: "35", corrida: "2150-2199" },
-            { pontos: 60, barra: 2, flexao: 29, ex3: "31", ex4: "36", corrida: "2200-2249" },
-            { pontos: 65, barra: 3, flexao: 30, ex3: "32", ex4: "37", corrida: "2250-2299" },
-            { pontos: 70, barra: 4, flexao: 31, ex3: "33", ex4: "38", corrida: "2300-2349" },
-            { pontos: 75, barra: 5, flexao: 32, ex3: "34-35", ex4: "39", corrida: "2350-2399" },
-            { pontos: 80, barra: 6, flexao: 33, ex3: "36-37", ex4: "40-41", corrida: "2400-2449" },
-            { pontos: 85, barra: 7, flexao: 34, ex3: "38-39", ex4: "43-42", corrida: "2450-2499" },
-            { pontos: 90, barra: 8, flexao: 35, ex3: "40-41", ex4: "44-47", corrida: "2500-2549" },
-            { pontos: 95, barra: 9, flexao: 36, ex3: "42-43", ex4: "48-51", corrida: "2550-2599" },
-            { pontos: 100, barra: 10, flexao: 37, ex3: "44-45", ex4: "52-55", corrida: "2600-2649" }
+            { pontos: 10, barra: null, flexao: 19, abdominal: "21", prancha: "26", corrida: "1700-1749" },
+            { pontos: 15, barra: null, flexao: 20, abdominal: "22", prancha: "27", corrida: "1750-1799" },
+            { pontos: 20, barra: null, flexao: 21, abdominal: "23", prancha: "28", corrida: "1800-1849" },
+            { pontos: 25, barra: null, flexao: 22, abdominal: "24", prancha: "29", corrida: "1850-1899" },
+            { pontos: 30, barra: null, flexao: 23, abdominal: "25", prancha: "30", corrida: "1900-1949" },
+            { pontos: 35, barra: null, flexao: 24, abdominal: "26", prancha: "31", corrida: "1950-1999" },
+            { pontos: 40, barra: null, flexao: 25, abdominal: "27", prancha: "32", corrida: "2000-2049" },
+            { pontos: 45, barra: null, flexao: 26, abdominal: "28", prancha: "33", corrida: "2050-2099" },
+            { pontos: 50, barra: null, flexao: 27, abdominal: "29", prancha: "34", corrida: "2100-2149" },
+            { pontos: 55, barra: 1, flexao: 28, abdominal: "30", prancha: "35", corrida: "2150-2199" },
+            { pontos: 60, barra: 2, flexao: 29, abdominal: "31", prancha: "36", corrida: "2200-2249" },
+            { pontos: 65, barra: 3, flexao: 30, abdominal: "32", prancha: "37", corrida: "2250-2299" },
+            { pontos: 70, barra: 4, flexao: 31, abdominal: "33", prancha: "38", corrida: "2300-2349" },
+            { pontos: 75, barra: 5, flexao: 32, abdominal: "34-35", prancha: "39", corrida: "2350-2399" },
+            { pontos: 80, barra: 6, flexao: 33, abdominal: "36-37", prancha: "40-41", corrida: "2400-2449" },
+            { pontos: 85, barra: 7, flexao: 34, abdominal: "38-39", prancha: "43-42", corrida: "2450-2499" },
+            { pontos: 90, barra: 8, flexao: 35, abdominal: "40-41", prancha: "44-47", corrida: "2500-2549" },
+            { pontos: 95, barra: 9, flexao: 36, abdominal: "42-43", prancha: "48-51", corrida: "2550-2599" },
+            { pontos: 100, barra: 10, flexao: 37, abdominal: "44-45", prancha: "52-55", corrida: "2600-2649" }
           ],
           "31 a 35": [
-            { pontos: 10, barra: null, flexao: 18, ex3: "20", ex4: "25", corrida: "1650-1699" },
-            { pontos: 15, barra: null, flexao: 19, ex3: "21", ex4: "26", corrida: "1700-1749" },
-            { pontos: 20, barra: null, flexao: 20, ex3: "22", ex4: "27", corrida: "1750-1799" },
-            { pontos: 25, barra: null, flexao: 21, ex3: "23", ex4: "28", corrida: "1800-1849" },
-            { pontos: 30, barra: null, flexao: 22, ex3: "24", ex4: "29", corrida: "1850-1899" },
-            { pontos: 35, barra: null, flexao: 23, ex3: "25", ex4: "30", corrida: "1900-1949" },
-            { pontos: 40, barra: null, flexao: 24, ex3: "26", ex4: "31", corrida: "1950-1999" },
-            { pontos: 45, barra: null, flexao: 25, ex3: "27", ex4: "32", corrida: "2000-2049" },
-            { pontos: 50, barra: null, flexao: 26, ex3: "28", ex4: "33", corrida: "2050-2099" },
-            { pontos: 55, barra: null, flexao: 27, ex3: "29", ex4: "34", corrida: "2100-2149" },
-            { pontos: 60, barra: 1, flexao: 28, ex3: "30", ex4: "35", corrida: "2150-2199" },
-            { pontos: 65, barra: 2, flexao: 29, ex3: "31", ex4: "36", corrida: "2200-2249" },
-            { pontos: 70, barra: 3, flexao: 30, ex3: "32", ex4: "37", corrida: "2250-2299" },
-            { pontos: 75, barra: 4, flexao: 31, ex3: "33", ex4: "38", corrida: "2300-2349" },
-            { pontos: 80, barra: 5, flexao: 32, ex3: "34-35", ex4: "39", corrida: "2350-2399" },
-            { pontos: 85, barra: 6, flexao: 33, ex3: "36-37", ex4: "40-41", corrida: "2400-2449" },
-            { pontos: 90, barra: 7, flexao: 34, ex3: "38-39", ex4: "43-42", corrida: "2450-2499" },
-            { pontos: 95, barra: 8, flexao: 35, ex3: "40-41", ex4: "44-47", corrida: "2500-2549" },
-            { pontos: 100, barra: 9, flexao: 36, ex3: "42-43", ex4: "48-51", corrida: "2550-2599" }
+            { pontos: 10, barra: null, flexao: 18, abdominal: "20", prancha: "25", corrida: "1650-1699" },
+            { pontos: 15, barra: null, flexao: 19, abdominal: "21", prancha: "26", corrida: "1700-1749" },
+            { pontos: 20, barra: null, flexao: 20, abdominal: "22", prancha: "27", corrida: "1750-1799" },
+            { pontos: 25, barra: null, flexao: 21, abdominal: "23", prancha: "28", corrida: "1800-1849" },
+            { pontos: 30, barra: null, flexao: 22, abdominal: "24", prancha: "29", corrida: "1850-1899" },
+            { pontos: 35, barra: null, flexao: 23, abdominal: "25", prancha: "30", corrida: "1900-1949" },
+            { pontos: 40, barra: null, flexao: 24, abdominal: "26", prancha: "31", corrida: "1950-1999" },
+            { pontos: 45, barra: null, flexao: 25, abdominal: "27", prancha: "32", corrida: "2000-2049" },
+            { pontos: 50, barra: null, flexao: 26, abdominal: "28", prancha: "33", corrida: "2050-2099" },
+            { pontos: 55, barra: null, flexao: 27, abdominal: "29", prancha: "34", corrida: "2100-2149" },
+            { pontos: 60, barra: 1, flexao: 28, abdominal: "30", prancha: "35", corrida: "2150-2199" },
+            { pontos: 65, barra: 2, flexao: 29, abdominal: "31", prancha: "36", corrida: "2200-2249" },
+            { pontos: 70, barra: 3, flexao: 30, abdominal: "32", prancha: "37", corrida: "2250-2299" },
+            { pontos: 75, barra: 4, flexao: 31, abdominal: "33", prancha: "38", corrida: "2300-2349" },
+            { pontos: 80, barra: 5, flexao: 32, abdominal: "34-35", prancha: "39", corrida: "2350-2399" },
+            { pontos: 85, barra: 6, flexao: 33, abdominal: "36-37", prancha: "40-41", corrida: "2400-2449" },
+            { pontos: 90, barra: 7, flexao: 34, abdominal: "38-39", prancha: "43-42", corrida: "2450-2499" },
+            { pontos: 95, barra: 8, flexao: 35, abdominal: "40-41", prancha: "44-47", corrida: "2500-2549" },
+            { pontos: 100, barra: 9, flexao: 36, abdominal: "42-43", prancha: "48-51", corrida: "2550-2599" }
           ],
           "36 a 40": [
-            { pontos: 10, barra: null, flexao: 17, ex3: "19", ex4: "24", corrida: "1600-1649" },
-            { pontos: 15, barra: null, flexao: 18, ex3: "20", ex4: "25", corrida: "1650-1699" },
-            { pontos: 20, barra: null, flexao: 19, ex3: "21", ex4: "26", corrida: "1700-1749" },
-            { pontos: 25, barra: null, flexao: 20, ex3: "22", ex4: "27", corrida: "1750-1799" },
-            { pontos: 30, barra: null, flexao: 21, ex3: "23", ex4: "28", corrida: "1800-1849" },
-            { pontos: 35, barra: null, flexao: 22, ex3: "24", ex4: "29", corrida: "1850-1899" },
-            { pontos: 40, barra: null, flexao: 23, ex3: "25", ex4: "30", corrida: "1900-1949" },
-            { pontos: 45, barra: null, flexao: 24, ex3: "26", ex4: "31", corrida: "1950-1999" },
-            { pontos: 50, barra: null, flexao: 25, ex3: "27", ex4: "32", corrida: "2000-2049" },
-            { pontos: 55, barra: null, flexao: 26, ex3: "28", ex4: "33", corrida: "2050-2099" },
-            { pontos: 60, barra: null, flexao: 27, ex3: "29", ex4: "34", corrida: "2100-2149" },
-            { pontos: 65, barra: 1, flexao: 28, ex3: "30", ex4: "35", corrida: "2150-2199" },
-            { pontos: 70, barra: 2, flexao: 29, ex3: "31", ex4: "36", corrida: "2200-2249" },
-            { pontos: 75, barra: 3, flexao: 30, ex3: "32", ex4: "37", corrida: "2250-2299" },
-            { pontos: 80, barra: 4, flexao: 31, ex3: "33", ex4: "38", corrida: "2300-2349" },
-            { pontos: 85, barra: 5, flexao: 32, ex3: "34-35", ex4: "39", corrida: "2350-2399" },
-            { pontos: 90, barra: 6, flexao: 33, ex3: "36-37", ex4: "40-41", corrida: "2400-2449" },
-            { pontos: 95, barra: 7, flexao: 34, ex3: "38-39", ex4: "43-42", corrida: "2450-2499" },
-            { pontos: 100, barra: 8, flexao: 35, ex3: "40-41", ex4: "44-47", corrida: "2500-2549" }
+            { pontos: 10, barra: null, flexao: 17, abdominal: "19", prancha: "24", corrida: "1600-1649" },
+            { pontos: 15, barra: null, flexao: 18, abdominal: "20", prancha: "25", corrida: "1650-1699" },
+            { pontos: 20, barra: null, flexao: 19, abdominal: "21", prancha: "26", corrida: "1700-1749" },
+            { pontos: 25, barra: null, flexao: 20, abdominal: "22", prancha: "27", corrida: "1750-1799" },
+            { pontos: 30, barra: null, flexao: 21, abdominal: "23", prancha: "28", corrida: "1800-1849" },
+            { pontos: 35, barra: null, flexao: 22, abdominal: "24", prancha: "29", corrida: "1850-1899" },
+            { pontos: 40, barra: null, flexao: 23, abdominal: "25", prancha: "30", corrida: "1900-1949" },
+            { pontos: 45, barra: null, flexao: 24, abdominal: "26", prancha: "31", corrida: "1950-1999" },
+            { pontos: 50, barra: null, flexao: 25, abdominal: "27", prancha: "32", corrida: "2000-2049" },
+            { pontos: 55, barra: null, flexao: 26, abdominal: "28", prancha: "33", corrida: "2050-2099" },
+            { pontos: 60, barra: null, flexao: 27, abdominal: "29", prancha: "34", corrida: "2100-2149" },
+            { pontos: 65, barra: 1, flexao: 28, abdominal: "30", prancha: "35", corrida: "2150-2199" },
+            { pontos: 70, barra: 2, flexao: 29, abdominal: "31", prancha: "36", corrida: "2200-2249" },
+            { pontos: 75, barra: 3, flexao: 30, abdominal: "32", prancha: "37", corrida: "2250-2299" },
+            { pontos: 80, barra: 4, flexao: 31, abdominal: "33", prancha: "38", corrida: "2300-2349" },
+            { pontos: 85, barra: 5, flexao: 32, abdominal: "34-35", prancha: "39", corrida: "2350-2399" },
+            { pontos: 90, barra: 6, flexao: 33, abdominal: "36-37", prancha: "40-41", corrida: "2400-2449" },
+            { pontos: 95, barra: 7, flexao: 34, abdominal: "38-39", prancha: "43-42", corrida: "2450-2499" },
+            { pontos: 100, barra: 8, flexao: 35, abdominal: "40-41", prancha: "44-47", corrida: "2500-2549" }
           ],
           "41 a 45": [
-            { pontos: 10, barra: null, flexao: 16, ex3: "18", ex4: "23", corrida: "1550-1599" },
-            { pontos: 15, barra: null, flexao: 17, ex3: "19", ex4: "24", corrida: "1600-1649" },
-            { pontos: 20, barra: null, flexao: 18, ex3: "20", ex4: "25", corrida: "1650-1699" },
-            { pontos: 25, barra: null, flexao: 19, ex3: "21", ex4: "26", corrida: "1700-1749" },
-            { pontos: 30, barra: null, flexao: 20, ex3: "22", ex4: "27", corrida: "1750-1799" },
-            { pontos: 35, barra: null, flexao: 21, ex3: "23", ex4: "28", corrida: "1800-1849" },
-            { pontos: 40, barra: null, flexao: 22, ex3: "24", ex4: "29", corrida: "1850-1899" },
-            { pontos: 45, barra: null, flexao: 23, ex3: "25", ex4: "30", corrida: "1900-1949" },
-            { pontos: 50, barra: null, flexao: 24, ex3: "26", ex4: "31", corrida: "1950-1999" },
-            { pontos: 55, barra: null, flexao: 25, ex3: "27", ex4: "32", corrida: "2000-2049" },
-            { pontos: 60, barra: null, flexao: 26, ex3: "28", ex4: "33", corrida: "2050-2099" },
-            { pontos: 65, barra: null, flexao: 27, ex3: "29", ex4: "34", corrida: "2100-2149" },
-            { pontos: 70, barra: 1, flexao: 28, ex3: "30", ex4: "35", corrida: "2150-2199" },
-            { pontos: 75, barra: 2, flexao: 29, ex3: "31", ex4: "36", corrida: "2200-2249" },
-            { pontos: 80, barra: 3, flexao: 30, ex3: "32", ex4: "37", corrida: "2250-2299" },
-            { pontos: 85, barra: 4, flexao: 31, ex3: "33", ex4: "38", corrida: "2300-2349" },
-            { pontos: 90, barra: 5, flexao: 32, ex3: "34-35", ex4: "39", corrida: "2350-2399" },
-            { pontos: 95, barra: 6, flexao: 33, ex3: "36-37", ex4: "40-41", corrida: "2400-2449" },
-            { pontos: 100, barra: 7, flexao: 34, ex3: "38-39", ex4: "43-42", corrida: "2450-2499" }
+            { pontos: 10, barra: null, flexao: 16, abdominal: "18", prancha: "23", corrida: "1550-1599" },
+            { pontos: 15, barra: null, flexao: 17, abdominal: "19", prancha: "24", corrida: "1600-1649" },
+            { pontos: 20, barra: null, flexao: 18, abdominal: "20", prancha: "25", corrida: "1650-1699" },
+            { pontos: 25, barra: null, flexao: 19, abdominal: "21", prancha: "26", corrida: "1700-1749" },
+            { pontos: 30, barra: null, flexao: 20, abdominal: "22", prancha: "27", corrida: "1750-1799" },
+            { pontos: 35, barra: null, flexao: 21, abdominal: "23", prancha: "28", corrida: "1800-1849" },
+            { pontos: 40, barra: null, flexao: 22, abdominal: "24", prancha: "29", corrida: "1850-1899" },
+            { pontos: 45, barra: null, flexao: 23, abdominal: "25", prancha: "30", corrida: "1900-1949" },
+            { pontos: 50, barra: null, flexao: 24, abdominal: "26", prancha: "31", corrida: "1950-1999" },
+            { pontos: 55, barra: null, flexao: 25, abdominal: "27", prancha: "32", corrida: "2000-2049" },
+            { pontos: 60, barra: null, flexao: 26, abdominal: "28", prancha: "33", corrida: "2050-2099" },
+            { pontos: 65, barra: null, flexao: 27, abdominal: "29", prancha: "34", corrida: "2100-2149" },
+            { pontos: 70, barra: 1, flexao: 28, abdominal: "30", prancha: "35", corrida: "2150-2199" },
+            { pontos: 75, barra: 2, flexao: 29, abdominal: "31", prancha: "36", corrida: "2200-2249" },
+            { pontos: 80, barra: 3, flexao: 30, abdominal: "32", prancha: "37", corrida: "2250-2299" },
+            { pontos: 85, barra: 4, flexao: 31, abdominal: "33", prancha: "38", corrida: "2300-2349" },
+            { pontos: 90, barra: 5, flexao: 32, abdominal: "34-35", prancha: "39", corrida: "2350-2399" },
+            { pontos: 95, barra: 6, flexao: 33, abdominal: "36-37", prancha: "40-41", corrida: "2400-2449" },
+            { pontos: 100, barra: 7, flexao: 34, abdominal: "38-39", prancha: "43-42", corrida: "2450-2499" }
           ],
           "46 a 50": [
-            { pontos: 10, barra: null, flexao: 15, ex3: "17", ex4: "22", corrida: "1500-1549" },
-            { pontos: 15, barra: null, flexao: 16, ex3: "18", ex4: "23", corrida: "1550-1599" },
-            { pontos: 20, barra: null, flexao: 17, ex3: "19", ex4: "24", corrida: "1600-1649" },
-            { pontos: 25, barra: null, flexao: 18, ex3: "20", ex4: "25", corrida: "1650-1699" },
-            { pontos: 30, barra: null, flexao: 19, ex3: "21", ex4: "26", corrida: "1700-1749" },
-            { pontos: 35, barra: null, flexao: 20, ex3: "22", ex4: "27", corrida: "1750-1799" },
-            { pontos: 40, barra: null, flexao: 21, ex3: "23", ex4: "28", corrida: "1800-1849" },
-            { pontos: 45, barra: null, flexao: 22, ex3: "24", ex4: "29", corrida: "1850-1899" },
-            { pontos: 50, barra: null, flexao: 23, ex3: "25", ex4: "30", corrida: "1900-1949" },
-            { pontos: 55, barra: null, flexao: 24, ex3: "26", ex4: "31", corrida: "1950-1999" },
-            { pontos: 60, barra: null, flexao: 25, ex3: "27", ex4: "32", corrida: "2000-2049" },
-            { pontos: 65, barra: null, flexao: 26, ex3: "28", ex4: "33", corrida: "2050-2099" },
-            { pontos: 70, barra: null, flexao: 27, ex3: "29", ex4: "34", corrida: "2100-2149" },
-            { pontos: 75, barra: 1, flexao: 28, ex3: "30", ex4: "35", corrida: "2150-2199" },
-            { pontos: 80, barra: 2, flexao: 29, ex3: "31", ex4: "36", corrida: "2200-2249" },
-            { pontos: 85, barra: 3, flexao: 30, ex3: "32", ex4: "37", corrida: "2250-2299" },
-            { pontos: 90, barra: 4, flexao: 31, ex3: "33", ex4: "38", corrida: "2300-2349" },
-            { pontos: 95, barra: 5, flexao: 32, ex3: "34-35", ex4: "39", corrida: "2350-2399" },
-            { pontos: 100, barra: 6, flexao: 33, ex3: "36-37", ex4: "40-41", corrida: "2400-2449" }
+            { pontos: 10, barra: null, flexao: 15, abdominal: "17", prancha: "22", corrida: "1500-1549" },
+            { pontos: 15, barra: null, flexao: 16, abdominal: "18", prancha: "23", corrida: "1550-1599" },
+            { pontos: 20, barra: null, flexao: 17, abdominal: "19", prancha: "24", corrida: "1600-1649" },
+            { pontos: 25, barra: null, flexao: 18, abdominal: "20", prancha: "25", corrida: "1650-1699" },
+            { pontos: 30, barra: null, flexao: 19, abdominal: "21", prancha: "26", corrida: "1700-1749" },
+            { pontos: 35, barra: null, flexao: 20, abdominal: "22", prancha: "27", corrida: "1750-1799" },
+            { pontos: 40, barra: null, flexao: 21, abdominal: "23", prancha: "28", corrida: "1800-1849" },
+            { pontos: 45, barra: null, flexao: 22, abdominal: "24", prancha: "29", corrida: "1850-1899" },
+            { pontos: 50, barra: null, flexao: 23, abdominal: "25", prancha: "30", corrida: "1900-1949" },
+            { pontos: 55, barra: null, flexao: 24, abdominal: "26", prancha: "31", corrida: "1950-1999" },
+            { pontos: 60, barra: null, flexao: 25, abdominal: "27", prancha: "32", corrida: "2000-2049" },
+            { pontos: 65, barra: null, flexao: 26, abdominal: "28", prancha: "33", corrida: "2050-2099" },
+            { pontos: 70, barra: null, flexao: 27, abdominal: "29", prancha: "34", corrida: "2100-2149" },
+            { pontos: 75, barra: 1, flexao: 28, abdominal: "30", prancha: "35", corrida: "2150-2199" },
+            { pontos: 80, barra: 2, flexao: 29, abdominal: "31", prancha: "36", corrida: "2200-2249" },
+            { pontos: 85, barra: 3, flexao: 30, abdominal: "32", prancha: "37", corrida: "2250-2299" },
+            { pontos: 90, barra: 4, flexao: 31, abdominal: "33", prancha: "38", corrida: "2300-2349" },
+            { pontos: 95, barra: 5, flexao: 32, abdominal: "34-35", prancha: "39", corrida: "2350-2399" },
+            { pontos: 100, barra: 6, flexao: 33, abdominal: "36-37", prancha: "40-41", corrida: "2400-2449" }
           ],
           "51 a 55": [
-            { pontos: 10, barra: null, flexao: 14, ex3: "16", ex4: "21", corrida: "1450-1499" },
-            { pontos: 15, barra: null, flexao: 15, ex3: "17", ex4: "22", corrida: "1500-1549" },
-            { pontos: 20, barra: null, flexao: 16, ex3: "18", ex4: "23", corrida: "1550-1599" },
-            { pontos: 25, barra: null, flexao: 17, ex3: "19", ex4: "24", corrida: "1600-1649" },
-            { pontos: 30, barra: null, flexao: 18, ex3: "20", ex4: "25", corrida: "1650-1699" },
-            { pontos: 35, barra: null, flexao: 19, ex3: "21", ex4: "26", corrida: "1700-1749" },
-            { pontos: 40, barra: null, flexao: 20, ex3: "22", ex4: "27", corrida: "1750-1799" },
-            { pontos: 45, barra: null, flexao: 21, ex3: "23", ex4: "28", corrida: "1800-1849" },
-            { pontos: 50, barra: null, flexao: 22, ex3: "24", ex4: "29", corrida: "1850-1899" },
-            { pontos: 55, barra: null, flexao: 23, ex3: "25", ex4: "30", corrida: "1900-1949" },
-            { pontos: 60, barra: null, flexao: 24, ex3: "26", ex4: "31", corrida: "1950-1999" },
-            { pontos: 65, barra: null, flexao: 25, ex3: "27", ex4: "32", corrida: "2000-2049" },
-            { pontos: 70, barra: null, flexao: 26, ex3: "28", ex4: "33", corrida: "2050-2099" },
-            { pontos: 75, barra: null, flexao: 27, ex3: "29", ex4: "34", corrida: "2100-2149" },
-            { pontos: 80, barra: 1, flexao: 28, ex3: "30", ex4: "35", corrida: "2150-2199" },
-            { pontos: 85, barra: 2, flexao: 29, ex3: "31", ex4: "36", corrida: "2200-2249" },
-            { pontos: 90, barra: 3, flexao: 30, ex3: "32", ex4: "37", corrida: "2250-2299" },
-            { pontos: 95, barra: 4, flexao: 31, ex3: "33", ex4: "38", corrida: "2300-2349" },
-            { pontos: 100, barra: 5, flexao: 32, ex3: "34-35", ex4: "39", corrida: "2350-2399" }
+            { pontos: 10, barra: null, flexao: 14, abdominal: "16", prancha: "21", corrida: "1450-1499" },
+            { pontos: 15, barra: null, flexao: 15, abdominal: "17", prancha: "22", corrida: "1500-1549" },
+            { pontos: 20, barra: null, flexao: 16, abdominal: "18", prancha: "23", corrida: "1550-1599" },
+            { pontos: 25, barra: null, flexao: 17, abdominal: "19", prancha: "24", corrida: "1600-1649" },
+            { pontos: 30, barra: null, flexao: 18, abdominal: "20", prancha: "25", corrida: "1650-1699" },
+            { pontos: 35, barra: null, flexao: 19, abdominal: "21", prancha: "26", corrida: "1700-1749" },
+            { pontos: 40, barra: null, flexao: 20, abdominal: "22", prancha: "27", corrida: "1750-1799" },
+            { pontos: 45, barra: null, flexao: 21, abdominal: "23", prancha: "28", corrida: "1800-1849" },
+            { pontos: 50, barra: null, flexao: 22, abdominal: "24", prancha: "29", corrida: "1850-1899" },
+            { pontos: 55, barra: null, flexao: 23, abdominal: "25", prancha: "30", corrida: "1900-1949" },
+            { pontos: 60, barra: null, flexao: 24, abdominal: "26", prancha: "31", corrida: "1950-1999" },
+            { pontos: 65, barra: null, flexao: 25, abdominal: "27", prancha: "32", corrida: "2000-2049" },
+            { pontos: 70, barra: null, flexao: 26, abdominal: "28", prancha: "33", corrida: "2050-2099" },
+            { pontos: 75, barra: null, flexao: 27, abdominal: "29", prancha: "34", corrida: "2100-2149" },
+            { pontos: 80, barra: 1, flexao: 28, abdominal: "30", prancha: "35", corrida: "2150-2199" },
+            { pontos: 85, barra: 2, flexao: 29, abdominal: "31", prancha: "36", corrida: "2200-2249" },
+            { pontos: 90, barra: 3, flexao: 30, abdominal: "32", prancha: "37", corrida: "2250-2299" },
+            { pontos: 95, barra: 4, flexao: 31, abdominal: "33", prancha: "38", corrida: "2300-2349" },
+            { pontos: 100, barra: 5, flexao: 32, abdominal: "34-35", prancha: "39", corrida: "2350-2399" }
           ],
           "≥ 56": [
-            { pontos: 10, barra: null, flexao: 13, ex3: "15", ex4: "20", corrida: "1400-1449" },
-            { pontos: 15, barra: null, flexao: 14, ex3: "16", ex4: "21", corrida: "1450-1499" },
-            { pontos: 20, barra: null, flexao: 15, ex3: "17", ex4: "22", corrida: "1500-1549" },
-            { pontos: 25, barra: null, flexao: 16, ex3: "18", ex4: "23", corrida: "1550-1599" },
-            { pontos: 30, barra: null, flexao: 17, ex3: "19", ex4: "24", corrida: "1600-1649" },
-            { pontos: 35, barra: null, flexao: 18, ex3: "20", ex4: "25", corrida: "1650-1699" },
-            { pontos: 40, barra: null, flexao: 19, ex3: "21", ex4: "26", corrida: "1700-1749" },
-            { pontos: 45, barra: null, flexao: 20, ex3: "22", ex4: "27", corrida: "1750-1799" },
-            { pontos: 50, barra: null, flexao: 21, ex3: "23", ex4: "28", corrida: "1800-1849" },
-            { pontos: 55, barra: null, flexao: 22, ex3: "24", ex4: "29", corrida: "1850-1899" },
-            { pontos: 60, barra: null, flexao: 23, ex3: "25", ex4: "30", corrida: "1900-1949" },
-            { pontos: 65, barra: null, flexao: 24, ex3: "26", ex4: "31", corrida: "1950-1999" },
-            { pontos: 70, barra: null, flexao: 25, ex3: "27", ex4: "32", corrida: "2000-2049" },
-            { pontos: 75, barra: null, flexao: 26, ex3: "28", ex4: "33", corrida: "2050-2099" },
-            { pontos: 80, barra: null, flexao: 27, ex3: "29", ex4: "34", corrida: "2100-2149" },
-            { pontos: 85, barra: 1, flexao: 28, ex3: "30", ex4: "35", corrida: "2150-2199" },
-            { pontos: 90, barra: 2, flexao: 29, ex3: "31", ex4: "36", corrida: "2200-2249" },
-            { pontos: 95, barra: 3, flexao: 30, ex3: "32", ex4: "37", corrida: "2250-2299" },
-            { pontos: 100, barra: 4, flexao: 31, ex3: "33", ex4: "38", corrida: "2300-2349" }
+            { pontos: 10, barra: null, flexao: 13, abdominal: "15", prancha: "20", corrida: "1400-1449" },
+            { pontos: 15, barra: null, flexao: 14, abdominal: "16", prancha: "21", corrida: "1450-1499" },
+            { pontos: 20, barra: null, flexao: 15, abdominal: "17", prancha: "22", corrida: "1500-1549" },
+            { pontos: 25, barra: null, flexao: 16, abdominal: "18", prancha: "23", corrida: "1550-1599" },
+            { pontos: 30, barra: null, flexao: 17, abdominal: "19", prancha: "24", corrida: "1600-1649" },
+            { pontos: 35, barra: null, flexao: 18, abdominal: "20", prancha: "25", corrida: "1650-1699" },
+            { pontos: 40, barra: null, flexao: 19, abdominal: "21", prancha: "26", corrida: "1700-1749" },
+            { pontos: 45, barra: null, flexao: 20, abdominal: "22", prancha: "27", corrida: "1750-1799" },
+            { pontos: 50, barra: null, flexao: 21, abdominal: "23", prancha: "28", corrida: "1800-1849" },
+            { pontos: 55, barra: null, flexao: 22, abdominal: "24", prancha: "29", corrida: "1850-1899" },
+            { pontos: 60, barra: null, flexao: 23, abdominal: "25", prancha: "30", corrida: "1900-1949" },
+            { pontos: 65, barra: null, flexao: 24, abdominal: "26", prancha: "31", corrida: "1950-1999" },
+            { pontos: 70, barra: null, flexao: 25, abdominal: "27", prancha: "32", corrida: "2000-2049" },
+            { pontos: 75, barra: null, flexao: 26, abdominal: "28", prancha: "33", corrida: "2050-2099" },
+            { pontos: 80, barra: null, flexao: 27, abdominal: "29", prancha: "34", corrida: "2100-2149" },
+            { pontos: 85, barra: 1, flexao: 28, abdominal: "30", prancha: "35", corrida: "2150-2199" },
+            { pontos: 90, barra: 2, flexao: 29, abdominal: "31", prancha: "36", corrida: "2200-2249" },
+            { pontos: 95, barra: 3, flexao: 30, abdominal: "32", prancha: "37", corrida: "2250-2299" },
+            { pontos: 100, barra: 4, flexao: 31, abdominal: "33", prancha: "38", corrida: "2300-2349" }
           ]
         }
       },
       feminino: {
-        titulo: "Tabela 2 — Sexo Feminino (Pág. 7)",
+        titulo: "Tabela 2 — Feminino (Pág. 7)",
         faixas: {
           "Até 20 Anos": [
-            { pontos: 10, barra: "02\"00", flexao: 24, ex3: "21", ex4: "25", corrida: "1500-1549" },
-            { pontos: 15, barra: "03\"00", flexao: 25, ex3: "22", ex4: "26", corrida: "1550-1599" },
-            { pontos: 20, barra: "04\"00", flexao: 26, ex3: "23", ex4: "27", corrida: "1600-1649" },
-            { pontos: 25, barra: "05\"00", flexao: 27, ex3: "24", ex4: "28", corrida: "1650-1699" },
-            { pontos: 30, barra: "06\"00", flexao: 28, ex3: "25", ex4: "29", corrida: "1700-1749" },
-            { pontos: 35, barra: "07\"00", flexao: 29, ex3: "26", ex4: "30", corrida: "1750-1799" },
-            { pontos: 40, barra: "08\"00", flexao: 30, ex3: "27", ex4: "31", corrida: "1800-1849" },
-            { pontos: 45, barra: "09\"00", flexao: 31, ex3: "28", ex4: "32", corrida: "1850-1899" },
-            { pontos: 50, barra: "10\"00", flexao: 32, ex3: "29", ex4: "33", corrida: "1900-1949" },
-            { pontos: 55, barra: "11\"00", flexao: 33, ex3: "30", ex4: "34", corrida: "1950-1999" },
-            { pontos: 60, barra: "12\"00", flexao: 34, ex3: "31", ex4: "35", corrida: "2000-2049" },
-            { pontos: 65, barra: "13\"00", flexao: 35, ex3: "32", ex4: "36", corrida: "2050-2099" },
-            { pontos: 70, barra: "14\"00", flexao: 36, ex3: "33", ex4: "37-38", corrida: "2100-2149" },
-            { pontos: 75, barra: "15\"00", flexao: 38, ex3: "34-35", ex4: "39-40", corrida: "2150-2199" },
-            { pontos: 80, barra: "16\"00", flexao: 40, ex3: "36-37", ex4: "42-41", corrida: "2200-2249" },
-            { pontos: 85, barra: "17\"00", flexao: 42, ex3: "38-39", ex4: "46-43", corrida: "2250-2299" },
-            { pontos: 90, barra: "18\"00", flexao: 44, ex3: "40-41", ex4: "50-47", corrida: "2300-2349" },
-            { pontos: 95, barra: "19\"00", flexao: 46, ex3: "42-43", ex4: "51-54", corrida: "2350-2399" },
-            { pontos: 100, barra: "20\"00", flexao: 48, ex3: "44-45", ex4: "≥55", corrida: "≥ 2400" }
+            { pontos: 10, barra: "02\"00", flexao: 24, abdominal: "21", prancha: "25", corrida: "1500-1549" },
+            { pontos: 15, barra: "03\"00", flexao: 25, abdominal: "22", prancha: "26", corrida: "1550-1599" },
+            { pontos: 20, barra: "04\"00", flexao: 26, abdominal: "23", prancha: "27", corrida: "1600-1649" },
+            { pontos: 25, barra: "05\"00", flexao: 27, abdominal: "24", prancha: "28", corrida: "1650-1699" },
+            { pontos: 30, barra: "06\"00", flexao: 28, abdominal: "25", prancha: "29", corrida: "1700-1749" },
+            { pontos: 35, barra: "07\"00", flexao: 29, abdominal: "26", prancha: "30", corrida: "1750-1799" },
+            { pontos: 40, barra: "08\"00", flexao: 30, abdominal: "27", prancha: "31", corrida: "1800-1849" },
+            { pontos: 45, barra: "09\"00", flexao: 31, abdominal: "28", prancha: "32", corrida: "1850-1899" },
+            { pontos: 50, barra: "10\"00", flexao: 32, abdominal: "29", prancha: "33", corrida: "1900-1949" },
+            { pontos: 55, barra: "11\"00", flexao: 33, abdominal: "30", prancha: "34", corrida: "1950-1999" },
+            { pontos: 60, barra: "12\"00", flexao: 34, abdominal: "31", prancha: "35", corrida: "2000-2049" },
+            { pontos: 65, barra: "13\"00", flexao: 35, abdominal: "32", prancha: "36", corrida: "2050-2099" },
+            { pontos: 70, barra: "14\"00", flexao: 36, abdominal: "33", prancha: "37-38", corrida: "2100-2149" },
+            { pontos: 75, barra: "15\"00", flexao: 38, abdominal: "34-35", prancha: "39-40", corrida: "2150-2199" },
+            { pontos: 80, barra: "16\"00", flexao: 40, abdominal: "36-37", prancha: "42-41", corrida: "2200-2249" },
+            { pontos: 85, barra: "17\"00", flexao: 42, abdominal: "38-39", prancha: "46-43", corrida: "2250-2299" },
+            { pontos: 90, barra: "18\"00", flexao: 44, abdominal: "40-41", prancha: "50-47", corrida: "2300-2349" },
+            { pontos: 95, barra: "19\"00", flexao: 46, abdominal: "42-43", prancha: "51-54", corrida: "2350-2399" },
+            { pontos: 100, barra: "20\"00", flexao: 48, abdominal: "44-45", prancha: "≥55", corrida: "≥ 2400" }
           ],
           "21 a 25": [
-            { pontos: 10, barra: "01\"00", flexao: 23, ex3: "20", ex4: "24", corrida: "1450-1499" },
-            { pontos: 15, barra: "02\"00", flexao: 24, ex3: "21", ex4: "25", corrida: "1500-1549" },
-            { pontos: 20, barra: "03\"00", flexao: 25, ex3: "22", ex4: "26", corrida: "1550-1599" },
-            { pontos: 25, barra: "04\"00", flexao: 26, ex3: "23", ex4: "27", corrida: "1600-1649" },
-            { pontos: 30, barra: "05\"00", flexao: 27, ex3: "24", ex4: "28", corrida: "1650-1699" },
-            { pontos: 35, barra: "06\"00", flexao: 28, ex3: "25", ex4: "29", corrida: "1700-1749" },
-            { pontos: 40, barra: "07\"00", flexao: 29, ex3: "26", ex4: "30", corrida: "1750-1799" },
-            { pontos: 45, barra: "08\"00", flexao: 30, ex3: "27", ex4: "31", corrida: "1800-1849" },
-            { pontos: 50, barra: "09\"00", flexao: 31, ex3: "28", ex4: "32", corrida: "1850-1899" },
-            { pontos: 55, barra: "10\"00", flexao: 32, ex3: "29", ex4: "33", corrida: "1900-1949" },
-            { pontos: 60, barra: "11\"00", flexao: 33, ex3: "30", ex4: "34", corrida: "1950-1999" },
-            { pontos: 65, barra: "12\"00", flexao: 34, ex3: "31", ex4: "35", corrida: "2000-2049" },
-            { pontos: 70, barra: "13\"00", flexao: 35, ex3: "32", ex4: "36", corrida: "2050-2099" },
-            { pontos: 75, barra: "14\"00", flexao: 36, ex3: "33", ex4: "37-38", corrida: "2100-2149" },
-            { pontos: 80, barra: "15\"00", flexao: 38, ex3: "34-35", ex4: "39-40", corrida: "2150-2199" },
-            { pontos: 85, barra: "16\"00", flexao: 40, ex3: "36-37", ex4: "42-41", corrida: "2200-2249" },
-            { pontos: 90, barra: "17\"00", flexao: 42, ex3: "38-39", ex4: "46-43", corrida: "2250-2299" },
-            { pontos: 95, barra: "18\"00", flexao: 44, ex3: "40-41", ex4: "50-47", corrida: "2300-2349" },
-            { pontos: 100, barra: "19\"00", flexao: 46, ex3: "42-43", ex4: "51-54", corrida: "2350-2399" }
+            { pontos: 10, barra: "01\"00", flexao: 23, abdominal: "20", prancha: "24", corrida: "1450-1499" },
+            { pontos: 15, barra: "02\"00", flexao: 24, abdominal: "21", prancha: "25", corrida: "1500-1549" },
+            { pontos: 20, barra: "03\"00", flexao: 25, abdominal: "22", prancha: "26", corrida: "1550-1599" },
+            { pontos: 25, barra: "04\"00", flexao: 26, abdominal: "23", prancha: "27", corrida: "1600-1649" },
+            { pontos: 30, barra: "05\"00", flexao: 27, abdominal: "24", prancha: "28", corrida: "1650-1699" },
+            { pontos: 35, barra: "06\"00", flexao: 28, abdominal: "25", prancha: "29", corrida: "1700-1749" },
+            { pontos: 40, barra: "07\"00", flexao: 29, abdominal: "26", prancha: "30", corrida: "1750-1799" },
+            { pontos: 45, barra: "08\"00", flexao: 30, abdominal: "27", prancha: "31", corrida: "1800-1849" },
+            { pontos: 50, barra: "09\"00", flexao: 31, abdominal: "28", prancha: "32", corrida: "1850-1899" },
+            { pontos: 55, barra: "10\"00", flexao: 32, abdominal: "29", prancha: "33", corrida: "1900-1949" },
+            { pontos: 60, barra: "11\"00", flexao: 33, abdominal: "30", prancha: "34", corrida: "1950-1999" },
+            { pontos: 65, barra: "12\"00", flexao: 34, abdominal: "31", prancha: "35", corrida: "2000-2049" },
+            { pontos: 70, barra: "13\"00", flexao: 35, abdominal: "32", prancha: "36", corrida: "2050-2099" },
+            { pontos: 75, barra: "14\"00", flexao: 36, abdominal: "33", prancha: "37-38", corrida: "2100-2149" },
+            { pontos: 80, barra: "15\"00", flexao: 38, abdominal: "34-35", prancha: "39-40", corrida: "2150-2199" },
+            { pontos: 85, barra: "16\"00", flexao: 40, abdominal: "36-37", prancha: "42-41", corrida: "2200-2249" },
+            { pontos: 90, barra: "17\"00", flexao: 42, abdominal: "38-39", prancha: "46-43", corrida: "2250-2299" },
+            { pontos: 95, barra: "18\"00", flexao: 44, abdominal: "40-41", prancha: "50-47", corrida: "2300-2349" },
+            { pontos: 100, barra: "19\"00", flexao: 46, abdominal: "42-43", prancha: "51-54", corrida: "2350-2399" }
           ],
           "26 a 30": [
-            { pontos: 10, barra: null, flexao: 22, ex3: "19", ex4: "23", corrida: "1400-1449" },
-            { pontos: 15, barra: "01\"00", flexao: 23, ex3: "20", ex4: "24", corrida: "1450-1499" },
-            { pontos: 20, barra: "02\"00", flexao: 24, ex3: "21", ex4: "25", corrida: "1500-1549" },
-            { pontos: 25, barra: "03\"00", flexao: 25, ex3: "22", ex4: "26", corrida: "1550-1599" },
-            { pontos: 30, barra: "04\"00", flexao: 26, ex3: "23", ex4: "27", corrida: "1600-1649" },
-            { pontos: 35, barra: "05\"00", flexao: 27, ex3: "24", ex4: "28", corrida: "1650-1699" },
-            { pontos: 40, barra: "06\"00", flexao: 28, ex3: "25", ex4: "29", corrida: "1700-1749" },
-            { pontos: 45, barra: "07\"00", flexao: 29, ex3: "26", ex4: "30", corrida: "1750-1799" },
-            { pontos: 50, barra: "08\"00", flexao: 30, ex3: "27", ex4: "31", corrida: "1800-1849" },
-            { pontos: 55, barra: "09\"00", flexao: 31, ex3: "28", ex4: "32", corrida: "1850-1899" },
-            { pontos: 60, barra: "10\"00", flexao: 32, ex3: "29", ex4: "33", corrida: "1900-1949" },
-            { pontos: 65, barra: "11\"00", flexao: 33, ex3: "30", ex4: "34", corrida: "1950-1999" },
-            { pontos: 70, barra: "12\"00", flexao: 34, ex3: "31", ex4: "35", corrida: "2000-2049" },
-            { pontos: 75, barra: "13\"00", flexao: 35, ex3: "32", ex4: "36", corrida: "2050-2099" },
-            { pontos: 80, barra: "14\"00", flexao: 36, ex3: "33", ex4: "37-38", corrida: "2100-2149" },
-            { pontos: 85, barra: "15\"00", flexao: 38, ex3: "34-35", ex4: "39-40", corrida: "2150-2199" },
-            { pontos: 90, barra: "16\"00", flexao: 40, ex3: "36-37", ex4: "42-41", corrida: "2200-2249" },
-            { pontos: 95, barra: "17\"00", flexao: 42, ex3: "38-39", ex4: "46-43", corrida: "2250-2299" },
-            { pontos: 100, barra: "18\"00", flexao: 44, ex3: "40-41", ex4: "50-47", corrida: "2300-2349" }
+            { pontos: 10, barra: null, flexao: 22, abdominal: "19", prancha: "23", corrida: "1400-1449" },
+            { pontos: 15, barra: "01\"00", flexao: 23, abdominal: "20", prancha: "24", corrida: "1450-1499" },
+            { pontos: 20, barra: "02\"00", flexao: 24, abdominal: "21", prancha: "25", corrida: "1500-1549" },
+            { pontos: 25, barra: "03\"00", flexao: 25, abdominal: "22", prancha: "26", corrida: "1550-1599" },
+            { pontos: 30, barra: "04\"00", flexao: 26, abdominal: "23", prancha: "27", corrida: "1600-1649" },
+            { pontos: 35, barra: "05\"00", flexao: 27, abdominal: "24", prancha: "28", corrida: "1650-1699" },
+            { pontos: 40, barra: "06\"00", flexao: 28, abdominal: "25", prancha: "29", corrida: "1700-1749" },
+            { pontos: 45, barra: "07\"00", flexao: 29, abdominal: "26", prancha: "30", corrida: "1750-1799" },
+            { pontos: 50, barra: "08\"00", flexao: 30, abdominal: "27", prancha: "31", corrida: "1800-1849" },
+            { pontos: 55, barra: "09\"00", flexao: 31, abdominal: "28", prancha: "32", corrida: "1850-1899" },
+            { pontos: 60, barra: "10\"00", flexao: 32, abdominal: "29", prancha: "33", corrida: "1900-1949" },
+            { pontos: 65, barra: "11\"00", flexao: 33, abdominal: "30", prancha: "34", corrida: "1950-1999" },
+            { pontos: 70, barra: "12\"00", flexao: 34, abdominal: "31", prancha: "35", corrida: "2000-2049" },
+            { pontos: 75, barra: "13\"00", flexao: 35, abdominal: "32", prancha: "36", corrida: "2050-2099" },
+            { pontos: 80, barra: "14\"00", flexao: 36, abdominal: "33", prancha: "37-38", corrida: "2100-2149" },
+            { pontos: 85, barra: "15\"00", flexao: 38, abdominal: "34-35", prancha: "39-40", corrida: "2150-2199" },
+            { pontos: 90, barra: "16\"00", flexao: 40, abdominal: "36-37", prancha: "42-41", corrida: "2200-2249" },
+            { pontos: 95, barra: "17\"00", flexao: 42, abdominal: "38-39", prancha: "46-43", corrida: "2250-2299" },
+            { pontos: 100, barra: "18\"00", flexao: 44, abdominal: "40-41", prancha: "50-47", corrida: "2300-2349" }
           ],
           "31 a 35": [
-            { pontos: 10, barra: null, flexao: 21, ex3: "18", ex4: "22", corrida: "1350-1399" },
-            { pontos: 15, barra: null, flexao: 22, ex3: "19", ex4: "23", corrida: "1400-1449" },
-            { pontos: 20, barra: "01\"00", flexao: 23, ex3: "20", ex4: "24", corrida: "1450-1499" },
-            { pontos: 25, barra: "02\"00", flexao: 24, ex3: "21", ex4: "25", corrida: "1500-1549" },
-            { pontos: 30, barra: "03\"00", flexao: 25, ex3: "22", ex4: "26", corrida: "1550-1599" },
-            { pontos: 35, barra: "04\"00", flexao: 26, ex3: "23", ex4: "27", corrida: "1600-1649" },
-            { pontos: 40, barra: "05\"00", flexao: 27, ex3: "24", ex4: "28", corrida: "1650-1699" },
-            { pontos: 45, barra: "06\"00", flexao: 28, ex3: "25", ex4: "29", corrida: "1700-1749" },
-            { pontos: 50, barra: "07\"00", flexao: 29, ex3: "26", ex4: "30", corrida: "1750-1799" },
-            { pontos: 55, barra: "08\"00", flexao: 30, ex3: "27", ex4: "31", corrida: "1800-1849" },
-            { pontos: 60, barra: "09\"00", flexao: 31, ex3: "28", ex4: "32", corrida: "1850-1899" },
-            { pontos: 65, barra: "10\"00", flexao: 32, ex3: "29", ex4: "33", corrida: "1900-1949" },
-            { pontos: 70, barra: "11\"00", flexao: 33, ex3: "30", ex4: "34", corrida: "1950-1999" },
-            { pontos: 75, barra: "12\"00", flexao: 34, ex3: "31", ex4: "35", corrida: "2000-2049" },
-            { pontos: 80, barra: "13\"00", flexao: 35, ex3: "32", ex4: "36", corrida: "2050-2099" },
-            { pontos: 85, barra: "14\"00", flexao: 36, ex3: "33", ex4: "37-38", corrida: "2100-2149" },
-            { pontos: 90, barra: "15\"00", flexao: 38, ex3: "34-35", ex4: "39-40", corrida: "2150-2199" },
-            { pontos: 95, barra: "16\"00", flexao: 40, ex3: "36-37", ex4: "42-41", corrida: "2200-2249" },
-            { pontos: 100, barra: "17\"00", flexao: 42, ex3: "38-39", ex4: "46-43", corrida: "2250-2299" }
+            { pontos: 10, barra: null, flexao: 21, abdominal: "18", prancha: "22", corrida: "1350-1399" },
+            { pontos: 15, barra: null, flexao: 22, abdominal: "19", prancha: "23", corrida: "1400-1449" },
+            { pontos: 20, barra: "01\"00", flexao: 23, abdominal: "20", prancha: "24", corrida: "1450-1499" },
+            { pontos: 25, barra: "02\"00", flexao: 24, abdominal: "21", prancha: "25", corrida: "1500-1549" },
+            { pontos: 30, barra: "03\"00", flexao: 25, abdominal: "22", prancha: "26", corrida: "1550-1599" },
+            { pontos: 35, barra: "04\"00", flexao: 26, abdominal: "23", prancha: "27", corrida: "1600-1649" },
+            { pontos: 40, barra: "05\"00", flexao: 27, abdominal: "24", prancha: "28", corrida: "1650-1699" },
+            { pontos: 45, barra: "06\"00", flexao: 28, abdominal: "25", prancha: "29", corrida: "1700-1749" },
+            { pontos: 50, barra: "07\"00", flexao: 29, abdominal: "26", prancha: "30", corrida: "1750-1799" },
+            { pontos: 55, barra: "08\"00", flexao: 30, abdominal: "27", prancha: "31", corrida: "1800-1849" },
+            { pontos: 60, barra: "09\"00", flexao: 31, abdominal: "28", prancha: "32", corrida: "1850-1899" },
+            { pontos: 65, barra: "10\"00", flexao: 32, abdominal: "29", prancha: "33", corrida: "1900-1949" },
+            { pontos: 70, barra: "11\"00", flexao: 33, abdominal: "30", prancha: "34", corrida: "1950-1999" },
+            { pontos: 75, barra: "12\"00", flexao: 34, abdominal: "31", prancha: "35", corrida: "2000-2049" },
+            { pontos: 80, barra: "13\"00", flexao: 35, abdominal: "32", prancha: "36", corrida: "2050-2099" },
+            { pontos: 85, barra: "14\"00", flexao: 36, abdominal: "33", prancha: "37-38", corrida: "2100-2149" },
+            { pontos: 90, barra: "15\"00", flexao: 38, abdominal: "34-35", prancha: "39-40", corrida: "2150-2199" },
+            { pontos: 95, barra: "16\"00", flexao: 40, abdominal: "36-37", prancha: "42-41", corrida: "2200-2249" },
+            { pontos: 100, barra: "17\"00", flexao: 42, abdominal: "38-39", prancha: "46-43", corrida: "2250-2299" }
           ],
           "36 a 40": [
-            { pontos: 10, barra: null, flexao: 20, ex3: "17", ex4: "21", corrida: "1300-1349" },
-            { pontos: 15, barra: null, flexao: 21, ex3: "18", ex4: "22", corrida: "1350-1399" },
-            { pontos: 20, barra: null, flexao: 22, ex3: "19", ex4: "23", corrida: "1400-1449" },
-            { pontos: 25, barra: "01\"00", flexao: 23, ex3: "20", ex4: "24", corrida: "1450-1499" },
-            { pontos: 30, barra: "02\"00", flexao: 24, ex3: "21", ex4: "25", corrida: "1500-1549" },
-            { pontos: 35, barra: "03\"00", flexao: 25, ex3: "22", ex4: "26", corrida: "1550-1599" },
-            { pontos: 40, barra: "04\"00", flexao: 26, ex3: "23", ex4: "27", corrida: "1600-1649" },
-            { pontos: 45, barra: "05\"00", flexao: 27, ex3: "24", ex4: "28", corrida: "1650-1699" },
-            { pontos: 50, barra: "06\"00", flexao: 28, ex3: "25", ex4: "29", corrida: "1700-1749" },
-            { pontos: 55, barra: "07\"00", flexao: 29, ex3: "26", ex4: "30", corrida: "1750-1799" },
-            { pontos: 60, barra: "08\"00", flexao: 30, ex3: "27", ex4: "31", corrida: "1800-1849" },
-            { pontos: 65, barra: "09\"00", flexao: 31, ex3: "28", ex4: "32", corrida: "1850-1899" },
-            { pontos: 70, barra: "10\"00", flexao: 32, ex3: "29", ex4: "33", corrida: "1900-1949" },
-            { pontos: 75, barra: "11\"00", flexao: 33, ex3: "30", ex4: "34", corrida: "1950-1999" },
-            { pontos: 80, barra: "12\"00", flexao: 34, ex3: "31", ex4: "35", corrida: "2000-2049" },
-            { pontos: 85, barra: "13\"00", flexao: 35, ex3: "32", ex4: "36", corrida: "2050-2099" },
-            { pontos: 90, barra: "14\"00", flexao: 36, ex3: "33", ex4: "37-38", corrida: "2100-2149" },
-            { pontos: 95, barra: "15\"00", flexao: 38, ex3: "34-35", ex4: "39-40", corrida: "2150-2199" },
-            { pontos: 100, barra: "16\"00", flexao: 40, ex3: "36-37", ex4: "42-41", corrida: "2200-2249" }
+            { pontos: 10, barra: null, flexao: 20, abdominal: "17", prancha: "21", corrida: "1300-1349" },
+            { pontos: 15, barra: null, flexao: 21, abdominal: "18", prancha: "22", corrida: "1350-1399" },
+            { pontos: 20, barra: null, flexao: 22, abdominal: "19", prancha: "23", corrida: "1400-1449" },
+            { pontos: 25, barra: "01\"00", flexao: 23, abdominal: "20", prancha: "24", corrida: "1450-1499" },
+            { pontos: 30, barra: "02\"00", flexao: 24, abdominal: "21", prancha: "25", corrida: "1500-1549" },
+            { pontos: 35, barra: "03\"00", flexao: 25, abdominal: "22", prancha: "26", corrida: "1550-1599" },
+            { pontos: 40, barra: "04\"00", flexao: 26, abdominal: "23", prancha: "27", corrida: "1600-1649" },
+            { pontos: 45, barra: "05\"00", flexao: 27, abdominal: "24", prancha: "28", corrida: "1650-1699" },
+            { pontos: 50, barra: "06\"00", flexao: 28, abdominal: "25", prancha: "29", corrida: "1700-1749" },
+            { pontos: 55, barra: "07\"00", flexao: 29, abdominal: "26", prancha: "30", corrida: "1750-1799" },
+            { pontos: 60, barra: "08\"00", flexao: 30, abdominal: "27", prancha: "31", corrida: "1800-1849" },
+            { pontos: 65, barra: "09\"00", flexao: 31, abdominal: "28", prancha: "32", corrida: "1850-1899" },
+            { pontos: 70, barra: "10\"00", flexao: 32, abdominal: "29", prancha: "33", corrida: "1900-1949" },
+            { pontos: 75, barra: "11\"00", flexao: 33, abdominal: "30", prancha: "34", corrida: "1950-1999" },
+            { pontos: 80, barra: "12\"00", flexao: 34, abdominal: "31", prancha: "35", corrida: "2000-2049" },
+            { pontos: 85, barra: "13\"00", flexao: 35, abdominal: "32", prancha: "36", corrida: "2050-2099" },
+            { pontos: 90, barra: "14\"00", flexao: 36, abdominal: "33", prancha: "37-38", corrida: "2100-2149" },
+            { pontos: 95, barra: "15\"00", flexao: 38, abdominal: "34-35", prancha: "39-40", corrida: "2150-2199" },
+            { pontos: 100, barra: "16\"00", flexao: 40, abdominal: "36-37", prancha: "42-41", corrida: "2200-2249" }
           ],
           "41 a 45": [
-            { pontos: 10, barra: null, flexao: 19, ex3: "16", ex4: "20", corrida: "1250-1299" },
-            { pontos: 15, barra: null, flexao: 20, ex3: "17", ex4: "21", corrida: "1300-1349" },
-            { pontos: 20, barra: null, flexao: 21, ex3: "18", ex4: "22", corrida: "1350-1399" },
-            { pontos: 25, barra: null, flexao: 22, ex3: "19", ex4: "23", corrida: "1400-1449" },
-            { pontos: 30, barra: "01\"00", flexao: 23, ex3: "20", ex4: "24", corrida: "1450-1499" },
-            { pontos: 35, barra: "02\"00", flexao: 24, ex3: "21", ex4: "25", corrida: "1500-1549" },
-            { pontos: 40, barra: "03\"00", flexao: 25, ex3: "22", ex4: "26", corrida: "1550-1599" },
-            { pontos: 45, barra: "04\"00", flexao: 26, ex3: "23", ex4: "27", corrida: "1600-1649" },
-            { pontos: 50, barra: "05\"00", flexao: 27, ex3: "24", ex4: "28", corrida: "1650-1699" },
-            { pontos: 55, barra: "06\"00", flexao: 28, ex3: "25", ex4: "29", corrida: "1700-1749" },
-            { pontos: 60, barra: "07\"00", flexao: 29, ex3: "26", ex4: "30", corrida: "1750-1799" },
-            { pontos: 65, barra: "08\"00", flexao: 30, ex3: "27", ex4: "31", corrida: "1800-1849" },
-            { pontos: 70, barra: "09\"00", flexao: 31, ex3: "28", ex4: "32", corrida: "1850-1899" },
-            { pontos: 75, barra: "10\"00", flexao: 32, ex3: "29", ex4: "33", corrida: "1900-1949" },
-            { pontos: 80, barra: "11\"00", flexao: 33, ex3: "30", ex4: "34", corrida: "1950-1999" },
-            { pontos: 85, barra: "12\"00", flexao: 34, ex3: "31", ex4: "35", corrida: "2000-2049" },
-            { pontos: 90, barra: "13\"00", flexao: 35, ex3: "32", ex4: "36", corrida: "2050-2099" },
-            { pontos: 95, barra: "14\"00", flexao: 36, ex3: "33", ex4: "37-38", corrida: "2100-2149" },
-            { pontos: 100, barra: "15\"00", flexao: 38, ex3: "34-35", ex4: "39-40", corrida: "2150-2199" }
+            { pontos: 10, barra: null, flexao: 19, abdominal: "16", prancha: "20", corrida: "1250-1299" },
+            { pontos: 15, barra: null, flexao: 20, abdominal: "17", prancha: "21", corrida: "1300-1349" },
+            { pontos: 20, barra: null, flexao: 21, abdominal: "18", prancha: "22", corrida: "1350-1399" },
+            { pontos: 25, barra: null, flexao: 22, abdominal: "19", prancha: "23", corrida: "1400-1449" },
+            { pontos: 30, barra: "01\"00", flexao: 23, abdominal: "20", prancha: "24", corrida: "1450-1499" },
+            { pontos: 35, barra: "02\"00", flexao: 24, abdominal: "21", prancha: "25", corrida: "1500-1549" },
+            { pontos: 40, barra: "03\"00", flexao: 25, abdominal: "22", prancha: "26", corrida: "1550-1599" },
+            { pontos: 45, barra: "04\"00", flexao: 26, abdominal: "23", prancha: "27", corrida: "1600-1649" },
+            { pontos: 50, barra: "05\"00", flexao: 27, abdominal: "24", prancha: "28", corrida: "1650-1699" },
+            { pontos: 55, barra: "06\"00", flexao: 28, abdominal: "25", prancha: "29", corrida: "1700-1749" },
+            { pontos: 60, barra: "07\"00", flexao: 29, abdominal: "26", prancha: "30", corrida: "1750-1799" },
+            { pontos: 65, barra: "08\"00", flexao: 30, abdominal: "27", prancha: "31", corrida: "1800-1849" },
+            { pontos: 70, barra: "09\"00", flexao: 31, abdominal: "28", prancha: "32", corrida: "1850-1899" },
+            { pontos: 75, barra: "10\"00", flexao: 32, abdominal: "29", prancha: "33", corrida: "1900-1949" },
+            { pontos: 80, barra: "11\"00", flexao: 33, abdominal: "30", prancha: "34", corrida: "1950-1999" },
+            { pontos: 85, barra: "12\"00", flexao: 34, abdominal: "31", prancha: "35", corrida: "2000-2049" },
+            { pontos: 90, barra: "13\"00", flexao: 35, abdominal: "32", prancha: "36", corrida: "2050-2099" },
+            { pontos: 95, barra: "14\"00", flexao: 36, abdominal: "33", prancha: "37-38", corrida: "2100-2149" },
+            { pontos: 100, barra: "15\"00", flexao: 38, abdominal: "34-35", prancha: "39-40", corrida: "2150-2199" }
           ],
           "46 a 50": [
-            { pontos: 10, barra: null, flexao: 18, ex3: "15", ex4: "19", corrida: "1200-1249" },
-            { pontos: 15, barra: null, flexao: 19, ex3: "16", ex4: "20", corrida: "1250-1299" },
-            { pontos: 20, barra: null, flexao: 20, ex3: "17", ex4: "21", corrida: "1300-1349" },
-            { pontos: 25, barra: null, flexao: 21, ex3: "18", ex4: "22", corrida: "1350-1399" },
-            { pontos: 30, barra: null, flexao: 22, ex3: "19", ex4: "23", corrida: "1400-1449" },
-            { pontos: 35, barra: "01\"00", flexao: 23, ex3: "20", ex4: "24", corrida: "1450-1499" },
-            { pontos: 40, barra: "02\"00", flexao: 24, ex3: "21", ex4: "25", corrida: "1500-1549" },
-            { pontos: 45, barra: "03\"00", flexao: 25, ex3: "22", ex4: "26", corrida: "1550-1599" },
-            { pontos: 50, barra: "04\"00", flexao: 26, ex3: "23", ex4: "27", corrida: "1600-1649" },
-            { pontos: 55, barra: "05\"00", flexao: 27, ex3: "24", ex4: "28", corrida: "1650-1699" },
-            { pontos: 60, barra: "06\"00", flexao: 28, ex3: "25", ex4: "29", corrida: "1700-1749" },
-            { pontos: 65, barra: "07\"00", flexao: 29, ex3: "26", ex4: "30", corrida: "1750-1799" },
-            { pontos: 70, barra: "08\"00", flexao: 30, ex3: "27", ex4: "31", corrida: "1800-1849" },
-            { pontos: 75, barra: "09\"00", flexao: 31, ex3: "28", ex4: "32", corrida: "1850-1899" },
-            { pontos: 80, barra: "10\"00", flexao: 32, ex3: "29", ex4: "33", corrida: "1900-1949" },
-            { pontos: 85, barra: "11\"00", flexao: 33, ex3: "30", ex4: "34", corrida: "1950-1999" },
-            { pontos: 90, barra: "12\"00", flexao: 34, ex3: "31", ex4: "35", corrida: "2000-2049" },
-            { pontos: 95, barra: "13\"00", flexao: 35, ex3: "32", ex4: "36", corrida: "2050-2099" },
-            { pontos: 100, barra: "14\"00", flexao: 36, ex3: "33", ex4: "37-38", corrida: "2100-2149" }
+            { pontos: 10, barra: null, flexao: 18, abdominal: "15", prancha: "19", corrida: "1200-1249" },
+            { pontos: 15, barra: null, flexao: 19, abdominal: "16", prancha: "20", corrida: "1250-1299" },
+            { pontos: 20, barra: null, flexao: 20, abdominal: "17", prancha: "21", corrida: "1300-1349" },
+            { pontos: 25, barra: null, flexao: 21, abdominal: "18", prancha: "22", corrida: "1350-1399" },
+            { pontos: 30, barra: null, flexao: 22, abdominal: "19", prancha: "23", corrida: "1400-1449" },
+            { pontos: 35, barra: "01\"00", flexao: 23, abdominal: "20", prancha: "24", corrida: "1450-1499" },
+            { pontos: 40, barra: "02\"00", flexao: 24, abdominal: "21", prancha: "25", corrida: "1500-1549" },
+            { pontos: 45, barra: "03\"00", flexao: 25, abdominal: "22", prancha: "26", corrida: "1550-1599" },
+            { pontos: 50, barra: "04\"00", flexao: 26, abdominal: "23", prancha: "27", corrida: "1600-1649" },
+            { pontos: 55, barra: "05\"00", flexao: 27, abdominal: "24", prancha: "28", corrida: "1650-1699" },
+            { pontos: 60, barra: "06\"00", flexao: 28, abdominal: "25", prancha: "29", corrida: "1700-1749" },
+            { pontos: 65, barra: "07\"00", flexao: 29, abdominal: "26", prancha: "30", corrida: "1750-1799" },
+            { pontos: 70, barra: "08\"00", flexao: 30, abdominal: "27", prancha: "31", corrida: "1800-1849" },
+            { pontos: 75, barra: "09\"00", flexao: 31, abdominal: "28", prancha: "32", corrida: "1850-1899" },
+            { pontos: 80, barra: "10\"00", flexao: 32, abdominal: "29", prancha: "33", corrida: "1900-1949" },
+            { pontos: 85, barra: "11\"00", flexao: 33, abdominal: "30", prancha: "34", corrida: "1950-1999" },
+            { pontos: 90, barra: "12\"00", flexao: 34, abdominal: "31", prancha: "35", corrida: "2000-2049" },
+            { pontos: 95, barra: "13\"00", flexao: 35, abdominal: "32", prancha: "36", corrida: "2050-2099" },
+            { pontos: 100, barra: "14\"00", flexao: 36, abdominal: "33", prancha: "37-38", corrida: "2100-2149" }
           ],
           "51 a 55": [
-            { pontos: 10, barra: null, flexao: 17, ex3: "14", ex4: "18", corrida: "1150-1199" },
-            { pontos: 15, barra: null, flexao: 18, ex3: "15", ex4: "19", corrida: "1200-1249" },
-            { pontos: 20, barra: null, flexao: 19, ex3: "16", ex4: "20", corrida: "1250-1299" },
-            { pontos: 25, barra: null, flexao: 20, ex3: "17", ex4: "21", corrida: "1300-1349" },
-            { pontos: 30, barra: null, flexao: 21, ex3: "18", ex4: "22", corrida: "1350-1399" },
-            { pontos: 35, barra: null, flexao: 22, ex3: "19", ex4: "23", corrida: "1400-1449" },
-            { pontos: 40, barra: "01\"00", flexao: 23, ex3: "20", ex4: "24", corrida: "1450-1499" },
-            { pontos: 45, barra: "02\"00", flexao: 24, ex3: "21", ex4: "25", corrida: "1500-1549" },
-            { pontos: 50, barra: "03\"00", flexao: 25, ex3: "22", ex4: "26", corrida: "1550-1599" },
-            { pontos: 55, barra: "04\"00", flexao: 26, ex3: "23", ex4: "27", corrida: "1600-1649" },
-            { pontos: 60, barra: "05\"00", flexao: 27, ex3: "24", ex4: "28", corrida: "1650-1699" },
-            { pontos: 65, barra: "06\"00", flexao: 28, ex3: "25", ex4: "29", corrida: "1700-1749" },
-            { pontos: 70, barra: "07\"00", flexao: 29, ex3: "26", ex4: "30", corrida: "1750-1799" },
-            { pontos: 75, barra: "08\"00", flexao: 30, ex3: "27", ex4: "31", corrida: "1800-1849" },
-            { pontos: 80, barra: "09\"00", flexao: 31, ex3: "28", ex4: "32", corrida: "1850-1899" },
-            { pontos: 85, barra: "10\"00", flexao: 32, ex3: "29", ex4: "33", corrida: "1900-1949" },
-            { pontos: 90, barra: "11\"00", flexao: 33, ex3: "30", ex4: "34", corrida: "1950-1999" },
-            { pontos: 95, barra: "12\"00", flexao: 34, ex3: "31", ex4: "35", corrida: "2000-2049" },
-            { pontos: 100, barra: "13\"00", flexao: 35, ex3: "32", ex4: "36", corrida: "2050-2099" }
+            { pontos: 10, barra: null, flexao: 17, abdominal: "14", prancha: "18", corrida: "1150-1199" },
+            { pontos: 15, barra: null, flexao: 18, abdominal: "15", prancha: "19", corrida: "1200-1249" },
+            { pontos: 20, barra: null, flexao: 19, abdominal: "16", prancha: "20", corrida: "1250-1299" },
+            { pontos: 25, barra: null, flexao: 20, abdominal: "17", prancha: "21", corrida: "1300-1349" },
+            { pontos: 30, barra: null, flexao: 21, abdominal: "18", prancha: "22", corrida: "1350-1399" },
+            { pontos: 35, barra: null, flexao: 22, abdominal: "19", prancha: "23", corrida: "1400-1449" },
+            { pontos: 40, barra: "01\"00", flexao: 23, abdominal: "20", prancha: "24", corrida: "1450-1499" },
+            { pontos: 45, barra: "02\"00", flexao: 24, abdominal: "21", prancha: "25", corrida: "1500-1549" },
+            { pontos: 50, barra: "03\"00", flexao: 25, abdominal: "22", prancha: "26", corrida: "1550-1599" },
+            { pontos: 55, barra: "04\"00", flexao: 26, abdominal: "23", prancha: "27", corrida: "1600-1649" },
+            { pontos: 60, barra: "05\"00", flexao: 27, abdominal: "24", prancha: "28", corrida: "1650-1699" },
+            { pontos: 65, barra: "06\"00", flexao: 28, abdominal: "25", prancha: "29", corrida: "1700-1749" },
+            { pontos: 70, barra: "07\"00", flexao: 29, abdominal: "26", prancha: "30", corrida: "1750-1799" },
+            { pontos: 75, barra: "08\"00", flexao: 30, abdominal: "27", prancha: "31", corrida: "1800-1849" },
+            { pontos: 80, barra: "09\"00", flexao: 31, abdominal: "28", prancha: "32", corrida: "1850-1899" },
+            { pontos: 85, barra: "10\"00", flexao: 32, abdominal: "29", prancha: "33", corrida: "1900-1949" },
+            { pontos: 90, barra: "11\"00", flexao: 33, abdominal: "30", prancha: "34", corrida: "1950-1999" },
+            { pontos: 95, barra: "12\"00", flexao: 34, abdominal: "31", prancha: "35", corrida: "2000-2049" },
+            { pontos: 100, barra: "13\"00", flexao: 35, abdominal: "32", prancha: "36", corrida: "2050-2099" }
           ],
           "≥ 56": [
-            { pontos: 10, barra: null, flexao: 16, ex3: "13", ex4: "17", corrida: "1100-1149" },
-            { pontos: 15, barra: null, flexao: 17, ex3: "14", ex4: "18", corrida: "1150-1199" },
-            { pontos: 20, barra: null, flexao: 18, ex3: "15", ex4: "19", corrida: "1200-1249" },
-            { pontos: 25, barra: null, flexao: 19, ex3: "16", ex4: "20", corrida: "1250-1299" },
-            { pontos: 30, barra: null, flexao: 20, ex3: "17", ex4: "21", corrida: "1300-1349" },
-            { pontos: 35, barra: null, flexao: 21, ex3: "18", ex4: "22", corrida: "1350-1399" },
-            { pontos: 40, barra: null, flexao: 22, ex3: "19", ex4: "23", corrida: "1400-1449" },
-            { pontos: 45, barra: "01\"00", flexao: 23, ex3: "20", ex4: "24", corrida: "1450-1499" },
-            { pontos: 50, barra: "02\"00", flexao: 24, ex3: "21", ex4: "25", corrida: "1500-1549" },
-            { pontos: 55, barra: "03\"00", flexao: 25, ex3: "22", ex4: "26", corrida: "1550-1599" },
-            { pontos: 60, barra: "04\"00", flexao: 26, ex3: "23", ex4: "27", corrida: "1600-1649" },
-            { pontos: 65, barra: "05\"00", flexao: 27, ex3: "24", ex4: "28", corrida: "1650-1699" },
-            { pontos: 70, barra: "06\"00", flexao: 28, ex3: "25", ex4: "29", corrida: "1700-1749" },
-            { pontos: 75, barra: "07\"00", flexao: 29, ex3: "26", ex4: "30", corrida: "1750-1799" },
-            { pontos: 80, barra: "08\"00", flexao: 30, ex3: "27", ex4: "31", corrida: "1800-1849" },
-            { pontos: 85, barra: "09\"00", flexao: 31, ex3: "28", ex4: "32", corrida: "1850-1899" },
-            { pontos: 90, barra: "10\"00", flexao: 32, ex3: "29", ex4: "33", corrida: "1900-1949" },
-            { pontos: 95, barra: "11\"00", flexao: 33, ex3: "30", ex4: "34", corrida: "1950-1999" },
-            { pontos: 100, barra: "12\"00", flexao: 34, ex3: "31", ex4: "35", corrida: "2000-2049" }
+            { pontos: 10, barra: null, flexao: 16, abdominal: "13", prancha: "17", corrida: "1100-1149" },
+            { pontos: 15, barra: null, flexao: 17, abdominal: "14", prancha: "18", corrida: "1150-1199" },
+            { pontos: 20, barra: null, flexao: 18, abdominal: "15", prancha: "19", corrida: "1200-1249" },
+            { pontos: 25, barra: null, flexao: 19, abdominal: "16", prancha: "20", corrida: "1250-1299" },
+            { pontos: 30, barra: null, flexao: 20, abdominal: "17", prancha: "21", corrida: "1300-1349" },
+            { pontos: 35, barra: null, flexao: 21, abdominal: "18", prancha: "22", corrida: "1350-1399" },
+            { pontos: 40, barra: null, flexao: 22, abdominal: "19", prancha: "23", corrida: "1400-1449" },
+            { pontos: 45, barra: "01\"00", flexao: 23, abdominal: "20", prancha: "24", corrida: "1450-1499" },
+            { pontos: 50, barra: "02\"00", flexao: 24, abdominal: "21", prancha: "25", corrida: "1500-1549" },
+            { pontos: 55, barra: "03\"00", flexao: 25, abdominal: "22", prancha: "26", corrida: "1550-1599" },
+            { pontos: 60, barra: "04\"00", flexao: 26, abdominal: "23", prancha: "27", corrida: "1600-1649" },
+            { pontos: 65, barra: "05\"00", flexao: 27, abdominal: "24", prancha: "28", corrida: "1650-1699" },
+            { pontos: 70, barra: "06\"00", flexao: 28, abdominal: "25", prancha: "29", corrida: "1700-1749" },
+            { pontos: 75, barra: "07\"00", flexao: 29, abdominal: "26", prancha: "30", corrida: "1750-1799" },
+            { pontos: 80, barra: "08\"00", flexao: 30, abdominal: "27", prancha: "31", corrida: "1800-1849" },
+            { pontos: 85, barra: "09\"00", flexao: 31, abdominal: "28", prancha: "32", corrida: "1850-1899" },
+            { pontos: 90, barra: "10\"00", flexao: 32, abdominal: "29", prancha: "33", corrida: "1900-1949" },
+            { pontos: 95, barra: "11\"00", flexao: 33, abdominal: "30", prancha: "34", corrida: "1950-1999" },
+            { pontos: 100, barra: "12\"00", flexao: 34, abdominal: "31", prancha: "35", corrida: "2000-2049" }
           ]
         }
       }
     };
 
     const EXERCISES = [
-      { key: "barra", label: "Barra Fixa", unitM: "Repetições", unitF: "Isometria (seg)", inputPlaceholderM: "Ex.: 3", inputPlaceholderF: "Ex.: 11" },
-      { key: "flexao", label: "Flexão de Braço", unitM: "Repetições", unitF: "Repetições", inputPlaceholderM: "Ex.: 30", inputPlaceholderF: "Ex.: 33" },
-      { key: "ex3", label: "Flexão Abdominal", unitM: "Repetições", unitF: "Repetições", inputPlaceholderM: "Ex.: 32", inputPlaceholderF: "Ex.: 30" },
-      { key: "ex4", label: "Prancha", unitM: "Estático", unitF: "Estático", inputPlaceholderM: "Ex.: 37 s", inputPlaceholderF: "Ex.: 34 s" },
-      { key: "corrida", label: "Corrida 12 min", unitM: "Metros percorridos", unitF: "Metros percorridos", inputPlaceholderM: "Ex.: 2250", inputPlaceholderF: "Ex.: 1950" }
+      { key: "barra", label: "Barra Fixa", unitM: "Repetições", unitF: "Isometria (seg)", step: 1, placeholderM: "3", placeholderF: "11" },
+      { key: "flexao", label: "Flexão de Braço", unitM: "Repetições", unitF: "Repetições", step: 1, placeholderM: "30", placeholderF: "33" },
+      { key: "abdominal", label: "Flexão Abdominal", unitM: "Repetições", unitF: "Repetições", step: 1, placeholderM: "32", placeholderF: "30" },
+      { key: "prancha", label: "Prancha", unitM: "Segundos (estático)", unitF: "Segundos (estático)", step: 1, placeholderM: "37", placeholderF: "34" },
+      { key: "corrida", label: "Corrida 12 min", unitM: "Metros percorridos", unitF: "Metros percorridos", step: 50, placeholderM: "2250", placeholderF: "1950" }
     ];
 
-    const STORAGE_KEY = "pmto_taf_simulator_v1";
+    const STORAGE_KEY = "pmto_taf_simulator_v2";
+    const LEGACY_STORAGE_KEY = "pmto_taf_simulator_v1";
     const CUTOFF_PTS = 70; // Nota 7,0
+    const SHARE_URL = "https://propostas.volatuslab.com/pages/2026/11/TAF.html";
 
     const DEFAULT_STATE = {
+      theme: "dark",
       name: "",
       age: 31,
       sex: "masculino",
       scores: {
         barra: 70,
         flexao: 70,
-        ex3: 70,
-        ex4: 70,
+        abdominal: 70,
+        prancha: 70,
         corrida: 70
+      },
+      rawInputs: {
+        barra: "",
+        flexao: "",
+        abdominal: "",
+        prancha: "",
+        corrida: ""
       }
     };
 
@@ -1316,19 +1615,27 @@
 
     function loadState() {
       try {
-        const raw = localStorage.getItem(STORAGE_KEY);
+        const raw = localStorage.getItem(STORAGE_KEY) || localStorage.getItem(LEGACY_STORAGE_KEY);
         if (!raw) return structuredClone(DEFAULT_STATE);
         const parsed = JSON.parse(raw);
         return {
+          theme: parsed.theme === "light" ? "light" : "dark",
           name: typeof parsed.name === "string" ? parsed.name : "",
           age: Number.isFinite(Number(parsed.age)) ? Math.min(80, Math.max(17, Number(parsed.age))) : 31,
           sex: parsed.sex === "feminino" ? "feminino" : "masculino",
           scores: {
             barra: sanitizePts(parsed.scores?.barra),
             flexao: sanitizePts(parsed.scores?.flexao),
-            ex3: sanitizePts(parsed.scores?.ex3),
-            ex4: sanitizePts(parsed.scores?.ex4),
+            abdominal: sanitizePts(parsed.scores?.abdominal ?? parsed.scores?.ex3),
+            prancha: sanitizePts(parsed.scores?.prancha ?? parsed.scores?.ex4),
             corrida: sanitizePts(parsed.scores?.corrida)
+          },
+          rawInputs: {
+            barra: parsed.rawInputs?.barra ?? "",
+            flexao: parsed.rawInputs?.flexao ?? "",
+            abdominal: parsed.rawInputs?.abdominal ?? "",
+            prancha: parsed.rawInputs?.prancha ?? "",
+            corrida: parsed.rawInputs?.corrida ?? ""
           }
         };
       } catch {
@@ -1349,12 +1656,22 @@
       try {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
         const el = document.getElementById("saveStatusText");
-        el.textContent = state.name.trim()
-          ? `Salvo (${state.name.trim()})`
-          : "Salvo no navegador";
+        if (el) {
+          el.textContent = state.name.trim() ? `Salvo (${state.name.trim()})` : "Salvo";
+        }
       } catch {
         // Ignore storage quota errors
       }
+    }
+
+    function applyTheme() {
+      const isLight = state.theme === "light";
+      document.documentElement.classList.toggle("light", isLight);
+      document.documentElement.classList.toggle("dark", !isLight);
+      document.getElementById("iconSun").style.display = isLight ? "none" : "block";
+      document.getElementById("iconMoon").style.display = isLight ? "block" : "none";
+      const metaTheme = document.getElementById("metaThemeColor");
+      if (metaTheme) metaTheme.setAttribute("content", isLight ? "#f4f6f9" : "#090b0e");
     }
 
     function getAgeBracket(age) {
@@ -1376,13 +1693,15 @@
     function formatValue(key, val, sex) {
       if (val === null || val === undefined) return "Sem índice";
       if (key === "barra") {
-        return sex === "masculino" ? `${val} rep.` : `${val.replace('"', 's')}`;
+        if (sex === "masculino") return `${val} rep.`;
+        const secs = parseInt(String(val).split('"')[0], 10);
+        return `${secs} s`;
       }
+      if (key === "prancha") return `${val} s`;
       if (key === "corrida") return `${val} m`;
       return `${val} rep.`;
     }
 
-    // Parse lower bound of range strings like "42-43", "43-42", "≥ 48", "02\"00", "2250-2299"
     function parseMinNumeric(val) {
       if (val === null || val === undefined) return null;
       if (typeof val === "number") return val;
@@ -1407,27 +1726,35 @@
       return matchedPts;
     }
 
+    function setAllScores(pts) {
+      EXERCISES.forEach(ex => {
+        state.scores[ex.key] = pts;
+        state.rawInputs[ex.key] = "";
+      });
+    }
+
     function render() {
+      applyTheme();
+
       const bracket = getAgeBracket(state.age);
       const tableObj = TAF_DATA[state.sex];
       const rows = tableObj.faixas[bracket];
       const cutoffRow = rows.find(r => r.pontos === CUTOFF_PTS);
 
-      // Update header & profile UI
       const greetingEl = document.getElementById("greetingSub");
       greetingEl.textContent = state.name.trim()
-        ? `Candidato(a): ${state.name.trim()} • Anexo I PMTO • Nota mínima: 7,0 (70 pts)`
-        : "Anexo I (Tabelas 1 e 2) • Nota mínima de referência: 7,0 (70 pts)";
+        ? `${state.name.trim()} • Anexo I PMTO • Corte: 7,0`
+        : "Manutenção Periódica • Corte: 7,0 (70 pts)";
 
       document.getElementById("bracketBadge").textContent = `Faixa: ${bracket}`;
       document.getElementById("activeTableLabel").textContent = tableObj.titulo;
       document.getElementById("thBarra").textContent =
-        state.sex === "masculino" ? "Barra Fixa (Reps)" : "Barra Fixa (Isometria)";
+        state.sex === "masculino" ? "Barra Fixa (Reps)" : "Barra Fixa (Seg)";
 
       document.getElementById("btnSexM").classList.toggle("active", state.sex === "masculino");
       document.getElementById("btnSexF").classList.toggle("active", state.sex === "feminino");
 
-      // Calculate individual & overall stats
+      // Calculate overall average & status
       const keys = EXERCISES.map(e => e.key);
       const ptsList = keys.map(k => state.scores[k]);
       const avgPts = ptsList.reduce((acc, v) => acc + v, 0) / keys.length;
@@ -1436,41 +1763,45 @@
       const allPassed = passedCount === keys.length;
       const avgPassed = avgPts >= CUTOFF_PTS;
 
-      document.getElementById("cutoffPassCount").textContent = `${passedCount}/5 provas ≥ 7,0`;
+      document.getElementById("cutoffPassCount").textContent = `${passedCount}/5 ≥ 7,0`;
       document.getElementById("overallGradeDisplay").textContent = avgGrade.toLocaleString("pt-BR", {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2
       });
       document.getElementById("overallPtsDisplay").textContent = `(${avgPts.toLocaleString("pt-BR", {
-        minimumFractionDigits: 1,
+        minimumFractionDigits: 0,
         maximumFractionDigits: 1
       })} pts)`;
 
-      const hero = document.getElementById("overallHero");
+      const stickyBar = document.getElementById("stickyScoreBar");
+      const detailBox = document.getElementById("overallDetailBox");
       const pill = document.getElementById("overallPill");
       const detail = document.getElementById("overallDetail");
 
-      hero.classList.remove("good", "warn", "bad");
+      stickyBar.classList.remove("good", "warn", "bad");
+      detailBox.classList.remove("good", "warn", "bad");
       pill.classList.remove("good", "warn", "bad");
 
       if (avgPassed && allPassed) {
-        hero.classList.add("good");
+        stickyBar.classList.add("good");
+        detailBox.classList.add("good");
         pill.classList.add("good");
         pill.textContent = "Nota Boa • Apto";
-        detail.textContent = "Média geral ≥ 7,0 e todas as 5 provas atingiram o índice mínimo.";
+        detail.textContent = "Média geral ≥ 7,0 e todas as 5 provas atingiram o mínimo exigido.";
       } else if (avgPassed && !allPassed) {
-        hero.classList.add("warn");
+        stickyBar.classList.add("warn");
+        detailBox.classList.add("warn");
         pill.classList.add("warn");
-        pill.textContent = "Atenção • Prova < 7,0";
-        detail.textContent = `Média geral ≥ 7,0, mas ${5 - passedCount} prova(s) está(ão) abaixo do mínimo individual de 7,0.`;
+        pill.textContent = "Prova < 7,0";
+        detail.textContent = `Média geral ≥ 7,0, mas ${5 - passedCount} prova(s) está(ão) abaixo da nota mínima 7,0.`;
       } else {
-        hero.classList.add("bad");
+        stickyBar.classList.add("bad");
+        detailBox.classList.add("bad");
         pill.classList.add("bad");
-        pill.textContent = "Nota Ruim • Abaixo de 7,0";
+        pill.textContent = "Nota Ruim";
         detail.textContent = `Média geral abaixo de 7,0 (${passedCount}/5 provas atingiram o mínimo).`;
       }
 
-      // Sync master slider visually to rounded average
       const masterSlider = document.getElementById("masterSlider");
       masterSlider.value = Math.max(10, Math.min(100, Math.round(avgPts / 5) * 5));
 
@@ -1483,17 +1814,13 @@
         const isGood = currentPts >= CUTOFF_PTS;
         const rowMatch = rows.find(r => r.pontos === currentPts);
         const targetDisplay = currentPts === 0
-          ? "Abaixo do mínimo (0 pts)"
+          ? "Abaixo do mínimo"
           : formatValue(ex.key, rowMatch ? rowMatch[ex.key] : null, state.sex);
         const cutoffDisplay = formatValue(ex.key, cutoffRow[ex.key], state.sex);
+        const rawVal = state.rawInputs[ex.key] ?? "";
 
         const card = document.createElement("div");
         card.className = `ex-card ${isGood ? "is-good" : "is-bad"}`;
-
-        // Build options for score select (0 and 10..100)
-        const optionsHtml = [0, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100]
-          .map(p => `<option value="${p}" ${p === currentPts ? "selected" : ""}>Nota ${(p / 10).toFixed(1).replace(".", ",")} (${p} pts)</option>`)
-          .join("");
 
         card.innerHTML = `
           <div class="ex-head">
@@ -1514,16 +1841,31 @@
             </div>
           </div>
 
-          <div style="display: flex; flex-direction: column; gap: 6px;">
-            <input type="range" min="0" max="100" step="5" value="${currentPts}" data-ex-slider="${ex.key}" aria-label="Nota ${ex.label}" />
-            <select data-ex-select="${ex.key}" aria-label="Selecionar nota ${ex.label}">
-              ${optionsHtml}
-            </select>
-          </div>
+          <div class="ex-control-block">
+            <div class="ex-control-label">
+              <span>Meu desempenho real</span>
+              <span>Deslizar nota</span>
+            </div>
 
-          <div class="ex-raw-input-wrap">
-            <label>Ou digite seu desempenho real:</label>
-            <input type="number" min="0" step="1" placeholder="${state.sex === "masculino" ? ex.inputPlaceholderM : ex.inputPlaceholderF}" data-ex-raw="${ex.key}" />
+            <div class="stepper-group">
+              <button type="button" data-step-dir="-1" data-step-key="${ex.key}" aria-label="Diminuir ${ex.label}">−</button>
+              <input
+                type="number"
+                min="0"
+                step="${ex.step}"
+                inputmode="numeric"
+                value="${rawVal}"
+                placeholder="Ex.: ${state.sex === "masculino" ? ex.placeholderM : ex.placeholderF}"
+                data-ex-raw="${ex.key}"
+                aria-label="Desempenho real ${ex.label}"
+              />
+              <button type="button" data-step-dir="1" data-step-key="${ex.key}" aria-label="Aumentar ${ex.label}">+</button>
+            </div>
+
+            <div class="slider-wrap">
+              <span class="slider-cutoff-mark" title="Corte mínimo: 7,0"></span>
+              <input type="range" min="0" max="100" step="5" value="${currentPts}" data-ex-slider="${ex.key}" aria-label="Nota ${ex.label}" />
+            </div>
           </div>
 
           <div class="ex-status-line ${isGood ? "good" : "bad"}">
@@ -1535,33 +1877,57 @@
         grid.appendChild(card);
       });
 
-      // Bind individual card events
+      // Bind slider events
       grid.querySelectorAll("[data-ex-slider]").forEach(el => {
         el.addEventListener("input", e => {
           const key = e.target.getAttribute("data-ex-slider");
           let val = Number(e.target.value);
-          if (val === 5) val = 0; // 5 pts doesn't exist in table; snap 0 or 10
+          if (val === 5) val = 0;
           state.scores[key] = val;
+          state.rawInputs[key] = "";
           saveState();
           render();
         });
       });
 
-      grid.querySelectorAll("[data-ex-select]").forEach(el => {
-        el.addEventListener("change", e => {
-          const key = e.target.getAttribute("data-ex-select");
-          state.scores[key] = Number(e.target.value);
-          saveState();
-          render();
-        });
-      });
-
+      // Bind raw input events
       grid.querySelectorAll("[data-ex-raw]").forEach(el => {
-        el.addEventListener("change", e => {
+        el.addEventListener("input", e => {
           const key = e.target.getAttribute("data-ex-raw");
-          const rawVal = Number(e.target.value);
-          if (!Number.isFinite(rawVal) || e.target.value.trim() === "") return;
-          state.scores[key] = resolvePointsFromRaw(rows, key, rawVal);
+          const str = e.target.value.trim();
+          state.rawInputs[key] = str;
+          if (str === "") {
+            saveState();
+            return;
+          }
+          const rawNum = Number(str);
+          if (Number.isFinite(rawNum) && rawNum >= 0) {
+            state.scores[key] = resolvePointsFromRaw(rows, key, rawNum);
+            saveState();
+            render();
+            // Restore focus & cursor after re-render
+            const refreshed = grid.querySelector(`[data-ex-raw="${key}"]`);
+            if (refreshed) {
+              refreshed.focus();
+              refreshed.setSelectionRange(str.length, str.length);
+            }
+          }
+        });
+      });
+
+      // Bind - / + stepper buttons for raw performance
+      grid.querySelectorAll("[data-step-key]").forEach(btn => {
+        btn.addEventListener("click", e => {
+          const key = e.currentTarget.getAttribute("data-step-key");
+          const dir = Number(e.currentTarget.getAttribute("data-step-dir"));
+          const exMeta = EXERCISES.find(x => x.key === key);
+          const currentRow = rows.find(r => r.pontos === state.scores[key]) || cutoffRow;
+          const baseVal = state.rawInputs[key] !== ""
+            ? Number(state.rawInputs[key])
+            : (parseMinNumeric(currentRow[key]) ?? 0);
+          const nextVal = Math.max(0, baseVal + dir * exMeta.step);
+          state.rawInputs[key] = String(nextVal);
+          state.scores[key] = resolvePointsFromRaw(rows, key, nextVal);
           saveState();
           render();
         });
@@ -1580,8 +1946,8 @@
         const badgeTag = isCutoff
           ? `<span class="tag-mini tag-cutoff">Mínimo</span>`
           : isGoodRow
-            ? `<span class="tag-mini tag-good">Nota Boa</span>`
-            : `<span class="tag-mini tag-bad">Nota Ruim</span>`;
+            ? `<span class="tag-mini tag-good">Boa</span>`
+            : `<span class="tag-mini tag-bad">Ruim</span>`;
 
         const cellClass = (key) => {
           if (state.scores[key] !== row.pontos) return "";
@@ -1589,11 +1955,11 @@
         };
 
         tr.innerHTML = `
-          <td data-row-pts="${row.pontos}"><strong>${formatGrade(row.pontos)}</strong> (${row.pontos} pts)</td>
+          <td data-row-pts="${row.pontos}"><strong>${formatGrade(row.pontos)}</strong> <span style="color:var(--text-muted);font-size:0.72rem;">(${row.pontos})</span></td>
           <td class="${cellClass("barra")}" data-cell-key="barra" data-cell-pts="${row.pontos}">${row.barra === null ? "—" : row.barra}</td>
           <td class="${cellClass("flexao")}" data-cell-key="flexao" data-cell-pts="${row.pontos}">${row.flexao}</td>
-          <td class="${cellClass("ex3")}" data-cell-key="ex3" data-cell-pts="${row.pontos}">${row.ex3}</td>
-          <td class="${cellClass("ex4")}" data-cell-key="ex4" data-cell-pts="${row.pontos}">${row.ex4}</td>
+          <td class="${cellClass("abdominal")}" data-cell-key="abdominal" data-cell-pts="${row.pontos}">${row.abdominal}</td>
+          <td class="${cellClass("prancha")}" data-cell-key="prancha" data-cell-pts="${row.pontos}">${row.prancha}s</td>
           <td class="${cellClass("corrida")}" data-cell-key="corrida" data-cell-pts="${row.pontos}">${row.corrida}</td>
           <td data-row-pts="${row.pontos}">${badgeTag}</td>
         `;
@@ -1601,22 +1967,21 @@
         tbody.appendChild(tr);
       });
 
-      // Clicking a specific exercise cell sets that exercise's score
       tbody.querySelectorAll("[data-cell-key]").forEach(td => {
         td.addEventListener("click", e => {
           const key = e.currentTarget.getAttribute("data-cell-key");
           const pts = Number(e.currentTarget.getAttribute("data-cell-pts"));
           state.scores[key] = pts;
+          state.rawInputs[key] = "";
           saveState();
           render();
         });
       });
 
-      // Clicking the score/classification column sets all 5 exercises to that row
       tbody.querySelectorAll("[data-row-pts]").forEach(td => {
         td.addEventListener("click", e => {
           const pts = Number(e.currentTarget.getAttribute("data-row-pts"));
-          EXERCISES.forEach(ex => { state.scores[ex.key] = pts; });
+          setAllScores(pts);
           saveState();
           render();
         });
@@ -1645,6 +2010,20 @@
       }
     });
 
+    document.getElementById("btnAgeDown").addEventListener("click", () => {
+      state.age = Math.max(17, state.age - 1);
+      ageInput.value = state.age;
+      saveState();
+      render();
+    });
+
+    document.getElementById("btnAgeUp").addEventListener("click", () => {
+      state.age = Math.min(80, state.age + 1);
+      ageInput.value = state.age;
+      saveState();
+      render();
+    });
+
     document.getElementById("btnSexM").addEventListener("click", () => {
       state.sex = "masculino";
       saveState();
@@ -1658,24 +2037,55 @@
     });
 
     document.getElementById("masterSlider").addEventListener("input", e => {
-      const pts = Number(e.target.value);
-      EXERCISES.forEach(ex => { state.scores[ex.key] = pts; });
+      setAllScores(Number(e.target.value));
       saveState();
       render();
     });
 
     document.querySelectorAll("[data-preset]").forEach(btn => {
       btn.addEventListener("click", e => {
-        const pts = Number(e.currentTarget.getAttribute("data-preset"));
-        EXERCISES.forEach(ex => { state.scores[ex.key] = pts; });
+        setAllScores(Number(e.currentTarget.getAttribute("data-preset")));
         saveState();
         render();
       });
     });
 
+    document.getElementById("btnThemeToggle").addEventListener("click", () => {
+      state.theme = state.theme === "dark" ? "light" : "dark";
+      saveState();
+      render();
+    });
+
+    document.getElementById("btnShareWhatsapp").addEventListener("click", () => {
+      const bracket = getAgeBracket(state.age);
+      const keys = EXERCISES.map(e => e.key);
+      const avgPts = keys.reduce((acc, k) => acc + state.scores[k], 0) / keys.length;
+      const avgGrade = (avgPts / 10).toLocaleString("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      const who = state.name.trim() ? `*${state.name.trim()}* (${state.age} anos, faixa ${bracket})` : `Faixa *${bracket}* (${state.age} anos)`;
+
+      const lines = [
+        `*Simulação TAF PMTO*`,
+        who,
+        `• Barra Fixa: *${formatGrade(state.scores.barra)}*`,
+        `• Flexão de Braço: *${formatGrade(state.scores.flexao)}*`,
+        `• Flexão Abdominal: *${formatGrade(state.scores.abdominal)}*`,
+        `• Prancha: *${formatGrade(state.scores.prancha)}*`,
+        `• Corrida 12 min: *${formatGrade(state.scores.corrida)}*`,
+        `Média Geral: *${avgGrade}* (${avgPts.toFixed(0)} pts)`,
+        ``,
+        `Simule o seu: ${SHARE_URL}`
+      ];
+
+      const waUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(lines.join("\n"))}`;
+      window.open(waUrl, "_blank", "noopener,noreferrer");
+    });
+
     document.getElementById("btnReset").addEventListener("click", () => {
+      const currentTheme = state.theme;
       localStorage.removeItem(STORAGE_KEY);
+      localStorage.removeItem(LEGACY_STORAGE_KEY);
       state = structuredClone(DEFAULT_STATE);
+      state.theme = currentTheme;
       nameInput.value = state.name;
       ageInput.value = state.age;
       saveState();
